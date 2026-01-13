@@ -9,5 +9,4 @@ Scan the Bluetooth mac address and send the script to printer.
 
 Translated in English, French, Italian, Spanish, Portuguese, German,... check the source for current state of translations.
 
-<img width="216" height="480" alt="image" src="https://github.com/user-attachments/assets/9b4fa5d3-9213-45de-a98f-637a7da82e61" />
-
+<img width="216" height="480" alt="image" src="https://github.com/user-attachments/assets/d528e9a3-6ce9-45e2-b32a-b0315b37cef4" />
