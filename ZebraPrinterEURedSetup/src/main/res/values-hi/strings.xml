@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZBTFree</string>
-
-    <!-- Card Titles -->
     <string name="title_connectivity">कनेक्टिविटी</string>
     <string name="title_security">सुरक्षा</string>
     <string name="title_status">स्थिति</string>
     <string name="title_setup_bluetooth">ब्लूटूथ सेटअप</string>
     <string name="title_bluetooth_test">ब्लूटूथ परीक्षण</string>
-
-    <!-- Labels -->
     <string name="label_printer_mac_address">प्रिंटर MAC पता</string>
     <string name="label_old_password">पुराना सुरक्षित पासवर्ड</string>
     <string name="label_new_password">नया सुरक्षित पासवर्ड</string>
     <string name="label_http_admin_password">HTTP एडमिन पासवर्ड</string>
-
-    <!-- Hints -->
     <string name="hint_mac_address">प्रिंटर MAC पता दर्ज करें</string>
     <string name="hint_old_password">नए हार्डवेयर के लिए खाली छोड़ें</string>
     <string name="hint_new_password">नया पासवर्ड सेट करें</string>
     <string name="hint_http_admin_password">HTTP एडमिन पासवर्ड सेट करें</string>
-
-    <!-- Helper Text -->
     <string name="helper_old_password">नया हार्डवेयर सेट अप करते समय खाली छोड़ें</string>
     <string name="helper_new_password">यहां नया एडमिन पासवर्ड सेट करें</string>
     <string name="helper_http_admin_password">यहां नया HTTP एडमिन पासवर्ड सेट करें</string>
-
-    <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">ब्लूटूथ खोजने योग्य बनाएं</string>
     <string name="button_test_label">परीक्षण लेबल</string>
     <string name="button_cancel">रद्द करें</string>
     <string name="button_grant_permissions">अनुमतियाँ दें</string>
-
-    <!-- Status Messages -->
     <string name="status_ready">तैयार</string>
     <string name="status_connecting">कनेक्ट हो रहा है</string>
     <string name="status_connecting_dots">कनेक्ट हो रहा है…</string>
@@ -46,18 +34,12 @@
     <string name="status_comm_error_disconnected">COMM त्रुटि! डिस्कनेक्ट हो गया</string>
     <string name="status_setup_completed">सेटअप सफलतापूर्वक पूर्ण!</string>
     <string name="status_test_label_sent">परीक्षण लेबल सफलतापूर्वक भेजा गया!</string>
-
-    <!-- Error Messages -->
     <string name="error_mac_address_required">MAC पता आवश्यक है</string>
     <string name="error_mac_address_invalid">अमान्य MAC पता प्रारूप (XX:XX:XX:XX:XX:XX)</string>
     <string name="error_valid_mac_address_required">वैध MAC पता आवश्यक है</string>
     <string name="error_min_characters_required">न्यूनतम %1$d अक्षर आवश्यक (%2$d और चाहिए)</string>
-
-    <!-- Permissions Dialog -->
     <string name="permissions_required_title">अनुमतियाँ आवश्यक</string>
     <string name="permissions_required_message">प्रिंटर से कनेक्ट करने के लिए इन अनुमतियों की आवश्यकता है</string>
-
-    <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">विस्तार/संक्षिप्त</string>
     <string name="content_description_scan_barcode">बारकोड स्कैन करें</string>
     <string name="content_description_clear_old_password">पुराना पासवर्ड साफ़ करें</string>
@@ -66,27 +48,17 @@
     <string name="content_description_scan_new_password">नया पासवर्ड स्कैन करें</string>
     <string name="content_description_scan_http_admin_password">HTTP एडमिन पासवर्ड स्कैन करें</string>
     <string name="content_description_toggle_flash">फ्लैश टॉगल करें</string>
-
-    <!-- Scanner -->
     <string name="scanner_hint">कैमरे को बारकोड की ओर करें</string>
-
-    <!-- Navigation Drawer -->
     <string name="nav_home">होम</string>
     <string name="nav_settings">सेटिंग्स</string>
     <string name="nav_about">जानकारी</string>
     <string name="navigation_drawer_open">मेनू खोलें</string>
     <string name="navigation_drawer_close">मेनू बंद करें</string>
-
-    <!-- Language Settings -->
     <string name="label_language">भाषा</string>
     <string name="language_system">सिस्टम भाषा</string>
-
-    <!-- Settings Status -->
     <string name="status_saving_settings">सेटिंग्स सहेज रहा है…</string>
     <string name="status_settings_saved">सेटिंग्स सफलतापूर्वक सहेजी गईं!</string>
     <string name="status_settings_invalid">सेटिंग्स नहीं सहेजी गईं - आवश्यकताएं जांचें</string>
-
-    <!-- About Fragment -->
     <string name="about_version">संस्करण %1$s</string>
     <string name="about_developer">Laurent Trudu द्वारा विकसित</string>
     <string name="about_copyright">कॉपीराइट 2026 Zebra Technologies</string>
@@ -99,4 +71,26 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">Zebra प्रिंटर के लिए मल्टीप्लेटफॉर्म SDK</string>
     <string name="about_zebra_sdk_license">Zebra Technologies लाइसेंस</string>
+    <string name="label_connectivity_type">कनेक्टिविटी प्रकार</string>
+    <string name="title_change_password">पासवर्ड बदलें</string>
+    <string name="title_authentication">प्रमाणीकरण</string>
+    <string name="title_http_admin_password">HTTP एडमिन पासवर्ड सेट करें</string>
+    <string name="label_enable">सक्षम करें</string>
+    <string name="label_enabled">सक्षम</string>
+    <string name="label_auth_password">पासवर्ड</string>
+    <string name="helper_auth_password">प्रमाणीकरण पासवर्ड दर्ज करें</string>
+    <string name="title_protected_mode">संरक्षित मोड</string>
+    <string name="label_protected_mode_allowed">अनुमति है</string>
+    <string name="title_eured_configuration">यूरोड कॉन्फ़िगरेशन</string>
+    <string name="label_firmware_download">फ़र्मवेयर डाउनलोड की अनुमति दें</string>
+    <string name="label_tcp_enable">टीसीपी सक्षम करें</string>
+    <string name="label_lpd_enable">एलपीडी सक्षम करें</string>
+    <string name="label_https_enable">HTTPS सक्षम करें</string>
+    <string name="label_ftp_enable">एफ़टीपी सक्षम करें</string>
+    <string name="label_snmp_enable">एसएनएमपी सक्षम करें</string>
+    <string name="label_wlan_enable">डब्लूएलएएन सक्षम करें</string>
+    <string name="label_usb_mirror_enable">यूएसबी मिरर सक्षम करें</string>
+    <string name="label_zbi_enable">ZBI सक्षम करें</string>
+    <string name="title_bluetooth_discoverable">ब्लूटूथ खोजने योग्य</string>
+    <string name="status_permission_granted">यूएसबी अनुमति दी गई</string>
 </resources>

@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZBTFree</string>
-
-    <!-- Card Titles -->
     <string name="title_connectivity">کنیکٹیویٹی</string>
     <string name="title_security">سیکیورٹی</string>
     <string name="title_status">حیثیت</string>
     <string name="title_setup_bluetooth">بلوٹوتھ سیٹ اپ</string>
     <string name="title_bluetooth_test">بلوٹوتھ ٹیسٹ</string>
-
-    <!-- Labels -->
     <string name="label_printer_mac_address">پرنٹر MAC ایڈریس</string>
     <string name="label_old_password">پرانا محفوظ پاس ورڈ</string>
     <string name="label_new_password">نیا محفوظ پاس ورڈ</string>
     <string name="label_http_admin_password">HTTP ایڈمن پاس ورڈ</string>
-
-    <!-- Hints -->
     <string name="hint_mac_address">پرنٹر کا MAC ایڈریس درج کریں</string>
     <string name="hint_old_password">نئے ہارڈویئر کے لیے خالی چھوڑیں</string>
     <string name="hint_new_password">نیا پاس ورڈ سیٹ کریں</string>
     <string name="hint_http_admin_password">HTTP ایڈمن پاس ورڈ سیٹ کریں</string>
-
-    <!-- Helper Text -->
     <string name="helper_old_password">نیا ہارڈویئر سیٹ اپ کرتے وقت خالی چھوڑیں</string>
     <string name="helper_new_password">یہاں نیا ایڈمن پاس ورڈ سیٹ کریں</string>
     <string name="helper_http_admin_password">یہاں نیا HTTP ایڈمن پاس ورڈ سیٹ کریں</string>
-
-    <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">بلوٹوتھ دریافت کرنے کے قابل بنائیں</string>
     <string name="button_test_label">ٹیسٹ لیبل</string>
     <string name="button_cancel">منسوخ</string>
     <string name="button_grant_permissions">اجازتیں دیں</string>
-
-    <!-- Status Messages -->
     <string name="status_ready">تیار</string>
     <string name="status_connecting">کنیکٹ ہو رہا ہے</string>
     <string name="status_connecting_dots">کنیکٹ ہو رہا ہے…</string>
@@ -46,18 +34,12 @@
     <string name="status_comm_error_disconnected">COMM خرابی! منقطع ہو گیا</string>
     <string name="status_setup_completed">سیٹ اپ کامیابی سے مکمل!</string>
     <string name="status_test_label_sent">ٹیسٹ لیبل کامیابی سے بھیجا گیا!</string>
-
-    <!-- Error Messages -->
     <string name="error_mac_address_required">MAC ایڈریس درکار ہے</string>
     <string name="error_mac_address_invalid">غلط MAC ایڈریس فارمیٹ (XX:XX:XX:XX:XX:XX)</string>
     <string name="error_valid_mac_address_required">درست MAC ایڈریس درکار ہے</string>
     <string name="error_min_characters_required">کم از کم %1$d حروف درکار ہیں (%2$d مزید چاہیے)</string>
-
-    <!-- Permissions Dialog -->
     <string name="permissions_required_title">اجازتیں درکار ہیں</string>
     <string name="permissions_required_message">پرنٹر سے کنیکٹ کرنے کے لیے ان اجازتوں کی ضرورت ہے</string>
-
-    <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">پھیلائیں/سکیڑیں</string>
     <string name="content_description_scan_barcode">بارکوڈ اسکین کریں</string>
     <string name="content_description_clear_old_password">پرانا پاس ورڈ صاف کریں</string>
@@ -66,27 +48,17 @@
     <string name="content_description_scan_new_password">نیا پاس ورڈ اسکین کریں</string>
     <string name="content_description_scan_http_admin_password">HTTP ایڈمن پاس ورڈ اسکین کریں</string>
     <string name="content_description_toggle_flash">فلیش ٹوگل کریں</string>
-
-    <!-- Scanner -->
     <string name="scanner_hint">کیمرے کو بارکوڈ کی طرف کریں</string>
-
-    <!-- Navigation Drawer -->
     <string name="nav_home">ہوم</string>
     <string name="nav_settings">ترتیبات</string>
     <string name="nav_about">کے بارے میں</string>
     <string name="navigation_drawer_open">مینو کھولیں</string>
     <string name="navigation_drawer_close">مینو بند کریں</string>
-
-    <!-- Language Settings -->
     <string name="label_language">زبان</string>
     <string name="language_system">سسٹم زبان</string>
-
-    <!-- Settings Status -->
     <string name="status_saving_settings">ترتیبات محفوظ ہو رہی ہیں…</string>
     <string name="status_settings_saved">ترتیبات کامیابی سے محفوظ!</string>
     <string name="status_settings_invalid">ترتیبات محفوظ نہیں ہوئیں - ضروریات چیک کریں</string>
-
-    <!-- About Fragment -->
     <string name="about_version">ورژن %1$s</string>
     <string name="about_developer">Laurent Trudu نے تیار کیا</string>
     <string name="about_copyright">کاپی رائٹ 2026 Zebra Technologies</string>
@@ -99,4 +71,26 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">Zebra پرنٹرز کے لیے ملٹی پلیٹ فارم SDK</string>
     <string name="about_zebra_sdk_license">Zebra Technologies لائسنس</string>
+    <string name="label_connectivity_type">رابطے کی قسم</string>
+    <string name="title_change_password">پاس ورڈ تبدیل کریں</string>
+    <string name="title_authentication">توثیق</string>
+    <string name="title_http_admin_password">HTTP ایڈمن پاس ورڈ سیٹ کریں</string>
+    <string name="label_enable">قابل</string>
+    <string name="label_enabled">قابل</string>
+    <string name="label_auth_password">پاس ورڈ</string>
+    <string name="helper_auth_password">تصدیق کا پاس ورڈ درج کریں</string>
+    <string name="title_protected_mode">محفوظ وضع</string>
+    <string name="label_protected_mode_allowed">اجازت ہے</string>
+    <string name="title_eured_configuration">یوریڈ کنفیگریشن</string>
+    <string name="label_firmware_download">فرم ویئر ڈاؤن لوڈ کی اجازت دیں</string>
+    <string name="label_tcp_enable">ٹی سی پی قابل</string>
+    <string name="label_lpd_enable">ایل پی ڈی قابل</string>
+    <string name="label_ftp_enable">ایف ٹی پی قابل</string>
+    <string name="label_snmp_enable">SNMP قابل</string>
+    <string name="label_wlan_enable">wlan قابل بنائیں</string>
+    <string name="label_usb_mirror_enable">USB آئینہ قابل</string>
+    <string name="label_zbi_enable">ZBI قابل</string>
+    <string name="title_bluetooth_discoverable">بلوٹوتھ قابل دریافت</string>
+    <string name="status_permission_granted">USB کی اجازت عطا کی گئی</string>
+    <string name="label_https_enable">https قابل بنائیں</string>
 </resources>

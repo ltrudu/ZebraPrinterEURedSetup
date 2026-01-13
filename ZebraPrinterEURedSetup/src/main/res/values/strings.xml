@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZBTFree</string>
+    <string name="app_name">Zebra Printer EU Red Setup</string>
 
     <!-- Card Titles -->
     <string name="title_connectivity">Connectivity</string>
@@ -50,6 +50,7 @@
     <string name="status_saving_settings">Saving settings…</string>
     <string name="status_settings_saved">Settings saved successfully!</string>
     <string name="status_settings_invalid">Settings not saved - check password requirements</string>
+    <string name="status_permission_granted">USB Permission Granted</string>
 
     <!-- Error Messages -->
     <string name="error_mac_address_required">MAC address is required</string>

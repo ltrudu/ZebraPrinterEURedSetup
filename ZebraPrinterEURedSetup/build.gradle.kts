@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.zebra.zebraprinterblesetup"
+    namespace = "com.zebra.zebraprintereuredsetup"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.zebra.zebraprinterblesetup"
+        applicationId = "com.zebra.zebraprintereuredsetup"
         minSdk = 29
         targetSdk = 36
         versionCode = 4

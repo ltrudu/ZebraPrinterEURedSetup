@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZBTFree</string>
-
-    <!-- Card Titles -->
     <string name="title_connectivity">连接</string>
     <string name="title_security">安全</string>
     <string name="title_status">状态</string>
     <string name="title_setup_bluetooth">蓝牙设置</string>
     <string name="title_bluetooth_test">蓝牙测试</string>
-
-    <!-- Labels -->
     <string name="label_printer_mac_address">打印机MAC地址</string>
     <string name="label_old_password">旧安全密码</string>
     <string name="label_new_password">新安全密码</string>
     <string name="label_http_admin_password">HTTP管理员密码</string>
-
-    <!-- Hints -->
     <string name="hint_mac_address">输入打印机MAC地址</string>
     <string name="hint_old_password">新设备请留空</string>
     <string name="hint_new_password">设置新密码</string>
     <string name="hint_http_admin_password">设置HTTP管理员密码</string>
-
-    <!-- Helper Text -->
     <string name="helper_old_password">如果是设置新设备，请留空</string>
     <string name="helper_new_password">在此设置新的管理员密码</string>
     <string name="helper_http_admin_password">在此设置新的HTTP管理员密码</string>
-
-    <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">设置蓝牙可发现</string>
     <string name="button_test_label">测试标签</string>
     <string name="button_cancel">取消</string>
     <string name="button_grant_permissions">授予权限</string>
-
-    <!-- Status Messages -->
     <string name="status_ready">就绪</string>
     <string name="status_connecting">正在连接</string>
     <string name="status_connecting_dots">正在连接…</string>
@@ -46,18 +34,12 @@
     <string name="status_comm_error_disconnected">通信错误！已断开连接</string>
     <string name="status_setup_completed">设置成功完成！</string>
     <string name="status_test_label_sent">测试标签发送成功！</string>
-
-    <!-- Error Messages -->
     <string name="error_mac_address_required">需要MAC地址</string>
     <string name="error_mac_address_invalid">MAC地址格式无效 (XX:XX:XX:XX:XX:XX)</string>
     <string name="error_valid_mac_address_required">需要有效的MAC地址</string>
     <string name="error_min_characters_required">最少需要 %1$d 个字符（还需 %2$d 个）</string>
-
-    <!-- Permissions Dialog -->
     <string name="permissions_required_title">需要权限</string>
     <string name="permissions_required_message">需要这些权限来连接打印机</string>
-
-    <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">展开/收起</string>
     <string name="content_description_scan_barcode">扫描条形码</string>
     <string name="content_description_clear_old_password">清除旧密码</string>
@@ -66,27 +48,17 @@
     <string name="content_description_scan_new_password">扫描新密码</string>
     <string name="content_description_scan_http_admin_password">扫描HTTP管理员密码</string>
     <string name="content_description_toggle_flash">切换闪光灯</string>
-
-    <!-- Scanner -->
     <string name="scanner_hint">将相机对准条形码</string>
-
-    <!-- Navigation Drawer -->
     <string name="nav_home">首页</string>
     <string name="nav_settings">设置</string>
     <string name="nav_about">关于</string>
     <string name="navigation_drawer_open">打开菜单</string>
     <string name="navigation_drawer_close">关闭菜单</string>
-
-    <!-- Language Settings -->
     <string name="label_language">语言</string>
     <string name="language_system">系统语言</string>
-
-    <!-- Settings Status -->
     <string name="status_saving_settings">正在保存设置…</string>
     <string name="status_settings_saved">设置保存成功！</string>
     <string name="status_settings_invalid">设置未保存 - 请检查要求</string>
-
-    <!-- About Fragment -->
     <string name="about_version">版本 %1$s</string>
     <string name="about_developer">由 Laurent Trudu 开发</string>
     <string name="about_copyright">版权所有 2026 Zebra Technologies</string>
@@ -99,4 +71,26 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">Zebra 打印机多平台 SDK</string>
     <string name="about_zebra_sdk_license">Zebra Technologies 许可证</string>
+    <string name="label_connectivity_type">连接类型</string>
+    <string name="title_change_password">更改密码</string>
+    <string name="title_authentication">认证</string>
+    <string name="title_http_admin_password">设置 HTTP 管理员密码</string>
+    <string name="label_enable">启用</string>
+    <string name="label_enabled">启用</string>
+    <string name="label_auth_password">密码</string>
+    <string name="helper_auth_password">输入验证密码</string>
+    <string name="title_protected_mode">保护模式</string>
+    <string name="label_protected_mode_allowed">允许</string>
+    <string name="title_eured_configuration">欧元配置</string>
+    <string name="label_firmware_download">允许固件下载</string>
+    <string name="label_tcp_enable">TCP 启用</string>
+    <string name="label_lpd_enable">LPD使能</string>
+    <string name="label_https_enable">HTTPS启用</string>
+    <string name="label_ftp_enable">FTP启用</string>
+    <string name="label_snmp_enable">SNMP 启用</string>
+    <string name="label_wlan_enable">无线局域网启用</string>
+    <string name="label_usb_mirror_enable">USB 镜像启用</string>
+    <string name="label_zbi_enable">ZBI启用</string>
+    <string name="title_bluetooth_discoverable">蓝牙可发现</string>
+    <string name="status_permission_granted">已授予 USB 权限</string>
 </resources>

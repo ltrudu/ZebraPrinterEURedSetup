@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZBTFree</string>
-
-    <!-- Card Titles -->
     <string name="title_connectivity">Connettività</string>
     <string name="title_security">Sicurezza</string>
     <string name="title_status">Stato</string>
     <string name="title_setup_bluetooth">Configurazione Bluetooth</string>
     <string name="title_bluetooth_test">Test Bluetooth</string>
-
-    <!-- Labels -->
     <string name="label_printer_mac_address">Indirizzo MAC stampante</string>
     <string name="label_old_password">Vecchia password sicura</string>
     <string name="label_new_password">Nuova password sicura</string>
     <string name="label_http_admin_password">Password admin HTTP</string>
-
-    <!-- Hints -->
     <string name="hint_mac_address">Inserisci l\'indirizzo MAC della stampante</string>
     <string name="hint_old_password">Lascia vuoto se nuovo hardware</string>
     <string name="hint_new_password">Definisci nuova password</string>
     <string name="hint_http_admin_password">Imposta password admin HTTP</string>
-
-    <!-- Helper Text -->
     <string name="helper_old_password">Lasciare vuoto se si sta configurando un nuovo hardware</string>
     <string name="helper_new_password">Imposta qui la nuova password admin</string>
     <string name="helper_http_admin_password">Imposta qui la nuova password admin HTTP</string>
-
-    <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">Rendi Bluetooth rilevabile</string>
     <string name="button_test_label">Etichetta di test</string>
     <string name="button_cancel">Annulla</string>
     <string name="button_grant_permissions">Concedi permessi</string>
-
-    <!-- Status Messages -->
     <string name="status_ready">Pronto</string>
     <string name="status_connecting">Connessione</string>
     <string name="status_connecting_dots">Connessione…</string>
@@ -46,18 +34,12 @@
     <string name="status_comm_error_disconnected">Errore COMM! Disconnesso</string>
     <string name="status_setup_completed">Configurazione completata con successo!</string>
     <string name="status_test_label_sent">Etichetta di test inviata con successo!</string>
-
-    <!-- Error Messages -->
     <string name="error_mac_address_required">Indirizzo MAC richiesto</string>
     <string name="error_mac_address_invalid">Formato indirizzo MAC non valido (XX:XX:XX:XX:XX:XX)</string>
     <string name="error_valid_mac_address_required">È richiesto un indirizzo MAC valido</string>
     <string name="error_min_characters_required">Minimo %1$d caratteri richiesti (%2$d in più necessari)</string>
-
-    <!-- Permissions Dialog -->
     <string name="permissions_required_title">Permessi richiesti</string>
     <string name="permissions_required_message">Questi permessi sono necessari per connettersi alla stampante</string>
-
-    <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">Espandi/Comprimi</string>
     <string name="content_description_scan_barcode">Scansiona codice a barre</string>
     <string name="content_description_clear_old_password">Cancella vecchia password</string>
@@ -66,27 +48,17 @@
     <string name="content_description_scan_new_password">Scansiona nuova password</string>
     <string name="content_description_scan_http_admin_password">Scansiona password admin HTTP</string>
     <string name="content_description_toggle_flash">Attiva/disattiva flash</string>
-
-    <!-- Scanner -->
     <string name="scanner_hint">Punta la fotocamera sul codice a barre</string>
-
-    <!-- Navigation Drawer -->
     <string name="nav_home">Home</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="nav_about">Informazioni</string>
     <string name="navigation_drawer_open">Apri menu</string>
     <string name="navigation_drawer_close">Chiudi menu</string>
-
-    <!-- Language Settings -->
     <string name="label_language">Lingua</string>
     <string name="language_system">Lingua di sistema</string>
-
-    <!-- Settings Status -->
     <string name="status_saving_settings">Salvataggio impostazioni…</string>
     <string name="status_settings_saved">Impostazioni salvate con successo!</string>
     <string name="status_settings_invalid">Impostazioni non salvate - verificare i requisiti</string>
-
-    <!-- About Fragment -->
     <string name="about_version">Versione %1$s</string>
     <string name="about_developer">Sviluppato da Laurent Trudu</string>
     <string name="about_copyright">Copyright 2026 Zebra Technologies</string>
@@ -99,4 +71,26 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">SDK multipiattaforma per stampanti Zebra</string>
     <string name="about_zebra_sdk_license">Licenza Zebra Technologies</string>
+    <string name="label_connectivity_type">Tipo di connettività</string>
+    <string name="title_change_password">Cambia password</string>
+    <string name="title_authentication">Autenticazione</string>
+    <string name="title_http_admin_password">Imposta la password amministratore HTTP</string>
+    <string name="label_enable">Abilita</string>
+    <string name="label_enabled">Abilitato</string>
+    <string name="label_auth_password">Password</string>
+    <string name="helper_auth_password">Immettere la password di autenticazione</string>
+    <string name="title_protected_mode">Modalità protetta</string>
+    <string name="label_protected_mode_allowed">Consentito</string>
+    <string name="title_eured_configuration">Configurazione EURed</string>
+    <string name="label_firmware_download">Consenti download firmware</string>
+    <string name="label_tcp_enable">Abilita TCP</string>
+    <string name="label_lpd_enable">Abilitazione LPD</string>
+    <string name="label_https_enable">Abilita HTTPS</string>
+    <string name="label_ftp_enable">Abilitazione FTP</string>
+    <string name="label_snmp_enable">Abilitazione SNMP</string>
+    <string name="label_wlan_enable">Abilita WLAN</string>
+    <string name="label_usb_mirror_enable">Abilitazione mirroring USB</string>
+    <string name="label_zbi_enable">Abilita ZBI</string>
+    <string name="title_bluetooth_discoverable">Rilevabile tramite Bluetooth</string>
+    <string name="status_permission_granted">Autorizzazione USB concessa</string>
 </resources>

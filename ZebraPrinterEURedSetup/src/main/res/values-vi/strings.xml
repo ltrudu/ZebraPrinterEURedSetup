@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZBTFree</string>
-
-    <!-- Card Titles -->
     <string name="title_connectivity">Kết nối</string>
     <string name="title_security">Bảo mật</string>
     <string name="title_status">Trạng thái</string>
     <string name="title_setup_bluetooth">Cài đặt Bluetooth</string>
     <string name="title_bluetooth_test">Kiểm tra Bluetooth</string>
-
-    <!-- Labels -->
     <string name="label_printer_mac_address">Địa chỉ MAC máy in</string>
     <string name="label_old_password">Mật khẩu bảo mật cũ</string>
     <string name="label_new_password">Mật khẩu bảo mật mới</string>
     <string name="label_http_admin_password">Mật khẩu quản trị HTTP</string>
-
-    <!-- Hints -->
     <string name="hint_mac_address">Nhập địa chỉ MAC máy in</string>
     <string name="hint_old_password">Để trống nếu là thiết bị mới</string>
     <string name="hint_new_password">Đặt mật khẩu mới</string>
     <string name="hint_http_admin_password">Đặt mật khẩu quản trị HTTP</string>
-
-    <!-- Helper Text -->
     <string name="helper_old_password">Để trống nếu đang cài đặt thiết bị mới</string>
     <string name="helper_new_password">Đặt mật khẩu quản trị mới tại đây</string>
     <string name="helper_http_admin_password">Đặt mật khẩu quản trị HTTP mới tại đây</string>
-
-    <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">Bật chế độ phát hiện Bluetooth</string>
     <string name="button_test_label">Nhãn thử nghiệm</string>
     <string name="button_cancel">Hủy</string>
     <string name="button_grant_permissions">Cấp quyền</string>
-
-    <!-- Status Messages -->
     <string name="status_ready">Sẵn sàng</string>
     <string name="status_connecting">Đang kết nối</string>
     <string name="status_connecting_dots">Đang kết nối…</string>
@@ -46,18 +34,12 @@
     <string name="status_comm_error_disconnected">Lỗi COMM! Đã ngắt kết nối</string>
     <string name="status_setup_completed">Cài đặt hoàn tất thành công!</string>
     <string name="status_test_label_sent">Nhãn thử nghiệm đã gửi thành công!</string>
-
-    <!-- Error Messages -->
     <string name="error_mac_address_required">Yêu cầu địa chỉ MAC</string>
     <string name="error_mac_address_invalid">Định dạng địa chỉ MAC không hợp lệ (XX:XX:XX:XX:XX:XX)</string>
     <string name="error_valid_mac_address_required">Cần địa chỉ MAC hợp lệ</string>
     <string name="error_min_characters_required">Tối thiểu %1$d ký tự (cần thêm %2$d)</string>
-
-    <!-- Permissions Dialog -->
     <string name="permissions_required_title">Yêu cầu quyền</string>
     <string name="permissions_required_message">Cần các quyền này để kết nối với máy in</string>
-
-    <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">Mở rộng/Thu gọn</string>
     <string name="content_description_scan_barcode">Quét mã vạch</string>
     <string name="content_description_clear_old_password">Xóa mật khẩu cũ</string>
@@ -66,27 +48,17 @@
     <string name="content_description_scan_new_password">Quét mật khẩu mới</string>
     <string name="content_description_scan_http_admin_password">Quét mật khẩu quản trị HTTP</string>
     <string name="content_description_toggle_flash">Bật/tắt đèn flash</string>
-
-    <!-- Scanner -->
     <string name="scanner_hint">Hướng camera vào mã vạch</string>
-
-    <!-- Navigation Drawer -->
     <string name="nav_home">Trang chủ</string>
     <string name="nav_settings">Cài đặt</string>
     <string name="nav_about">Giới thiệu</string>
     <string name="navigation_drawer_open">Mở menu</string>
     <string name="navigation_drawer_close">Đóng menu</string>
-
-    <!-- Language Settings -->
     <string name="label_language">Ngôn ngữ</string>
     <string name="language_system">Ngôn ngữ hệ thống</string>
-
-    <!-- Settings Status -->
     <string name="status_saving_settings">Đang lưu cài đặt…</string>
     <string name="status_settings_saved">Cài đặt đã lưu thành công!</string>
     <string name="status_settings_invalid">Cài đặt không được lưu - kiểm tra yêu cầu</string>
-
-    <!-- About Fragment -->
     <string name="about_version">Phiên bản %1$s</string>
     <string name="about_developer">Phát triển bởi Laurent Trudu</string>
     <string name="about_copyright">Bản quyền 2026 Zebra Technologies</string>
@@ -99,4 +71,26 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">SDK đa nền tảng cho máy in Zebra</string>
     <string name="about_zebra_sdk_license">Giấy phép Zebra Technologies</string>
+    <string name="label_connectivity_type">Loại kết nối</string>
+    <string name="title_change_password">Thay đổi mật khẩu</string>
+    <string name="title_authentication">Xác thực</string>
+    <string name="title_http_admin_password">Đặt mật khẩu quản trị HTTP</string>
+    <string name="label_enable">Kích hoạt</string>
+    <string name="label_enabled">Đã bật</string>
+    <string name="label_auth_password">Mật khẩu</string>
+    <string name="helper_auth_password">Nhập mật khẩu xác thực</string>
+    <string name="title_protected_mode">Chế độ bảo vệ</string>
+    <string name="label_protected_mode_allowed">Được phép</string>
+    <string name="title_eured_configuration">Cấu hình EUR</string>
+    <string name="label_firmware_download">Cho phép tải xuống chương trình cơ sở</string>
+    <string name="label_tcp_enable">Kích hoạt TCP</string>
+    <string name="label_lpd_enable">Kích hoạt LPD</string>
+    <string name="label_https_enable">Kích hoạt HTTPS</string>
+    <string name="label_ftp_enable">Kích hoạt FTP</string>
+    <string name="label_snmp_enable">Kích hoạt SNMP</string>
+    <string name="label_wlan_enable">Kích hoạt mạng WLAN</string>
+    <string name="label_usb_mirror_enable">Bật gương USB</string>
+    <string name="label_zbi_enable">Kích hoạt ZBI</string>
+    <string name="title_bluetooth_discoverable">Có thể phát hiện được Bluetooth</string>
+    <string name="status_permission_granted">Đã cấp quyền USB</string>
 </resources>
