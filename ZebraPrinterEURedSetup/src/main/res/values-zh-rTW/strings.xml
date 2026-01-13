@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI 啟用</string>
     <string name="title_bluetooth_discoverable">藍牙可發現</string>
     <string name="status_permission_granted">已授予 USB 權限</string>
+    <string name="content_description_scan_auth_password">掃描認證密碼</string>
 </resources>

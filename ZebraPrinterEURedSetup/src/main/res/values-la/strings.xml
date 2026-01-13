@@ -93,4 +93,5 @@
     <string name="content_description_scan_old_password">Scan vetus password</string>
     <string name="permissions_required_title">Permissionibus</string>
     <string name="content_description_use_default_password">Usus default password</string>
+    <string name="content_description_scan_auth_password">Scan authenticas password</string>
 </resources>

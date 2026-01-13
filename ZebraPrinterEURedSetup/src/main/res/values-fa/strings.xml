@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI Enable</string>
     <string name="title_bluetooth_discoverable">بلوتوث قابل کشف</string>
     <string name="status_permission_granted">مجوز USB داده شد</string>
+    <string name="content_description_scan_auth_password">رمز عبور احراز هویت را اسکن کنید</string>
 </resources>

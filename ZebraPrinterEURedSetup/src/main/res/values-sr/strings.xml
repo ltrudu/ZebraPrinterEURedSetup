@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Омогући ЗБИ</string>
     <string name="title_bluetooth_discoverable">Блуетоотх уочљив</string>
     <string name="status_permission_granted">УСБ дозвола је одобрена</string>
+    <string name="content_description_scan_auth_password">Скенирај лозинку за потврду идентитета</string>
 </resources>

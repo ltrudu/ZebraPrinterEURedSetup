@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI käytössä</string>
     <string name="title_bluetooth_discoverable">Bluetooth löydettävissä</string>
     <string name="status_permission_granted">USB-käyttöoikeus myönnetty</string>
+    <string name="content_description_scan_auth_password">Skannaa todennussalasana</string>
 </resources>

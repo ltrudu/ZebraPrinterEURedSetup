@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI habilitado</string>
     <string name="title_bluetooth_discoverable">Bluetooth detectable</string>
     <string name="status_permission_granted">Permiso USB concedido</string>
+    <string name="content_description_scan_auth_password">Contraseña de autenticación de escaneo</string>
 </resources>

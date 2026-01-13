@@ -93,4 +93,5 @@
     <string name="title_bluetooth_discoverable">બ્લૂટૂથ ડિસ્કવરેબલ</string>
     <string name="status_ready">તૈયાર</string>
     <string name="status_permission_granted">USB પરવાનગી આપવામાં આવી</string>
+    <string name="content_description_scan_auth_password">પ્રમાણીકરણ પાસવર્ડ સ્કેન કરો</string>
 </resources>

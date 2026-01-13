@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI Aktiver</string>
     <string name="title_bluetooth_discoverable">Bluetooth kan oppdages</string>
     <string name="status_permission_granted">USB-tillatelse gitt</string>
+    <string name="content_description_scan_auth_password">Passord for skanneautentisering</string>
 </resources>

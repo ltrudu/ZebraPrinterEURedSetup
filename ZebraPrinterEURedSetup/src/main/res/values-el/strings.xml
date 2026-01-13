@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Ενεργοποίηση ZBI</string>
     <string name="title_bluetooth_discoverable">Ανιχνεύσιμο Bluetooth</string>
     <string name="status_permission_granted">Χορηγήθηκε άδεια USB</string>
+    <string name="content_description_scan_auth_password">Σάρωση κωδικού πρόσβασης ελέγχου ταυτότητας</string>
 </resources>

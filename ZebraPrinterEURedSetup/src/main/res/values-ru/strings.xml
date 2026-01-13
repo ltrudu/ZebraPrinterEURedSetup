@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Включить ZBI</string>
     <string name="title_bluetooth_discoverable">Обнаруживаемый Bluetooth</string>
     <string name="status_permission_granted">Разрешение USB предоставлено</string>
+    <string name="content_description_scan_auth_password">Сканировать пароль аутентификации</string>
 </resources>

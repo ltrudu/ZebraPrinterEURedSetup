@@ -65,6 +65,12 @@ public class SettingsFragment extends Fragment {
     private LinearLayout contentChangePassword;
     private LinearLayout contentHttpAdminPassword;
 
+    // Clear buttons for password fields
+    private Button buttonClearOldPassword;
+    private Button buttonPrefillNewPassword;
+    private Button buttonPrefillHttpAdminPassword;
+    private Button buttonClearAuthPassword;
+
     private final Handler saveHandler = new Handler(Looper.getMainLooper());
     private final Runnable saveRunnable = this::saveValuesWithStatus;
 
@@ -119,18 +125,23 @@ public class SettingsFragment extends Fragment {
         // Setup language dropdown
         setupLanguageDropdown();
 
-        Button buttonClearOldPassword = view.findViewById(R.id.buttonClearOldPassword);
-        Button buttonPrefillNewPassword = view.findViewById(R.id.buttonPrefillNewPassword);
-        Button buttonPrefillHttpAdminPassword = view.findViewById(R.id.buttonPrefillHttpAdminPassword);
+        buttonClearOldPassword = view.findViewById(R.id.buttonClearOldPassword);
+        buttonPrefillNewPassword = view.findViewById(R.id.buttonPrefillNewPassword);
+        buttonPrefillHttpAdminPassword = view.findViewById(R.id.buttonPrefillHttpAdminPassword);
         Button buttonScanOldPassword = view.findViewById(R.id.buttonScanOldPassword);
         Button buttonScanNewPassword = view.findViewById(R.id.buttonScanNewPassword);
         Button buttonScanHttpAdminPassword = view.findViewById(R.id.buttonScanHttpAdminPassword);
+        buttonClearAuthPassword = view.findViewById(R.id.buttonClearAuthPassword);
+        Button buttonScanAuthPassword = view.findViewById(R.id.buttonScanAuthPassword);
 
         // Load saved values
         editTextOldPassword.setText(SettingsHelper.getOldAdminpassword(requireContext()));
         editTextNewPassword.setText(SettingsHelper.getNewAdminpassword(requireContext()));
         editTextHttpAdminPassword.setText(SettingsHelper.getHttpadminpasswordKey(requireContext()));
         editTextAuthPassword.setText(SettingsHelper.getAuthPassword(requireContext()));
+
+        // Set initial visibility of clear buttons based on content
+        updateClearButtonsVisibility();
 
         // Load and apply checkbox states
         boolean changePasswordEnabled = SettingsHelper.getChangePasswordEnabled(requireContext());
@@ -211,10 +222,17 @@ public class SettingsFragment extends Fragment {
             return true;
         });
 
+        buttonClearAuthPassword.setOnClickListener(v -> editTextAuthPassword.setText(""));
+        buttonClearAuthPassword.setOnLongClickListener(v -> {
+            editTextAuthPassword.setText(Constants.SETTINGS_DEFAULT_PASSWORD);
+            return true;
+        });
+
         // Scan buttons - open barcode scanner via MainActivity
         buttonScanOldPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_OLD_PASSWORD));
         buttonScanNewPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_NEW_PASSWORD));
         buttonScanHttpAdminPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_HTTP_ADMIN_PASSWORD));
+        buttonScanAuthPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_AUTH_PASSWORD));
 
         // Save values on text change (debounced)
         TextWatcher saveWatcher = new TextWatcher() {
@@ -227,6 +245,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 validatePasswords();
+                updateClearButtonsVisibility();
                 debounceSave();
             }
         };
@@ -291,6 +310,17 @@ public class SettingsFragment extends Fragment {
             int remaining = MIN_HTTP_ADMIN_PASSWORD_LENGTH - httpAdminPassword.length();
             textInputLayoutHttpAdminPassword.setError(getString(R.string.error_min_characters_required, MIN_HTTP_ADMIN_PASSWORD_LENGTH, remaining));
         }
+    }
+
+    private void updateClearButtonsVisibility() {
+        buttonClearOldPassword.setVisibility(
+                editTextOldPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
+        buttonPrefillNewPassword.setVisibility(
+                editTextNewPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
+        buttonPrefillHttpAdminPassword.setVisibility(
+                editTextHttpAdminPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
+        buttonClearAuthPassword.setVisibility(
+                editTextAuthPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
     }
 
     private void saveValuesWithStatus() {
@@ -394,6 +424,9 @@ public class SettingsFragment extends Fragment {
                                 break;
                             case BarcodeScannerFragment.FIELD_HTTP_ADMIN_PASSWORD:
                                 editTextHttpAdminPassword.setText(barcode);
+                                break;
+                            case BarcodeScannerFragment.FIELD_AUTH_PASSWORD:
+                                editTextAuthPassword.setText(barcode);
                                 break;
                         }
                     }

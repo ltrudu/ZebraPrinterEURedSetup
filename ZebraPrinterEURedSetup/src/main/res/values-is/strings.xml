@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI virkja</string>
     <string name="title_bluetooth_discoverable">Bluetooth hægt að finna</string>
     <string name="status_permission_granted">USB leyfi veitt</string>
+    <string name="content_description_scan_auth_password">Skanna auðkenningarlykilorð</string>
 </resources>

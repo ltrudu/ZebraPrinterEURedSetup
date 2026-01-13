@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Povoliť ZBI</string>
     <string name="title_bluetooth_discoverable">Bluetooth zistiteľné</string>
     <string name="status_permission_granted">Povolenie USB udelené</string>
+    <string name="content_description_scan_auth_password">Heslo na overenie skenovania</string>
 </resources>

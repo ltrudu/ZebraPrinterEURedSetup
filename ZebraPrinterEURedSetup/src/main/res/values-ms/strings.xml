@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI Dayakan</string>
     <string name="title_bluetooth_discoverable">Bluetooth Boleh Ditemui</string>
     <string name="status_permission_granted">Kebenaran USB Diberikan</string>
+    <string name="content_description_scan_auth_password">Imbas kata laluan pengesahan</string>
 </resources>

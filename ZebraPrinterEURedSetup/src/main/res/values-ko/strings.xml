@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI 활성화</string>
     <string name="title_bluetooth_discoverable">블루투스 검색 가능</string>
     <string name="status_permission_granted">USB 권한이 부여되었습니다</string>
+    <string name="content_description_scan_auth_password">인증비밀번호 스캔</string>
 </resources>

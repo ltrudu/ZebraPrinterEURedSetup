@@ -70,6 +70,8 @@
     <string name="content_description_use_default_password">Use default password</string>
     <string name="content_description_scan_new_password">Scan new password</string>
     <string name="content_description_scan_http_admin_password">Scan HTTP admin password</string>
+    <string name="content_description_scan_auth_password">Scan authentication password</string>
+    <string name="content_description_clear_auth_password">Clear authentication password</string>
     <string name="content_description_toggle_flash">Toggle flash</string>
 
     <!-- Scanner -->

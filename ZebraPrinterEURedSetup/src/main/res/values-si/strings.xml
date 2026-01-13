@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI සබල කරන්න</string>
     <string name="title_bluetooth_discoverable">බ්ලූටූත් සොයා ගත හැකි</string>
     <string name="status_permission_granted">USB අවසරය ලබා දී ඇත</string>
+    <string name="content_description_scan_auth_password">සත්‍යාපන මුරපදය පරිලෝකනය කරන්න</string>
 </resources>

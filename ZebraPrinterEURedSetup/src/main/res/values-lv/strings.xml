@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI iespējot</string>
     <string name="title_bluetooth_discoverable">Bluetooth Atklājams</string>
     <string name="status_permission_granted">USB atļauja piešķirta</string>
+    <string name="content_description_scan_auth_password">Skenējiet autentifikācijas paroli</string>
 </resources>

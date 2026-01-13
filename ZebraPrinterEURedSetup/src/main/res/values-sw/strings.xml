@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI Wezesha</string>
     <string name="title_bluetooth_discoverable">Bluetooth Inaweza Kupatikana</string>
     <string name="status_permission_granted">Ruhusa ya USB Imetolewa</string>
+    <string name="content_description_scan_auth_password">Changanua nenosiri la uthibitishaji</string>
 </resources>

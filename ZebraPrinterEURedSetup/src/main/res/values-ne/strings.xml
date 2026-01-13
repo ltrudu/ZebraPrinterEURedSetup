@@ -93,4 +93,5 @@
     <string name="status_permission_granted">USB अनुमति प्रदान गरियो</string>
     <string name="nav_home">घर</string>
     <string name="label_language">भाषा</string>
+    <string name="content_description_scan_auth_password">प्रमाणीकरण पासवर्ड स्क्यान गर्नुहोस्</string>
 </resources>

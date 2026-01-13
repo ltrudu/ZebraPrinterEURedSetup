@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI सक्षम करें</string>
     <string name="title_bluetooth_discoverable">ब्लूटूथ खोजने योग्य</string>
     <string name="status_permission_granted">यूएसबी अनुमति दी गई</string>
+    <string name="content_description_scan_auth_password">प्रमाणीकरण पासवर्ड स्कैन करें</string>
 </resources>

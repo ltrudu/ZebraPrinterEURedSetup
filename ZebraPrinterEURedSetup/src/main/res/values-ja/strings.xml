@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI 有効</string>
     <string name="title_bluetooth_discoverable">Bluetooth 検出可能</string>
     <string name="status_permission_granted">USB 許可が付与されました</string>
+    <string name="content_description_scan_auth_password">スキャン認証パスワード</string>
 </resources>

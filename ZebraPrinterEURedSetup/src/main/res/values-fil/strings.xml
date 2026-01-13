@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Paganahin ang ZBI</string>
     <string name="title_bluetooth_discoverable">Natutuklasan ang Bluetooth</string>
     <string name="status_permission_granted">Ipinagkaloob ang Pahintulot sa USB</string>
+    <string name="content_description_scan_auth_password">I-scan ang password ng pagpapatunay</string>
 </resources>

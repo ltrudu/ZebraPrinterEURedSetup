@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI Միացնել</string>
     <string name="title_bluetooth_discoverable">Bluetooth-ի հայտնաբերում</string>
     <string name="status_permission_granted">Տրված է USB թույլտվություն</string>
+    <string name="content_description_scan_auth_password">Սկանավորեք նույնականացման գաղտնաբառը</string>
 </resources>

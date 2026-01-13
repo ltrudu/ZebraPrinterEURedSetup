@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">ZBI идэвхжүүлэх</string>
     <string name="title_bluetooth_discoverable">Bluetooth илрүүлэх боломжтой</string>
     <string name="status_permission_granted">USB зөвшөөрөл олгосон</string>
+    <string name="content_description_scan_auth_password">Баталгаажуулах нууц үгийг сканнердах</string>
 </resources>

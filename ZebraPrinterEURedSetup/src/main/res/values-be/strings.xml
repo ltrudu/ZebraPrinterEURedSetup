@@ -93,4 +93,5 @@
     <string name="label_zbi_enable">Уключыць ZBI</string>
     <string name="title_bluetooth_discoverable">Выяўны Bluetooth</string>
     <string name="status_permission_granted">Дазвол USB дадзены</string>
+    <string name="content_description_scan_auth_password">Сканаваць пароль аўтэнтыфікацыі</string>
 </resources>
