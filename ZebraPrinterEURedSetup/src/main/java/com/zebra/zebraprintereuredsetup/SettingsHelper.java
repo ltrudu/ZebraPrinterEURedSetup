@@ -122,7 +122,7 @@ public class SettingsHelper {
     // Connectivity type (BLE or USB)
     public static int getConnectivityType(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getInt(Constants.SETTINGS_CONNECTIVITY_TYPE, Constants.CONNECTIVITY_TYPE_BLE);
+        return settings.getInt(Constants.SETTINGS_CONNECTIVITY_TYPE, Constants.CONNECTIVITY_TYPE_USB);
     }
 
     public static void saveConnectivityType(Context context, int connectivityType) {

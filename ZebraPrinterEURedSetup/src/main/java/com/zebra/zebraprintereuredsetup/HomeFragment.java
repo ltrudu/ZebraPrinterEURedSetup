@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
 
     private Spinner spinnerConnectivityType;
     private LinearLayout bleFieldsContainer;
-    private int currentConnectivityType = Constants.CONNECTIVITY_TYPE_BLE;
+    private int currentConnectivityType = Constants.CONNECTIVITY_TYPE_USB;
 
     private FragmentContainerView fragmentContainer;
     private View mainContent;
