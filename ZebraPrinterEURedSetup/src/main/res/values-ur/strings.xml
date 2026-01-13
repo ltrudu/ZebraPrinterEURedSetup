@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">ZBTFree</string>
+
+    <!-- Card Titles -->
+    <string name="title_connectivity">کنیکٹیویٹی</string>
+    <string name="title_security">سیکیورٹی</string>
+    <string name="title_status">حیثیت</string>
+    <string name="title_setup_bluetooth">بلوٹوتھ سیٹ اپ</string>
+    <string name="title_bluetooth_test">بلوٹوتھ ٹیسٹ</string>
+
+    <!-- Labels -->
+    <string name="label_printer_mac_address">پرنٹر MAC ایڈریس</string>
+    <string name="label_old_password">پرانا محفوظ پاس ورڈ</string>
+    <string name="label_new_password">نیا محفوظ پاس ورڈ</string>
+    <string name="label_http_admin_password">HTTP ایڈمن پاس ورڈ</string>
+
+    <!-- Hints -->
+    <string name="hint_mac_address">پرنٹر کا MAC ایڈریس درج کریں</string>
+    <string name="hint_old_password">نئے ہارڈویئر کے لیے خالی چھوڑیں</string>
+    <string name="hint_new_password">نیا پاس ورڈ سیٹ کریں</string>
+    <string name="hint_http_admin_password">HTTP ایڈمن پاس ورڈ سیٹ کریں</string>
+
+    <!-- Helper Text -->
+    <string name="helper_old_password">نیا ہارڈویئر سیٹ اپ کرتے وقت خالی چھوڑیں</string>
+    <string name="helper_new_password">یہاں نیا ایڈمن پاس ورڈ سیٹ کریں</string>
+    <string name="helper_http_admin_password">یہاں نیا HTTP ایڈمن پاس ورڈ سیٹ کریں</string>
+
+    <!-- Buttons -->
+    <string name="button_set_bluetooth_discoverable">بلوٹوتھ دریافت کرنے کے قابل بنائیں</string>
+    <string name="button_test_label">ٹیسٹ لیبل</string>
+    <string name="button_cancel">منسوخ</string>
+    <string name="button_grant_permissions">اجازتیں دیں</string>
+
+    <!-- Status Messages -->
+    <string name="status_ready">تیار</string>
+    <string name="status_connecting">کنیکٹ ہو رہا ہے</string>
+    <string name="status_connecting_dots">کنیکٹ ہو رہا ہے…</string>
+    <string name="status_connected">کنیکٹ ہو گیا</string>
+    <string name="status_comm_error_disconnecting">مواصلاتی خرابی! منقطع ہو رہا ہے</string>
+    <string name="status_determining_printer_language">پرنٹر کی زبان کا پتہ لگا رہا ہے</string>
+    <string name="status_printer_language">پرنٹر کی زبان %1$s</string>
+    <string name="status_unknown_printer_language">نامعلوم پرنٹر زبان</string>
+    <string name="status_sending_data">ڈیٹا بھیج رہا ہے</string>
+    <string name="status_disconnecting">منقطع ہو رہا ہے</string>
+    <string name="status_not_connected">کنیکٹ نہیں ہے</string>
+    <string name="status_comm_error_disconnected">COMM خرابی! منقطع ہو گیا</string>
+    <string name="status_setup_completed">سیٹ اپ کامیابی سے مکمل!</string>
+    <string name="status_test_label_sent">ٹیسٹ لیبل کامیابی سے بھیجا گیا!</string>
+
+    <!-- Error Messages -->
+    <string name="error_mac_address_required">MAC ایڈریس درکار ہے</string>
+    <string name="error_mac_address_invalid">غلط MAC ایڈریس فارمیٹ (XX:XX:XX:XX:XX:XX)</string>
+    <string name="error_valid_mac_address_required">درست MAC ایڈریس درکار ہے</string>
+    <string name="error_min_characters_required">کم از کم %1$d حروف درکار ہیں (%2$d مزید چاہیے)</string>
+
+    <!-- Permissions Dialog -->
+    <string name="permissions_required_title">اجازتیں درکار ہیں</string>
+    <string name="permissions_required_message">پرنٹر سے کنیکٹ کرنے کے لیے ان اجازتوں کی ضرورت ہے</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_expand_collapse">پھیلائیں/سکیڑیں</string>
+    <string name="content_description_scan_barcode">بارکوڈ اسکین کریں</string>
+    <string name="content_description_clear_old_password">پرانا پاس ورڈ صاف کریں</string>
+    <string name="content_description_scan_old_password">پرانا پاس ورڈ اسکین کریں</string>
+    <string name="content_description_use_default_password">ڈیفالٹ پاس ورڈ استعمال کریں</string>
+    <string name="content_description_scan_new_password">نیا پاس ورڈ اسکین کریں</string>
+    <string name="content_description_scan_http_admin_password">HTTP ایڈمن پاس ورڈ اسکین کریں</string>
+    <string name="content_description_toggle_flash">فلیش ٹوگل کریں</string>
+
+    <!-- Scanner -->
+    <string name="scanner_hint">کیمرے کو بارکوڈ کی طرف کریں</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_home">ہوم</string>
+    <string name="nav_settings">ترتیبات</string>
+    <string name="nav_about">کے بارے میں</string>
+    <string name="navigation_drawer_open">مینو کھولیں</string>
+    <string name="navigation_drawer_close">مینو بند کریں</string>
+
+    <!-- Language Settings -->
+    <string name="label_language">زبان</string>
+    <string name="language_system">سسٹم زبان</string>
+
+    <!-- Settings Status -->
+    <string name="status_saving_settings">ترتیبات محفوظ ہو رہی ہیں…</string>
+    <string name="status_settings_saved">ترتیبات کامیابی سے محفوظ!</string>
+    <string name="status_settings_invalid">ترتیبات محفوظ نہیں ہوئیں - ضروریات چیک کریں</string>
+
+    <!-- About Fragment -->
+    <string name="about_version">ورژن %1$s</string>
+    <string name="about_developer">Laurent Trudu نے تیار کیا</string>
+    <string name="about_copyright">کاپی رائٹ 2026 Zebra Technologies</string>
+    <string name="about_github">GitHub پر دیکھیں</string>
+    <string name="about_dependencies">انحصار</string>
+    <string name="about_view_project">پروجیکٹ دیکھیں</string>
+    <string name="about_zxing_name">ZXing Android Embedded</string>
+    <string name="about_zxing_version">ورژن 4.3.0</string>
+    <string name="about_zxing_license">Apache لائسنس 2.0</string>
+    <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
+    <string name="about_zebra_sdk_desc">Zebra پرنٹرز کے لیے ملٹی پلیٹ فارم SDK</string>
+    <string name="about_zebra_sdk_license">Zebra Technologies لائسنس</string>
+</resources>

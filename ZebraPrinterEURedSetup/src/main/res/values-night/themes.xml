@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme - Material3 Dark Only -->
+    <style name="Theme.ZebraEURED_SetupPrinter" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

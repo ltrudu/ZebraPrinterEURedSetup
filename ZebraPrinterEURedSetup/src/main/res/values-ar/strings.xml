@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">ZBTFree</string>
+
+    <!-- Card Titles -->
+    <string name="title_connectivity">الاتصال</string>
+    <string name="title_security">الأمان</string>
+    <string name="title_status">الحالة</string>
+    <string name="title_setup_bluetooth">إعداد البلوتوث</string>
+    <string name="title_bluetooth_test">اختبار البلوتوث</string>
+
+    <!-- Labels -->
+    <string name="label_printer_mac_address">عنوان MAC للطابعة</string>
+    <string name="label_old_password">كلمة المرور الآمنة القديمة</string>
+    <string name="label_new_password">كلمة المرور الآمنة الجديدة</string>
+    <string name="label_http_admin_password">كلمة مرور مسؤول HTTP</string>
+
+    <!-- Hints -->
+    <string name="hint_mac_address">أدخل عنوان MAC للطابعة</string>
+    <string name="hint_old_password">اتركه فارغاً إذا كان جهازاً جديداً</string>
+    <string name="hint_new_password">حدد كلمة المرور الجديدة</string>
+    <string name="hint_http_admin_password">حدد كلمة مرور مسؤول HTTP</string>
+
+    <!-- Helper Text -->
+    <string name="helper_old_password">اتركه فارغاً إذا كنت تقوم بإعداد جهاز جديد</string>
+    <string name="helper_new_password">قم بتعيين كلمة مرور المسؤول الجديدة هنا</string>
+    <string name="helper_http_admin_password">قم بتعيين كلمة مرور مسؤول HTTP الجديدة هنا</string>
+
+    <!-- Buttons -->
+    <string name="button_set_bluetooth_discoverable">جعل البلوتوث قابلاً للاكتشاف</string>
+    <string name="button_test_label">ملصق اختبار</string>
+    <string name="button_cancel">إلغاء</string>
+    <string name="button_grant_permissions">منح الأذونات</string>
+
+    <!-- Status Messages -->
+    <string name="status_ready">جاهز</string>
+    <string name="status_connecting">جاري الاتصال</string>
+    <string name="status_connecting_dots">جاري الاتصال…</string>
+    <string name="status_connected">متصل</string>
+    <string name="status_comm_error_disconnecting">خطأ في الاتصال! جاري قطع الاتصال</string>
+    <string name="status_determining_printer_language">تحديد لغة الطابعة</string>
+    <string name="status_printer_language">لغة الطابعة %1$s</string>
+    <string name="status_unknown_printer_language">لغة الطابعة غير معروفة</string>
+    <string name="status_sending_data">إرسال البيانات</string>
+    <string name="status_disconnecting">جاري قطع الاتصال</string>
+    <string name="status_not_connected">غير متصل</string>
+    <string name="status_comm_error_disconnected">خطأ COMM! تم قطع الاتصال</string>
+    <string name="status_setup_completed">تم الإعداد بنجاح!</string>
+    <string name="status_test_label_sent">تم إرسال ملصق الاختبار بنجاح!</string>
+
+    <!-- Error Messages -->
+    <string name="error_mac_address_required">عنوان MAC مطلوب</string>
+    <string name="error_mac_address_invalid">صيغة عنوان MAC غير صالحة (XX:XX:XX:XX:XX:XX)</string>
+    <string name="error_valid_mac_address_required">مطلوب عنوان MAC صالح</string>
+    <string name="error_min_characters_required">الحد الأدنى %1$d حرف مطلوب (%2$d إضافية مطلوبة)</string>
+
+    <!-- Permissions Dialog -->
+    <string name="permissions_required_title">الأذونات مطلوبة</string>
+    <string name="permissions_required_message">هذه الأذونات مطلوبة للاتصال بالطابعة</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_expand_collapse">توسيع/طي</string>
+    <string name="content_description_scan_barcode">مسح الباركود</string>
+    <string name="content_description_clear_old_password">مسح كلمة المرور القديمة</string>
+    <string name="content_description_scan_old_password">مسح كلمة المرور القديمة</string>
+    <string name="content_description_use_default_password">استخدام كلمة المرور الافتراضية</string>
+    <string name="content_description_scan_new_password">مسح كلمة المرور الجديدة</string>
+    <string name="content_description_scan_http_admin_password">مسح كلمة مرور مسؤول HTTP</string>
+    <string name="content_description_toggle_flash">تبديل الفلاش</string>
+
+    <!-- Scanner -->
+    <string name="scanner_hint">وجه الكاميرا نحو الباركود</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="nav_about">حول</string>
+    <string name="navigation_drawer_open">فتح القائمة</string>
+    <string name="navigation_drawer_close">إغلاق القائمة</string>
+
+    <!-- Language Settings -->
+    <string name="label_language">اللغة</string>
+    <string name="language_system">لغة النظام</string>
+
+    <!-- Settings Status -->
+    <string name="status_saving_settings">جاري حفظ الإعدادات…</string>
+    <string name="status_settings_saved">تم حفظ الإعدادات بنجاح!</string>
+    <string name="status_settings_invalid">لم يتم حفظ الإعدادات - تحقق من المتطلبات</string>
+
+    <!-- About Fragment -->
+    <string name="about_version">الإصدار %1$s</string>
+    <string name="about_developer">تطوير Laurent Trudu</string>
+    <string name="about_copyright">حقوق النشر 2026 Zebra Technologies</string>
+    <string name="about_github">عرض على GitHub</string>
+    <string name="about_dependencies">التبعيات</string>
+    <string name="about_view_project">عرض المشروع</string>
+    <string name="about_zxing_name">ZXing Android Embedded</string>
+    <string name="about_zxing_version">الإصدار 4.3.0</string>
+    <string name="about_zxing_license">رخصة Apache 2.0</string>
+    <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
+    <string name="about_zebra_sdk_desc">SDK متعدد المنصات لطابعات Zebra</string>
+    <string name="about_zebra_sdk_license">رخصة Zebra Technologies</string>
+</resources>

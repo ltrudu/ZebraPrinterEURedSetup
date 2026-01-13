@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">ZBTFree</string>
+
+    <!-- Card Titles -->
+    <string name="title_connectivity">Connectivité</string>
+    <string name="title_security">Sécurité</string>
+    <string name="title_status">Statut</string>
+    <string name="title_setup_bluetooth">Configuration Bluetooth</string>
+    <string name="title_bluetooth_test">Test Bluetooth</string>
+
+    <!-- Labels -->
+    <string name="label_printer_mac_address">Adresse MAC de l\'imprimante</string>
+    <string name="label_old_password">Ancien mot de passe sécurisé</string>
+    <string name="label_new_password">Nouveau mot de passe sécurisé</string>
+    <string name="label_http_admin_password">Mot de passe admin HTTP</string>
+
+    <!-- Hints -->
+    <string name="hint_mac_address">Entrez l\'adresse MAC de l\'imprimante</string>
+    <string name="hint_old_password">Laisser vide si nouveau matériel</string>
+    <string name="hint_new_password">Définir le nouveau mot de passe</string>
+    <string name="hint_http_admin_password">Définir le mot de passe admin HTTP</string>
+
+    <!-- Helper Text -->
+    <string name="helper_old_password">Laisser vide si vous configurez un nouveau matériel</string>
+    <string name="helper_new_password">Définissez ici le nouveau mot de passe admin</string>
+    <string name="helper_http_admin_password">Définissez ici le nouveau mot de passe admin HTTP</string>
+
+    <!-- Buttons -->
+    <string name="button_set_bluetooth_discoverable">Rendre Bluetooth détectable</string>
+    <string name="button_test_label">Étiquette de test</string>
+    <string name="button_cancel">Annuler</string>
+    <string name="button_grant_permissions">Accorder les permissions</string>
+
+    <!-- Status Messages -->
+    <string name="status_ready">Prêt</string>
+    <string name="status_connecting">Connexion</string>
+    <string name="status_connecting_dots">Connexion…</string>
+    <string name="status_connected">Connecté</string>
+    <string name="status_comm_error_disconnecting">Erreur de communication ! Déconnexion</string>
+    <string name="status_determining_printer_language">Détection du langage imprimante</string>
+    <string name="status_printer_language">Langage imprimante %1$s</string>
+    <string name="status_unknown_printer_language">Langage imprimante inconnu</string>
+    <string name="status_sending_data">Envoi des données</string>
+    <string name="status_disconnecting">Déconnexion</string>
+    <string name="status_not_connected">Non connecté</string>
+    <string name="status_comm_error_disconnected">Erreur COMM ! Déconnecté</string>
+    <string name="status_setup_completed">Configuration terminée avec succès !</string>
+    <string name="status_test_label_sent">Étiquette de test envoyée avec succès !</string>
+
+    <!-- Error Messages -->
+    <string name="error_mac_address_required">L\'adresse MAC est requise</string>
+    <string name="error_mac_address_invalid">Format d\'adresse MAC invalide (XX:XX:XX:XX:XX:XX)</string>
+    <string name="error_valid_mac_address_required">Une adresse MAC valide est requise</string>
+    <string name="error_min_characters_required">Minimum %1$d caractères requis (%2$d de plus nécessaires)</string>
+
+    <!-- Permissions Dialog -->
+    <string name="permissions_required_title">Permissions requises</string>
+    <string name="permissions_required_message">Ces permissions sont nécessaires pour se connecter à l\'imprimante</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_expand_collapse">Développer/Réduire</string>
+    <string name="content_description_scan_barcode">Scanner le code-barres</string>
+    <string name="content_description_clear_old_password">Effacer l\'ancien mot de passe</string>
+    <string name="content_description_scan_old_password">Scanner l\'ancien mot de passe</string>
+    <string name="content_description_use_default_password">Utiliser le mot de passe par défaut</string>
+    <string name="content_description_scan_new_password">Scanner le nouveau mot de passe</string>
+    <string name="content_description_scan_http_admin_password">Scanner le mot de passe admin HTTP</string>
+    <string name="content_description_toggle_flash">Activer/désactiver le flash</string>
+
+    <!-- Scanner -->
+    <string name="scanner_hint">Pointer la caméra vers le code-barres</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_settings">Paramètres</string>
+    <string name="nav_about">À propos</string>
+    <string name="navigation_drawer_open">Ouvrir le menu</string>
+    <string name="navigation_drawer_close">Fermer le menu</string>
+
+    <!-- Language Settings -->
+    <string name="label_language">Langue</string>
+    <string name="language_system">Langue du système</string>
+
+    <!-- Settings Status -->
+    <string name="status_saving_settings">Enregistrement des paramètres…</string>
+    <string name="status_settings_saved">Paramètres enregistrés avec succès !</string>
+    <string name="status_settings_invalid">Paramètres non enregistrés - vérifiez les exigences</string>
+
+    <!-- About Fragment -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_developer">Développé par Laurent Trudu</string>
+    <string name="about_copyright">Copyright 2026 Zebra Technologies</string>
+    <string name="about_github">Voir sur GitHub</string>
+    <string name="about_dependencies">Dépendances</string>
+    <string name="about_view_project">Voir le projet</string>
+    <string name="about_zxing_name">ZXing Android Embedded</string>
+    <string name="about_zxing_version">Version 4.3.0</string>
+    <string name="about_zxing_license">Licence Apache 2.0</string>
+    <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
+    <string name="about_zebra_sdk_desc">SDK multiplateforme pour imprimantes Zebra</string>
+    <string name="about_zebra_sdk_license">Licence Zebra Technologies</string>
+</resources>
