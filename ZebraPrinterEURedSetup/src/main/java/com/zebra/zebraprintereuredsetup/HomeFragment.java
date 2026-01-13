@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
 
     private Spinner spinnerConnectivityType;
     private LinearLayout bleFieldsContainer;
+    private View cardTest;
     private int currentConnectivityType = Constants.CONNECTIVITY_TYPE_USB;
 
     private FragmentContainerView fragmentContainer;
@@ -74,10 +75,11 @@ public class HomeFragment extends Fragment {
         // Connectivity type spinner
         spinnerConnectivityType = view.findViewById(R.id.spinnerConnectivityType);
         bleFieldsContainer = view.findViewById(R.id.bleFieldsContainer);
+        cardTest = view.findViewById(R.id.cardTest);
 
         // Setup connectivity type spinner
         String[] connectivityOptions = {
-            getString(R.string.connectivity_ble),
+            getString(R.string.connectivity_bluetooth),
             getString(R.string.connectivity_usb)
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
@@ -255,8 +257,10 @@ public class HomeFragment extends Fragment {
     private void updateBleFieldsVisibility() {
         if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
             bleFieldsContainer.setVisibility(View.VISIBLE);
+            cardTest.setVisibility(View.VISIBLE);
         } else {
             bleFieldsContainer.setVisibility(View.GONE);
+            cardTest.setVisibility(View.GONE);
         }
     }
 

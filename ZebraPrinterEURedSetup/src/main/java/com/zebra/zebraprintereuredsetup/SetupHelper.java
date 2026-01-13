@@ -77,8 +77,10 @@ public class SetupHelper {
                 "      \"ip.snmp.enable\": \"" + (snmpEnable ? "on" : "off") + "\",\n" +
                 "      \"wlan.enable\": \" " + (wlanEnable ? "on" : "off") + "\",\n" +
                 "      \"usb.mirror.enable\": \" " + (usbMirrorEnable ? "on" : "off") + "\",\n" +
-                "      \"zbi.enable\": \"" + (zbiEnable ? "on" : "off") + "\",\n" +
-                "      \"display.password.current\": \"" + ((displayPasswordCurrent != null && displayPasswordCurrent.isEmpty() == false) ? displayPasswordCurrent : "") + "\",\n";
+                "      \"zbi.enable\": \"" + (zbiEnable ? "on" : "off") + "\",\n";
+
+        if(displayPasswordCurrent != null && displayPasswordCurrent.isEmpty() == false)
+            configLabelString += "      \"display.password.current\": \"" + displayPasswordCurrent + "\",\n";
 
         if(httpadminpassword != null && httpadminpassword.isEmpty() == false)
             configLabelString += "      \"ip.http.admin_password\": \""+ httpadminpassword + "\"\n";

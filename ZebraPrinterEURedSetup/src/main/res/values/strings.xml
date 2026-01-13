@@ -6,6 +6,7 @@
     <string name="title_security">Security</string>
     <string name="title_status">Status</string>
     <string name="title_setup_bluetooth">Setup Bluetooth</string>
+    <string name="title_setup_printer">Setup Printer</string>
     <string name="title_bluetooth_test">Bluetooth Test</string>
 
     <!-- Labels -->
@@ -28,6 +29,7 @@
 
     <!-- Buttons -->
     <string name="button_set_bluetooth_discoverable">Set Bluetooth Discoverable</string>
+    <string name="button_send_script_to_printer">Send Script To Printer</string>
     <string name="button_test_label">Test Label</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_grant_permissions">Grant Permissions</string>
@@ -130,7 +132,7 @@
     <string name="about_zebra_sdk_license">Zebra Technologies License</string>
 
     <!-- Connectivity Types -->
-    <string name="connectivity_ble">BLE</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
     <string name="connectivity_usb">USB</string>
 
     <!-- Protected Mode -->
