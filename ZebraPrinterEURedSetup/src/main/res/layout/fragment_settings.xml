@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/title_change_password"
-                        android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkboxChangePasswordEnabled"
@@ -236,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/title_authentication"
-                    android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutAuthPassword"
@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/title_protected_mode"
-                    android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/checkboxProtectedModeAllowed"
@@ -313,7 +313,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="@string/title_eured_configuration"
-                    android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/checkboxFirmwareDownload"
@@ -402,7 +402,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/title_bluetooth_discoverable"
-                    android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/checkboxBluetoothDiscoverable"
@@ -443,7 +443,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/title_http_admin_password"
-                        android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkboxHttpAdminEnabled"
@@ -542,7 +542,7 @@
                     android:layout_marginBottom="8dp"
                     android:gravity="center"
                     android:text="@string/title_status"
-                    android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textViewStatus"

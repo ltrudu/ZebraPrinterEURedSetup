@@ -57,7 +57,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="@string/title_connectivity"
-                                android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                                android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                             <ImageView
                                 android:id="@+id/iconExpandConnectivity"
@@ -174,7 +174,7 @@
                             android:layout_marginBottom="8dp"
                             android:gravity="center"
                             android:text="@string/title_status"
-                            android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/textViewStatus"
@@ -210,7 +210,7 @@
                             android:layout_marginBottom="16dp"
                             android:gravity="center"
                             android:text="@string/title_setup_bluetooth"
-                            android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonSetupPasswordBluetooth"
@@ -245,7 +245,7 @@
                             android:layout_marginBottom="16dp"
                             android:gravity="center"
                             android:text="@string/title_bluetooth_test"
-                            android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonTestLabel"

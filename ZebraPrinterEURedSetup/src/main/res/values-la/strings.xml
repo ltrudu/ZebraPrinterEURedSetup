@@ -91,4 +91,6 @@
     <string name="title_bluetooth_discoverable">Bluetooth Discoverable</string>
     <string name="status_permission_granted">USB permissio</string>
     <string name="content_description_scan_old_password">Scan vetus password</string>
+    <string name="permissions_required_title">Permissionibus</string>
+    <string name="content_description_use_default_password">Usus default password</string>
 </resources>

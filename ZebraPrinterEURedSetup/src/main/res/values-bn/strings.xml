@@ -84,4 +84,13 @@
     <string name="status_sending_data">ডেটা পাঠানো</string>
     <string name="status_permission_granted">USB অনুমতি দেওয়া হয়েছে</string>
     <string name="content_description_scan_barcode">বারকোড স্ক্যান করুন</string>
+    <string name="status_ready">প্রস্তুত</string>
+    <string name="status_not_connected">সংযুক্ত নয়</string>
+    <string name="scanner_hint">বারকোডে ক্যামেরা পয়েন্ট করুন</string>
+    <string name="nav_home">বাড়ি</string>
+    <string name="title_authentication">প্রমাণীকরণ</string>
+    <string name="label_auth_password">পাসওয়ার্ড</string>
+    <string name="nav_about">সম্পর্কে</string>
+    <string name="label_language">ভাষা</string>
+    <string name="about_dependencies">নির্ভরতা</string>
 </resources>
