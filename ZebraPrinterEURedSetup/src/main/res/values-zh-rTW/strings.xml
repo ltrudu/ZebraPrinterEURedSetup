@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">藍牙可發現</string>
     <string name="status_permission_granted">已授予 USB 權限</string>
     <string name="content_description_scan_auth_password">掃描認證密碼</string>
+    <string name="title_setup_printer">設置打印機</string>
+    <string name="button_send_script_to_printer">發送腳本到打印機</string>
+    <string name="content_description_clear_auth_password">清除認證密碼</string>
+    <string name="connectivity_bluetooth">藍牙</string>
 </resources>

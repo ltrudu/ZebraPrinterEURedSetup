@@ -94,4 +94,8 @@
     <string name="status_ready">તૈયાર</string>
     <string name="status_permission_granted">USB પરવાનગી આપવામાં આવી</string>
     <string name="content_description_scan_auth_password">પ્રમાણીકરણ પાસવર્ડ સ્કેન કરો</string>
+    <string name="title_setup_printer">પ્રિન્ટર સેટઅપ કરો</string>
+    <string name="button_send_script_to_printer">પ્રિન્ટરને સ્ક્રિપ્ટ મોકલો</string>
+    <string name="content_description_clear_auth_password">પ્રમાણીકરણ પાસવર્ડ સાફ કરો</string>
+    <string name="connectivity_bluetooth">બ્લૂટૂથ</string>
 </resources>

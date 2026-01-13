@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth Ontdekbaar</string>
     <string name="status_permission_granted">USB-toestemming verleen</string>
     <string name="content_description_scan_auth_password">Skandeer verifikasie wagwoord</string>
+    <string name="title_setup_printer">Stel drukker op</string>
+    <string name="button_send_script_to_printer">Stuur skrif na drukker</string>
+    <string name="content_description_clear_auth_password">Vee verifikasiewagwoord uit</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth-ի հայտնաբերում</string>
     <string name="status_permission_granted">Տրված է USB թույլտվություն</string>
     <string name="content_description_scan_auth_password">Սկանավորեք նույնականացման գաղտնաբառը</string>
+    <string name="title_setup_printer">Տեղադրեք տպիչը</string>
+    <string name="button_send_script_to_printer">Ուղարկել սցենար տպիչին</string>
+    <string name="content_description_clear_auth_password">Մաքրել նույնականացման գաղտնաբառը</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

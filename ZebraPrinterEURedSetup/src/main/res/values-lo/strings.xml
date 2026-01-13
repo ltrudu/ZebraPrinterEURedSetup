@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth ສາມາດຄົ້ນພົບໄດ້</string>
     <string name="status_permission_granted">ອະນຸຍາດ USB</string>
     <string name="content_description_scan_auth_password">ສະແກນລະຫັດຜ່ານການພິສູດຢືນຢັນ</string>
+    <string name="title_setup_printer">ຕັ້ງເຄື່ອງພິມ</string>
+    <string name="button_send_script_to_printer">ສົ່ງ Script ໄປໃສ່ເຄື່ອງພິມ</string>
+    <string name="content_description_clear_auth_password">ລຶບລະຫັດຜ່ານການພິສູດຢືນຢັນ</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

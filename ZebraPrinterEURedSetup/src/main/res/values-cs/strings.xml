@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth zjistitelný</string>
     <string name="status_permission_granted">Povolení USB uděleno</string>
     <string name="content_description_scan_auth_password">Heslo pro ověření skenování</string>
+    <string name="title_setup_printer">Nastavení tiskárny</string>
+    <string name="button_send_script_to_printer">Odeslat skript na tiskárnu</string>
+    <string name="content_description_clear_auth_password">Vymazat heslo pro ověření</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

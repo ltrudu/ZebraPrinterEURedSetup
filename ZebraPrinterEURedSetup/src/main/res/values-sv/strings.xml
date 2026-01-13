@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Upptäckbar Bluetooth</string>
     <string name="status_permission_granted">USB-tillstånd beviljad</string>
     <string name="content_description_scan_auth_password">Lösenord för skanningsautentisering</string>
+    <string name="title_setup_printer">Installera skrivare</string>
+    <string name="button_send_script_to_printer">Skicka skript till skrivare</string>
+    <string name="content_description_clear_auth_password">Rensa autentiseringslösenord</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

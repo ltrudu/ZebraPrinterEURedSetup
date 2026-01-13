@@ -94,4 +94,8 @@
     <string name="status_permission_granted">USB کی اجازت عطا کی گئی</string>
     <string name="label_https_enable">https قابل بنائیں</string>
     <string name="content_description_scan_auth_password">تصدیق کا پاس ورڈ اسکین کریں</string>
+    <string name="title_setup_printer">سیٹ اپ پرنٹر</string>
+    <string name="button_send_script_to_printer">اسکرپٹ پرنٹر کو بھیجیں</string>
+    <string name="content_description_clear_auth_password">واضح توثیق کا پاس ورڈ</string>
+    <string name="connectivity_bluetooth">بلوٹوتھ</string>
 </resources>

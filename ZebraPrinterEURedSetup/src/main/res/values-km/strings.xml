@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">ប៊្លូធូសអាចរកឃើញ</string>
     <string name="status_permission_granted">ការអនុញ្ញាត USB ត្រូវបានផ្តល់</string>
     <string name="content_description_scan_auth_password">ស្កេនពាក្យសម្ងាត់ផ្ទៀងផ្ទាត់</string>
+    <string name="title_setup_printer">ដំឡើងម៉ាស៊ីនបោះពុម្ព</string>
+    <string name="button_send_script_to_printer">ផ្ញើស្គ្រីបទៅម៉ាស៊ីនបោះពុម្ព</string>
+    <string name="content_description_clear_auth_password">ជម្រះពាក្យសម្ងាត់ផ្ទៀងផ្ទាត់</string>
+    <string name="connectivity_bluetooth">ប៊្លូធូស</string>
 </resources>

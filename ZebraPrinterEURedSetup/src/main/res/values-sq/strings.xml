@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth i zbulueshëm</string>
     <string name="status_permission_granted">Leja USB e dhënë</string>
     <string name="content_description_scan_auth_password">Skanoni fjalëkalimin e vërtetimit</string>
+    <string name="title_setup_printer">Konfiguro printerin</string>
+    <string name="button_send_script_to_printer">Dërgo skriptin te printeri</string>
+    <string name="content_description_clear_auth_password">Pastro fjalëkalimin e vërtetimit</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

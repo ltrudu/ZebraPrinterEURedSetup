@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">بلوتوث قابل کشف</string>
     <string name="status_permission_granted">مجوز USB داده شد</string>
     <string name="content_description_scan_auth_password">رمز عبور احراز هویت را اسکن کنید</string>
+    <string name="title_setup_printer">راه اندازی چاپگر</string>
+    <string name="button_send_script_to_printer">ارسال اسکریپت به چاپگر</string>
+    <string name="content_description_clear_auth_password">رمز عبور احراز هویت را پاک کنید</string>
+    <string name="connectivity_bluetooth">بلوتوث</string>
 </resources>

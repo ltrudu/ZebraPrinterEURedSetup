@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Ανιχνεύσιμο Bluetooth</string>
     <string name="status_permission_granted">Χορηγήθηκε άδεια USB</string>
     <string name="content_description_scan_auth_password">Σάρωση κωδικού πρόσβασης ελέγχου ταυτότητας</string>
+    <string name="title_setup_printer">Ρύθμιση εκτυπωτή</string>
+    <string name="button_send_script_to_printer">Αποστολή σεναρίου στον εκτυπωτή</string>
+    <string name="content_description_clear_auth_password">Διαγραφή κωδικού πρόσβασης ελέγχου ταυτότητας</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

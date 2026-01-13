@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Видимий Bluetooth</string>
     <string name="status_permission_granted">Дозвіл USB надано</string>
     <string name="content_description_scan_auth_password">Сканувати пароль автентифікації</string>
+    <string name="title_setup_printer">Налаштувати принтер</string>
+    <string name="button_send_script_to_printer">Надіслати сценарій на принтер</string>
+    <string name="content_description_clear_auth_password">Очистити пароль автентифікації</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

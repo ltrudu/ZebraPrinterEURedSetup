@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth erkennbar</string>
     <string name="status_permission_granted">USB-Berechtigung erteilt</string>
     <string name="content_description_scan_auth_password">Authentifizierungskennwort scannen</string>
+    <string name="title_setup_printer">Drucker einrichten</string>
+    <string name="button_send_script_to_printer">Skript an Drucker senden</string>
+    <string name="content_description_clear_auth_password">Authentifizierungspasswort löschen</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

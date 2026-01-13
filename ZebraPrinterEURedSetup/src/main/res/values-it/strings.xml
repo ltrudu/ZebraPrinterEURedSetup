@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Rilevabile tramite Bluetooth</string>
     <string name="status_permission_granted">Autorizzazione USB concessa</string>
     <string name="content_description_scan_auth_password">Scansione password di autenticazione</string>
+    <string name="title_setup_printer">Imposta stampante</string>
+    <string name="button_send_script_to_printer">Invia script alla stampante</string>
+    <string name="content_description_clear_auth_password">Cancella la password di autenticazione</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

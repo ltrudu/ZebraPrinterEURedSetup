@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth Bisa Ditemokake</string>
     <string name="status_permission_granted">Idin USB Diwenehi</string>
     <string name="content_description_scan_auth_password">Pindai sandhi otentikasi</string>
+    <string name="title_setup_printer">Setup Printer</string>
+    <string name="button_send_script_to_printer">Kirim Skrip menyang Printer</string>
+    <string name="content_description_clear_auth_password">Mbusak tembung sandhi otentikasi</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

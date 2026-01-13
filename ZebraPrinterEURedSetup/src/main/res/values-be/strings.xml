@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Выяўны Bluetooth</string>
     <string name="status_permission_granted">Дазвол USB дадзены</string>
     <string name="content_description_scan_auth_password">Сканаваць пароль аўтэнтыфікацыі</string>
+    <string name="title_setup_printer">Усталяваць прынтэр</string>
+    <string name="button_send_script_to_printer">Адправіць сцэнарый на прынтэр</string>
+    <string name="content_description_clear_auth_password">Ачысціць пароль аўтэнтыфікацыі</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="nav_home">घर</string>
     <string name="label_language">भाषा</string>
     <string name="content_description_scan_auth_password">प्रमाणीकरण पासवर्ड स्क्यान गर्नुहोस्</string>
+    <string name="title_setup_printer">सेटअप प्रिन्टर</string>
+    <string name="button_send_script_to_printer">प्रिन्टरमा लिपि पठाउनुहोस्</string>
+    <string name="content_description_clear_auth_password">प्रमाणीकरण पासवर्ड खाली गर्नुहोस्</string>
+    <string name="connectivity_bluetooth">ब्लुटुथ</string>
 </resources>

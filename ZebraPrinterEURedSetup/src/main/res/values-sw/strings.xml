@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth Inaweza Kupatikana</string>
     <string name="status_permission_granted">Ruhusa ya USB Imetolewa</string>
     <string name="content_description_scan_auth_password">Changanua nenosiri la uthibitishaji</string>
+    <string name="title_setup_printer">Sanidi Printa</string>
+    <string name="button_send_script_to_printer">Tuma Hati kwa Kichapishi</string>
+    <string name="content_description_clear_auth_password">Futa nenosiri la uthibitishaji</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

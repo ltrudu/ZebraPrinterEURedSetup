@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">ብሉቱዝ ሊገኝ ይችላል።</string>
     <string name="status_permission_granted">የዩኤስቢ ፍቃድ ተሰጥቷል።</string>
     <string name="content_description_scan_auth_password">የማረጋገጫ ይለፍ ቃል ይቃኙ</string>
+    <string name="title_setup_printer">ማተሚያ ያዋቅሩ</string>
+    <string name="button_send_script_to_printer">ስክሪፕት ወደ አታሚ ይላኩ።</string>
+    <string name="content_description_clear_auth_password">የማረጋገጫ ይለፍ ቃል አጽዳ</string>
+    <string name="connectivity_bluetooth">ብሉቱዝ</string>
 </resources>

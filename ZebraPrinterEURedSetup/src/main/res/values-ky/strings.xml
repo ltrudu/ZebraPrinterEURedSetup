@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth табыла турган</string>
     <string name="status_permission_granted">USB уруксаты берилди</string>
     <string name="content_description_scan_auth_password">Аутентификация сырсөзүн скандоо</string>
+    <string name="title_setup_printer">Принтерди орнотуу</string>
+    <string name="button_send_script_to_printer">Скриптти принтерге жөнөтүү</string>
+    <string name="content_description_clear_auth_password">Аутентификация сырсөзүн тазалоо</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

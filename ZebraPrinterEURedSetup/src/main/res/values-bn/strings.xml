@@ -94,4 +94,8 @@
     <string name="label_language">ভাষা</string>
     <string name="about_dependencies">নির্ভরতা</string>
     <string name="content_description_scan_auth_password">প্রমাণীকরণ পাসওয়ার্ড স্ক্যান করুন</string>
+    <string name="title_setup_printer">প্রিন্টার সেটআপ করুন</string>
+    <string name="button_send_script_to_printer">প্রিন্টারে স্ক্রিপ্ট পাঠান</string>
+    <string name="content_description_clear_auth_password">প্রমাণীকরণ পাসওয়ার্ড সাফ করুন</string>
+    <string name="connectivity_bluetooth">ব্লুটুথ</string>
 </resources>

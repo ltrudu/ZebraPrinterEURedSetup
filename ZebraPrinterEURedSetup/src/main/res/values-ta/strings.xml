@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">புளூடூத் கண்டறியக்கூடியது</string>
     <string name="status_permission_granted">USB அனுமதி வழங்கப்பட்டது</string>
     <string name="content_description_scan_auth_password">அங்கீகார கடவுச்சொல்லை ஸ்கேன் செய்யவும்</string>
+    <string name="title_setup_printer">அமைவு பிரிண்டர்</string>
+    <string name="button_send_script_to_printer">ஸ்கிரிப்டை பிரிண்டருக்கு அனுப்பவும்</string>
+    <string name="content_description_clear_auth_password">அங்கீகார கடவுச்சொல்லை அழிக்கவும்</string>
+    <string name="connectivity_bluetooth">புளூடூத்</string>
 </resources>

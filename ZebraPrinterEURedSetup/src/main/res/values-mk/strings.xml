@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth може да се открие</string>
     <string name="status_permission_granted">Доделена е дозвола за USB</string>
     <string name="content_description_scan_auth_password">Скенирајте ја лозинката за автентикација</string>
+    <string name="title_setup_printer">Поставете печатач</string>
+    <string name="button_send_script_to_printer">Испрати скрипта до печатачот</string>
+    <string name="content_description_clear_auth_password">Исчистете ја лозинката за автентикација</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth vidljiv</string>
     <string name="status_permission_granted">USB dopuštenje odobreno</string>
     <string name="content_description_scan_auth_password">Skeniraj lozinku za provjeru autentičnosti</string>
+    <string name="title_setup_printer">Postavljanje pisača</string>
+    <string name="button_send_script_to_printer">Pošalji skriptu na pisač</string>
+    <string name="content_description_clear_auth_password">Obriši lozinku za provjeru autentičnosti</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

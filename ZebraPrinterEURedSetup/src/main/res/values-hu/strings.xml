@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth felfedezhető</string>
     <string name="status_permission_granted">USB-engedély megadva</string>
     <string name="content_description_scan_auth_password">A hitelesítési jelszó beolvasása</string>
+    <string name="title_setup_printer">Nyomtató beállítása</string>
+    <string name="button_send_script_to_printer">Szkript küldése a nyomtatóra</string>
+    <string name="content_description_clear_auth_password">Törölje a hitelesítési jelszót</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Có thể phát hiện được Bluetooth</string>
     <string name="status_permission_granted">Đã cấp quyền USB</string>
     <string name="content_description_scan_auth_password">Quét mật khẩu xác thực</string>
+    <string name="title_setup_printer">Cài đặt máy in</string>
+    <string name="button_send_script_to_printer">Gửi tập lệnh tới máy in</string>
+    <string name="content_description_clear_auth_password">Xóa mật khẩu xác thực</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

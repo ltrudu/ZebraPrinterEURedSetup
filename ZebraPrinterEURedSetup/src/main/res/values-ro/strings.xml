@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Descoperibil prin Bluetooth</string>
     <string name="status_permission_granted">Permisiune USB acordată</string>
     <string name="content_description_scan_auth_password">Scanați parola de autentificare</string>
+    <string name="title_setup_printer">Configurați imprimanta</string>
+    <string name="button_send_script_to_printer">Trimiteți scriptul la imprimantă</string>
+    <string name="content_description_clear_auth_password">Ștergeți parola de autentificare</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="permissions_required_title">Permissionibus</string>
     <string name="content_description_use_default_password">Usus default password</string>
     <string name="content_description_scan_auth_password">Scan authenticas password</string>
+    <string name="title_setup_printer">Setup Printer</string>
+    <string name="button_send_script_to_printer">Scriptum mittere ad Typographum</string>
+    <string name="content_description_clear_auth_password">Serena authenticas password</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

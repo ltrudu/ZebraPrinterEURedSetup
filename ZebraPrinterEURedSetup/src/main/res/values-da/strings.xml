@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth synlig</string>
     <string name="status_permission_granted">USB-tilladelse givet</string>
     <string name="content_description_scan_auth_password">Scan godkendelsesadgangskode</string>
+    <string name="title_setup_printer">Konfigurer printer</string>
+    <string name="button_send_script_to_printer">Send script til printer</string>
+    <string name="content_description_clear_auth_password">Ryd godkendelsesadgangskode</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

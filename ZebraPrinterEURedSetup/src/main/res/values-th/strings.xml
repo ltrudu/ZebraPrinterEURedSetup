@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">ค้นพบบลูทูธได้</string>
     <string name="status_permission_granted">ได้รับอนุญาตจาก USB แล้ว</string>
     <string name="content_description_scan_auth_password">สแกนรหัสผ่านการรับรองความถูกต้อง</string>
+    <string name="title_setup_printer">ตั้งค่าเครื่องพิมพ์</string>
+    <string name="button_send_script_to_printer">ส่งสคริปต์ไปยังเครื่องพิมพ์</string>
+    <string name="content_description_clear_auth_password">ล้างรหัสผ่านการตรวจสอบสิทธิ์</string>
+    <string name="connectivity_bluetooth">บลูทูธ</string>
 </resources>

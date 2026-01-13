@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Откриваем Bluetooth</string>
     <string name="status_permission_granted">Предоставено разрешение за USB</string>
     <string name="content_description_scan_auth_password">Сканиране на парола за удостоверяване</string>
+    <string name="title_setup_printer">Настройка на принтера</string>
+    <string name="button_send_script_to_printer">Изпращане на скрипт до принтер</string>
+    <string name="content_description_clear_auth_password">Изчистване на паролата за удостоверяване</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">ബ്ലൂടൂത്ത് കണ്ടെത്താനാകും</string>
     <string name="status_permission_granted">USB അനുമതി നൽകി</string>
     <string name="content_description_scan_auth_password">പ്രാമാണീകരണ പാസ്‌വേഡ് സ്കാൻ ചെയ്യുക</string>
+    <string name="title_setup_printer">പ്രിൻ്റർ സജ്ജീകരിക്കുക</string>
+    <string name="button_send_script_to_printer">പ്രിൻ്ററിലേക്ക് സ്‌ക്രിപ്റ്റ് അയയ്‌ക്കുക</string>
+    <string name="content_description_clear_auth_password">പ്രാമാണീകരണ പാസ്‌വേഡ് മായ്‌ക്കുക</string>
+    <string name="connectivity_bluetooth">ബ്ലൂടൂത്ത്</string>
 </resources>

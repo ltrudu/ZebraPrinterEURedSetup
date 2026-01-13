@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Aşkar edilə bilən Bluetooth</string>
     <string name="status_permission_granted">USB İcazəsi Verildi</string>
     <string name="content_description_scan_auth_password">Doğrulama parolunu skan edin</string>
+    <string name="title_setup_printer">Printerin quraşdırılması</string>
+    <string name="button_send_script_to_printer">Skripti Printerə Göndər</string>
+    <string name="content_description_clear_auth_password">Doğrulama parolunu silin</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

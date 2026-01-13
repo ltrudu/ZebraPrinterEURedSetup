@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Natutuklasan ang Bluetooth</string>
     <string name="status_permission_granted">Ipinagkaloob ang Pahintulot sa USB</string>
     <string name="content_description_scan_auth_password">I-scan ang password ng pagpapatunay</string>
+    <string name="title_setup_printer">I-setup ang Printer</string>
+    <string name="button_send_script_to_printer">Magpadala ng Script Sa Printer</string>
+    <string name="content_description_clear_auth_password">I-clear ang authentication password</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

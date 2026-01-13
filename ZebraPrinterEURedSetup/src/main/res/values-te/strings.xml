@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">బ్లూటూత్ కనుగొనదగినది</string>
     <string name="status_permission_granted">USB అనుమతి మంజూరు చేయబడింది</string>
     <string name="content_description_scan_auth_password">ప్రమాణీకరణ పాస్‌వర్డ్‌ని స్కాన్ చేయండి</string>
+    <string name="title_setup_printer">ప్రింటర్‌ని సెటప్ చేయండి</string>
+    <string name="button_send_script_to_printer">ప్రింటర్‌కు స్క్రిప్ట్‌ను పంపండి</string>
+    <string name="content_description_clear_auth_password">ప్రామాణీకరణ పాస్‌వర్డ్‌ను క్లియర్ చేయండి</string>
+    <string name="connectivity_bluetooth">బ్లూటూత్</string>
 </resources>

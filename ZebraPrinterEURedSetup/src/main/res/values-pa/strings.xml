@@ -94,4 +94,8 @@
     <string name="status_ready">ਤਿਆਰ</string>
     <string name="status_permission_granted">USB ਅਨੁਮਤੀ ਦਿੱਤੀ ਗਈ</string>
     <string name="content_description_scan_auth_password">ਪ੍ਰਮਾਣੀਕਰਨ ਪਾਸਵਰਡ ਸਕੈਨ ਕਰੋ</string>
+    <string name="title_setup_printer">ਪ੍ਰਿੰਟਰ ਸੈੱਟਅੱਪ ਕਰੋ</string>
+    <string name="button_send_script_to_printer">ਪ੍ਰਿੰਟਰ ਨੂੰ ਸਕ੍ਰਿਪਟ ਭੇਜੋ</string>
+    <string name="content_description_clear_auth_password">ਪ੍ਰਮਾਣੀਕਰਨ ਪਾਸਵਰਡ ਸਾਫ਼ ਕਰੋ</string>
+    <string name="connectivity_bluetooth">ਬਲੂਟੁੱਥ</string>
 </resources>

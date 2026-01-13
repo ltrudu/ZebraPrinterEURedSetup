@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth 検出可能</string>
     <string name="status_permission_granted">USB 許可が付与されました</string>
     <string name="content_description_scan_auth_password">スキャン認証パスワード</string>
+    <string name="title_setup_printer">プリンターのセットアップ</string>
+    <string name="button_send_script_to_printer">スクリプトをプリンタに送信</string>
+    <string name="content_description_clear_auth_password">認証パスワードのクリア</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

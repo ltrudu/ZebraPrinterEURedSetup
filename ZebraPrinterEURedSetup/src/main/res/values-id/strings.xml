@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth Dapat Ditemukan</string>
     <string name="status_permission_granted">Izin USB Diberikan</string>
     <string name="content_description_scan_auth_password">Pindai kata sandi autentikasi</string>
+    <string name="title_setup_printer">Siapkan Pencetak</string>
+    <string name="button_send_script_to_printer">Kirim Skrip Ke Printer</string>
+    <string name="content_description_clear_auth_password">Hapus kata sandi autentikasi</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>

@@ -94,4 +94,8 @@
     <string name="title_bluetooth_discoverable">Bluetooth илрүүлэх боломжтой</string>
     <string name="status_permission_granted">USB зөвшөөрөл олгосон</string>
     <string name="content_description_scan_auth_password">Баталгаажуулах нууц үгийг сканнердах</string>
+    <string name="title_setup_printer">Принтерийг тохируулна уу</string>
+    <string name="button_send_script_to_printer">Скриптийг хэвлэгч рүү илгээх</string>
+    <string name="content_description_clear_auth_password">Баталгаажуулах нууц үгийг арилгана уу</string>
+    <string name="connectivity_bluetooth">Bluetooth</string>
 </resources>
