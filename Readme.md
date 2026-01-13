@@ -12,3 +12,14 @@ Translated in English, French, Italian, Spanish, Portuguese, German,... check th
 <img width="216" height="480" alt="image" src="https://github.com/user-attachments/assets/146697b4-4abb-4cfa-8140-19ed98130fac" />
 <img width="216" height="480" alt="image" src="https://github.com/user-attachments/assets/2c27f355-4a2f-462d-8391-55d9b8900911" />
 <img width="216" height="480" alt="image" src="https://github.com/user-attachments/assets/52881c8b-4aaa-4849-9610-e456c33cf196" />
+
+----------------------------------------------
+
+It allows to setup the following parameters:
+-	Change admin password
+-	Authentication password
+-	Secure mode (enabled / disabled)
+-	Enable or Disable services:
+  Firmware Download, tcp,	lpd, http, ftp, snmp,	wlan, usb mirror, Zbi
+-	Set http admin password
+-	Set Bluetooth discoverable (enable/disable)
