@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Siųsti scenarijų į spausdintuvą</string>
     <string name="content_description_clear_auth_password">Išvalyti autentifikavimo slaptažodį</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Dabartinis slaptažodis</string>
+    <string name="helper_password_current">Įveskite dabartinį ekrano slaptažodį</string>
+    <string name="content_description_clear_password_current">Išvalyti dabartinį slaptažodį</string>
+    <string name="content_description_scan_password_current">Dabartinis slaptažodžio nuskaitymas</string>
+    <string name="title_display_password_current">Rodyti dabartinį slaptažodį</string>
+    <string name="title_device_prompted_network_reset">Įrenginio raginamas tinklo nustatymas iš naujo</string>
+    <string name="option_yes">Taip</string>
+    <string name="option_no">Ne</string>
+    <string name="label_is_discoverable">Atrandama</string>
+    <string name="title_setvar_wlan_enable">Nustatykite Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN įjungtas</string>
+    <string name="option_on">Įjungta</string>
+    <string name="option_off">Išjungta</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP įgalinimas</string>
+    <string name="label_ip_http_enabled">IP HTTP įjungtas</string>
+    <string name="title_display_password_level">Rodyti slaptažodžio lygį</string>
+    <string name="option_all">Viskas</string>
+    <string name="option_none">Nėra</string>
+    <string name="option_selected">Pasirinkta</string>
+    <string name="title_restore_pre_eured">Atkurti iš anksto įvestus EUR nustatymus</string>
+    <string name="button_reset_printer_settings">Iš naujo nustatykite spausdintuvo nustatymus</string>
 </resources>

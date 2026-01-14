@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Komut Dosyasını Yazıcıya Gönder</string>
     <string name="content_description_clear_auth_password">Kimlik doğrulama şifresini temizle</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Şifre Geçerli</string>
+    <string name="helper_password_current">Geçerli ekran şifresini girin</string>
+    <string name="content_description_clear_password_current">Geçerli şifreyi temizle</string>
+    <string name="content_description_scan_password_current">Geçerli şifreyi tara</string>
+    <string name="title_display_password_current">Geçerli Şifreyi Görüntüle</string>
+    <string name="title_device_prompted_network_reset">Cihazdan Ağ Sıfırlama İstendi</string>
+    <string name="option_yes">Evet</string>
+    <string name="option_no">Hayır</string>
+    <string name="label_is_discoverable">Keşfedilebilir</string>
+    <string name="title_setvar_wlan_enable">Var WLan Etkinleştirmeyi Ayarlayın</string>
+    <string name="label_wlan_enabled">WLan etkin</string>
+    <string name="option_on">Açık</string>
+    <string name="option_off">Kapalı</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Etkinleştirme</string>
+    <string name="label_ip_http_enabled">IP HTTP etkin</string>
+    <string name="title_display_password_level">Şifre Düzeyini Görüntüle</string>
+    <string name="option_all">Hepsi</string>
+    <string name="option_none">Yok</string>
+    <string name="option_selected">Seçildi</string>
+    <string name="title_restore_pre_eured">EURO öncesi ayarlara geri yükleme</string>
+    <string name="button_reset_printer_settings">Yazıcı Ayarlarını Sıfırla</string>
 </resources>

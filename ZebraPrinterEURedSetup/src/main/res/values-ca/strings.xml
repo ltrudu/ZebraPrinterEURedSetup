@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Envia l\'script a la impressora</string>
     <string name="content_description_clear_auth_password">Esborra la contrasenya d\'autenticació</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Contrasenya actual</string>
+    <string name="helper_password_current">Introduïu la contrasenya de visualització actual</string>
+    <string name="content_description_clear_password_current">Esborra la contrasenya actual</string>
+    <string name="content_description_scan_password_current">Escaneja la contrasenya actual</string>
+    <string name="title_display_password_current">Mostra la contrasenya actual</string>
+    <string name="title_device_prompted_network_reset">Restabliment de la xarxa demanat pel dispositiu</string>
+    <string name="option_yes">Sí</string>
+    <string name="option_no">No</string>
+    <string name="label_is_discoverable">És visible</string>
+    <string name="title_setvar_wlan_enable">Establiu Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan habilitat</string>
+    <string name="option_on">Activat</string>
+    <string name="option_off">Desactivat</string>
+    <string name="title_setvar_ip_http_enable">Habilita IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP habilitat</string>
+    <string name="title_display_password_level">Mostra el nivell de contrasenya</string>
+    <string name="option_all">Tot</string>
+    <string name="option_none">Cap</string>
+    <string name="option_selected">Seleccionat</string>
+    <string name="title_restore_pre_eured">Restaura la configuració prèvia a l\'EUR</string>
+    <string name="button_reset_printer_settings">Restableix la configuració de la impressora</string>
 </resources>

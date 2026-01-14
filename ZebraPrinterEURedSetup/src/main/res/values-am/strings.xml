@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ስክሪፕት ወደ አታሚ ይላኩ።</string>
     <string name="content_description_clear_auth_password">የማረጋገጫ ይለፍ ቃል አጽዳ</string>
     <string name="connectivity_bluetooth">ብሉቱዝ</string>
+    <string name="label_password_current">የአሁን የይለፍ ቃል</string>
+    <string name="helper_password_current">የአሁኑን የማሳያ ይለፍ ቃል ያስገቡ</string>
+    <string name="content_description_clear_password_current">የአሁኑን የይለፍ ቃል አጽዳ</string>
+    <string name="content_description_scan_password_current">የአሁኑን የይለፍ ቃል ይቃኙ</string>
+    <string name="title_display_password_current">አሁን ያለውን የይለፍ ቃል አሳይ</string>
+    <string name="title_device_prompted_network_reset">በመሣሪያ የተጠየቀው የአውታረ መረብ ዳግም ማስጀመር</string>
+    <string name="option_yes">አዎ</string>
+    <string name="option_no">አይ</string>
+    <string name="label_is_discoverable">ሊገኝ የሚችል ነው።</string>
+    <string name="title_setvar_wlan_enable">Var WLan አንቃን ያቀናብሩ</string>
+    <string name="label_wlan_enabled">WLAN ነቅቷል።</string>
+    <string name="option_on">በርቷል</string>
+    <string name="option_off">ጠፍቷል</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP አንቃ</string>
+    <string name="label_ip_http_enabled">IP HTTP ነቅቷል።</string>
+    <string name="title_display_password_level">የይለፍ ቃል ደረጃ አሳይ</string>
+    <string name="option_all">ሁሉም</string>
+    <string name="option_none">ምንም</string>
+    <string name="option_selected">ተመርጧል</string>
+    <string name="title_restore_pre_eured">ወደ ቅድመ-EURed ቅንብሮች ይመልሱ</string>
+    <string name="button_reset_printer_settings">የአታሚ ቅንብሮችን ዳግም ያስጀምሩ</string>
 </resources>

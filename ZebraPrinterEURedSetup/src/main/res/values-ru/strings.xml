@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Отправить сценарий на принтер</string>
     <string name="content_description_clear_auth_password">Очистить пароль аутентификации</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Текущий пароль</string>
+    <string name="helper_password_current">Введите текущий пароль дисплея.</string>
+    <string name="content_description_clear_password_current">Текущий сброс пароля</string>
+    <string name="content_description_scan_password_current">Текущий пароль сканирования</string>
+    <string name="title_display_password_current">Отображение текущего пароля</string>
+    <string name="title_device_prompted_network_reset">Сброс сети по запросу устройства</string>
+    <string name="option_yes">Да</string>
+    <string name="option_no">Нет</string>
+    <string name="label_is_discoverable">Доступен для обнаружения</string>
+    <string name="title_setvar_wlan_enable">Установить переменную WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN включена</string>
+    <string name="option_on">Вкл.</string>
+    <string name="option_off">Выкл.</string>
+    <string name="title_setvar_ip_http_enable">Включение IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP включен</string>
+    <string name="title_display_password_level">Отображение уровня пароля</string>
+    <string name="option_all">Все</string>
+    <string name="option_none">Нет</string>
+    <string name="option_selected">Выбрано</string>
+    <string name="title_restore_pre_eured">Восстановление настроек до EUR</string>
+    <string name="button_reset_printer_settings">Сброс настроек принтера</string>
 </resources>

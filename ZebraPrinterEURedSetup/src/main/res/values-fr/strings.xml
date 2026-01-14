@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Envoyer le script à l\'imprimante</string>
     <string name="content_description_clear_auth_password">Effacer le mot de passe d\'authentification</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Mot de passe actuel</string>
+    <string name="helper_password_current">Entrez le mot de passe d\'affichage actuel</string>
+    <string name="content_description_clear_password_current">Effacer le mot de passe actuel</string>
+    <string name="content_description_scan_password_current">Scanner le mot de passe actuel</string>
+    <string name="title_display_password_current">Afficher le mot de passe actuel</string>
+    <string name="title_device_prompted_network_reset">Réinitialisation du réseau demandée par l\'appareil</string>
+    <string name="option_yes">Oui</string>
+    <string name="option_no">Non</string>
+    <string name="label_is_discoverable">est détectable</string>
+    <string name="title_setvar_wlan_enable">Définir Var WLan Activer</string>
+    <string name="label_wlan_enabled">WLAN activé</string>
+    <string name="option_on">Activé</string>
+    <string name="option_off">Désactivé</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP activé</string>
+    <string name="label_ip_http_enabled">IP HTTP activé</string>
+    <string name="title_display_password_level">Afficher le niveau de mot de passe</string>
+    <string name="option_all">Tous</string>
+    <string name="option_none">Aucun</string>
+    <string name="option_selected">Sélectionné</string>
+    <string name="title_restore_pre_eured">Restaurer les paramètres pré-EURed</string>
+    <string name="button_reset_printer_settings">Réinitialiser les paramètres de l\'imprimante</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ಪ್ರಿಂಟರ್‌ಗೆ ಸ್ಕ್ರಿಪ್ಟ್ ಕಳುಹಿಸಿ</string>
     <string name="content_description_clear_auth_password">ದೃಢೀಕರಣ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
     <string name="connectivity_bluetooth">ಬ್ಲೂಟೂತ್</string>
+    <string name="label_password_current">ಪಾಸ್‌ವರ್ಡ್ ಪ್ರಸ್ತುತ</string>
+    <string name="helper_password_current">ಪ್ರಸ್ತುತ ಪ್ರದರ್ಶನ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="content_description_clear_password_current">ಪಾಸ್ವರ್ಡ್ ಪ್ರಸ್ತುತ ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="content_description_scan_password_current">ಪಾಸ್ವರ್ಡ್ ಪ್ರಸ್ತುತ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
+    <string name="title_display_password_current">ಪಾಸ್‌ವರ್ಡ್ ಪ್ರಸ್ತುತವನ್ನು ಪ್ರದರ್ಶಿಸಿ</string>
+    <string name="title_device_prompted_network_reset">ಸಾಧನ ಪ್ರಾಂಪ್ಟ್ ಮಾಡಿದ ನೆಟ್‌ವರ್ಕ್ ಮರುಹೊಂದಿಸಿ</string>
+    <string name="option_yes">ಹೌದು</string>
+    <string name="option_no">ಸಂ</string>
+    <string name="label_is_discoverable">ಅನ್ವೇಷಿಸಬಹುದಾಗಿದೆ</string>
+    <string name="title_setvar_wlan_enable">ವರ್ ಡಬ್ಲೂಎಲ್‌ಎನ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="label_wlan_enabled">WLan ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="option_on">ಆನ್</string>
+    <string name="option_off">ಆಫ್</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="label_ip_http_enabled">IP HTTP ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="title_display_password_level">ಪಾಸ್‌ವರ್ಡ್ ಮಟ್ಟವನ್ನು ಪ್ರದರ್ಶಿಸಿ</string>
+    <string name="option_all">ಎಲ್ಲಾ</string>
+    <string name="option_none">ಯಾವುದೂ ಇಲ್ಲ</string>
+    <string name="option_selected">ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ</string>
+    <string name="title_restore_pre_eured">ಪೂರ್ವ-EURed ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಮರುಸ್ಥಾಪಿಸಿ</string>
+    <string name="button_reset_printer_settings">ಪ್ರಿಂಟರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸಿ</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Надіслати сценарій на принтер</string>
     <string name="content_description_clear_auth_password">Очистити пароль автентифікації</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Поточний пароль</string>
+    <string name="helper_password_current">Введіть поточний пароль відображення</string>
+    <string name="content_description_clear_password_current">Очистити поточний пароль</string>
+    <string name="content_description_scan_password_current">Сканувати поточний пароль</string>
+    <string name="title_display_password_current">Показати поточний пароль</string>
+    <string name="title_device_prompted_network_reset">Пристрій запитує скидання мережі</string>
+    <string name="option_yes">Так</string>
+    <string name="option_no">Ні</string>
+    <string name="label_is_discoverable">Можна виявити</string>
+    <string name="title_setvar_wlan_enable">Установіть Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN увімкнено</string>
+    <string name="option_on">Увімкнено</string>
+    <string name="option_off">Вимкнено</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Enable</string>
+    <string name="label_ip_http_enabled">IP HTTP увімкнено</string>
+    <string name="title_display_password_level">Показати рівень пароля</string>
+    <string name="option_all">Усі</string>
+    <string name="option_none">Жодного</string>
+    <string name="option_selected">Вибрано</string>
+    <string name="title_restore_pre_eured">Відновлення попередніх налаштувань</string>
+    <string name="button_reset_printer_settings">Скинути налаштування принтера</string>
 </resources>

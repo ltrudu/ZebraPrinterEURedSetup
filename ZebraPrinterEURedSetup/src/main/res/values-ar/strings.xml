@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">أرسل البرنامج النصي إلى الطابعة</string>
     <string name="content_description_clear_auth_password">مسح كلمة مرور المصادقة</string>
     <string name="connectivity_bluetooth">بلوتوث</string>
+    <string name="label_password_current">كلمة المرور الحالية</string>
+    <string name="helper_password_current">أدخل كلمة مرور العرض الحالية</string>
+    <string name="content_description_clear_password_current">مسح كلمة المرور الحالية</string>
+    <string name="content_description_scan_password_current">مسح كلمة المرور الحالية</string>
+    <string name="title_display_password_current">عرض كلمة المرور الحالية</string>
+    <string name="title_device_prompted_network_reset">إعادة ضبط الشبكة المطلوبة من الجهاز</string>
+    <string name="option_yes">نعم</string>
+    <string name="option_no">لا</string>
+    <string name="label_is_discoverable">قابل للاكتشاف</string>
+    <string name="title_setvar_wlan_enable">قم بتعيين تمكين Var WLan</string>
+    <string name="label_wlan_enabled">تم تمكين شبكة WLAN</string>
+    <string name="option_on">تشغيل</string>
+    <string name="option_off">إيقاف</string>
+    <string name="title_setvar_ip_http_enable">تمكين IP HTTP</string>
+    <string name="label_ip_http_enabled">تم تمكين IP HTTP</string>
+    <string name="title_display_password_level">عرض مستوى كلمة المرور</string>
+    <string name="option_all">الكل</string>
+    <string name="option_none">لا شيء</string>
+    <string name="option_selected">تم التحديد</string>
+    <string name="title_restore_pre_eured">قم بالاستعادة إلى إعدادات EURed المسبقة</string>
+    <string name="button_reset_printer_settings">إعادة ضبط إعدادات الطابعة</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">प्रिन्टरमा लिपि पठाउनुहोस्</string>
     <string name="content_description_clear_auth_password">प्रमाणीकरण पासवर्ड खाली गर्नुहोस्</string>
     <string name="connectivity_bluetooth">ब्लुटुथ</string>
+    <string name="label_password_current">हालको पासवर्ड</string>
+    <string name="helper_password_current">हालको प्रदर्शन पासवर्ड प्रविष्ट गर्नुहोस्</string>
+    <string name="content_description_clear_password_current">हालको पासवर्ड खाली गर्नुहोस्</string>
+    <string name="content_description_scan_password_current">हालको पासवर्ड स्क्यान गर्नुहोस्</string>
+    <string name="title_display_password_current">हालको पासवर्ड प्रदर्शन गर्नुहोस्</string>
+    <string name="title_device_prompted_network_reset">उपकरण प्रम्प्ट गरिएको नेटवर्क रिसेट</string>
+    <string name="label_is_discoverable">पत्ता लगाउन सकिने छ</string>
+    <string name="title_setvar_wlan_enable">Var WLan सक्षम सेट गर्नुहोस्</string>
+    <string name="label_wlan_enabled">WLan सक्षम गरियो</string>
+    <string name="option_on">अन</string>
+    <string name="option_off">बन्द</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP सक्षम गर्नुहोस्</string>
+    <string name="label_ip_http_enabled">IP HTTP सक्षम</string>
+    <string name="title_display_password_level">प्रदर्शन पासवर्ड स्तर</string>
+    <string name="option_selected">चयन गरियो</string>
+    <string name="title_restore_pre_eured">पूर्व-EURed सेटिङहरूमा पुनर्स्थापना गर्नुहोस्</string>
+    <string name="button_reset_printer_settings">प्रिन्टर सेटिङहरू रिसेट गर्नुहोस्</string>
+    <string name="option_yes">हो</string>
+    <string name="option_no">होइन</string>
+    <string name="option_all">सबै</string>
+    <string name="option_none">कुनै पनि छैन</string>
 </resources>

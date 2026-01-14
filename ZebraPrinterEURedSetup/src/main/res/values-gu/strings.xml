@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">પ્રિન્ટરને સ્ક્રિપ્ટ મોકલો</string>
     <string name="content_description_clear_auth_password">પ્રમાણીકરણ પાસવર્ડ સાફ કરો</string>
     <string name="connectivity_bluetooth">બ્લૂટૂથ</string>
+    <string name="label_password_current">પાસવર્ડ વર્તમાન</string>
+    <string name="helper_password_current">વર્તમાન ડિસ્પ્લે પાસવર્ડ દાખલ કરો</string>
+    <string name="content_description_clear_password_current">વર્તમાન પાસવર્ડ સાફ કરો</string>
+    <string name="content_description_scan_password_current">પાસવર્ડ વર્તમાન સ્કેન કરો</string>
+    <string name="title_display_password_current">વર્તમાન પાસવર્ડ દર્શાવો</string>
+    <string name="title_device_prompted_network_reset">ઉપકરણ પ્રોમ્પ્ટેડ નેટવર્ક રીસેટ</string>
+    <string name="option_yes">હા</string>
+    <string name="option_no">ના</string>
+    <string name="label_is_discoverable">શોધી શકાય તેવું છે</string>
+    <string name="title_setvar_wlan_enable">Var WLan સક્ષમ સેટ કરો</string>
+    <string name="label_wlan_enabled">WLan સક્ષમ</string>
+    <string name="option_on">ચાલુ</string>
+    <string name="option_off">બંધ</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP સક્ષમ</string>
+    <string name="label_ip_http_enabled">IP HTTP સક્ષમ</string>
+    <string name="title_display_password_level">ડિસ્પ્લે પાસવર્ડ લેવલ</string>
+    <string name="option_selected">પસંદ કરેલ</string>
+    <string name="title_restore_pre_eured">પૂર્વ-EURed સેટિંગ્સ પર પુનઃસ્થાપિત કરો</string>
+    <string name="button_reset_printer_settings">પ્રિન્ટર સેટિંગ્સ રીસેટ કરો</string>
+    <string name="option_all">બધા</string>
+    <string name="option_none">કોઈ નહીં</string>
 </resources>

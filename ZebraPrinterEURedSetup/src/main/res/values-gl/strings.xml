@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Enviar script á impresora</string>
     <string name="content_description_clear_auth_password">Borrar o contrasinal de autenticación</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Contrasinal actual</string>
+    <string name="helper_password_current">Introduza o contrasinal de visualización actual</string>
+    <string name="content_description_clear_password_current">Borrar o contrasinal actual</string>
+    <string name="content_description_scan_password_current">Escanear o contrasinal actual</string>
+    <string name="title_display_password_current">Mostrar o contrasinal actual</string>
+    <string name="title_device_prompted_network_reset">Restablecemento da rede solicitado polo dispositivo</string>
+    <string name="option_yes">Si</string>
+    <string name="option_no">Non</string>
+    <string name="label_is_discoverable">É detectable</string>
+    <string name="title_setvar_wlan_enable">Establecer Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan activado</string>
+    <string name="option_on">Activado</string>
+    <string name="option_off">Desactivado</string>
+    <string name="title_setvar_ip_http_enable">Habilitar HTTP IP</string>
+    <string name="label_ip_http_enabled">IP HTTP habilitado</string>
+    <string name="title_display_password_level">Mostrar o nivel de contrasinal</string>
+    <string name="option_all">Todos</string>
+    <string name="option_none">Ningún</string>
+    <string name="option_selected">Seleccionado</string>
+    <string name="title_restore_pre_eured">Restaurar a configuración previa a EUR</string>
+    <string name="button_reset_printer_settings">Restablecer a configuración da impresora</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Pošalji skriptu na štampač</string>
     <string name="content_description_clear_auth_password">Obriši lozinku za autentifikaciju</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Trenutna lozinka</string>
+    <string name="helper_password_current">Unesite trenutnu lozinku za prikaz</string>
+    <string name="content_description_clear_password_current">Izbrišite trenutnu lozinku</string>
+    <string name="content_description_scan_password_current">Aktuelna lozinka skeniranja</string>
+    <string name="title_display_password_current">Prikaži trenutnu lozinku</string>
+    <string name="title_device_prompted_network_reset">Uređaj je zatražio resetiranje mreže</string>
+    <string name="option_yes">Da</string>
+    <string name="option_no">Ne</string>
+    <string name="label_is_discoverable">Može se otkriti</string>
+    <string name="title_setvar_wlan_enable">Postavite Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN omogućen</string>
+    <string name="option_on">Uključeno</string>
+    <string name="option_off">Isključeno</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Omogući</string>
+    <string name="label_ip_http_enabled">IP HTTP omogućen</string>
+    <string name="title_display_password_level">Prikaži nivo lozinke</string>
+    <string name="option_all">Sve</string>
+    <string name="option_none">Ništa</string>
+    <string name="option_selected">Odabrano</string>
+    <string name="title_restore_pre_eured">Vraćanje na postavke koje su prethodno unesene u EUR</string>
+    <string name="button_reset_printer_settings">Resetujte postavke štampača</string>
 </resources>

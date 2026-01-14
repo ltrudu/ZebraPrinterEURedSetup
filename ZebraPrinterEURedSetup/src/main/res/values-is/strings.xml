@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Senda skrift á prentara</string>
     <string name="content_description_clear_auth_password">Hreinsaðu auðkenningarlykilorð</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Núverandi lykilorð</string>
+    <string name="helper_password_current">Sláðu inn núverandi lykilorð fyrir skjáinn</string>
+    <string name="content_description_clear_password_current">Hreinsa núverandi lykilorð</string>
+    <string name="content_description_scan_password_current">Skanna lykilorð núverandi</string>
+    <string name="title_display_password_current">Sýna núverandi lykilorð</string>
+    <string name="title_device_prompted_network_reset">Tækið beðið um endurstillingu nets</string>
+    <string name="option_yes">Já</string>
+    <string name="option_no">Nei</string>
+    <string name="label_is_discoverable">Er hægt að finna</string>
+    <string name="title_setvar_wlan_enable">Stilltu Var WLan Virkja</string>
+    <string name="label_wlan_enabled">WLan virkt</string>
+    <string name="option_on">Á</string>
+    <string name="option_off">Slökkt</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP virkja</string>
+    <string name="label_ip_http_enabled">IP HTTP virkt</string>
+    <string name="title_display_password_level">Sýna lykilorðsstig</string>
+    <string name="option_all">Allt</string>
+    <string name="option_none">Engin</string>
+    <string name="option_selected">Valið</string>
+    <string name="title_restore_pre_eured">Endurheimta í for-EURed stillingar</string>
+    <string name="button_reset_printer_settings">Endurstilla prentarastillingar</string>
 </resources>

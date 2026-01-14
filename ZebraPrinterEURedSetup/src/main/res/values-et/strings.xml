@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Saada skript printerisse</string>
     <string name="content_description_clear_auth_password">Kustutage autentimisparool</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Praegune parool</string>
+    <string name="helper_password_current">Sisestage praegune kuvaparool</string>
+    <string name="content_description_clear_password_current">Kustuta parool</string>
+    <string name="content_description_scan_password_current">Skanni parool praegu</string>
+    <string name="title_display_password_current">Kuva praegune parool</string>
+    <string name="title_device_prompted_network_reset">Seadme viip võrgu lähtestamine</string>
+    <string name="option_yes">Jah</string>
+    <string name="option_no">Ei</string>
+    <string name="label_is_discoverable">on leitav</string>
+    <string name="title_setvar_wlan_enable">Määra Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN on lubatud</string>
+    <string name="option_on">Sees</string>
+    <string name="option_off">Väljas</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP lubamine</string>
+    <string name="label_ip_http_enabled">IP HTTP lubatud</string>
+    <string name="title_display_password_level">Kuva parooli tase</string>
+    <string name="option_all">Kõik</string>
+    <string name="option_none">Puudub</string>
+    <string name="option_selected">Valitud</string>
+    <string name="title_restore_pre_eured">Taasta EUR-eelsed sätted</string>
+    <string name="button_reset_printer_settings">Lähtesta printeri sätted</string>
 </resources>

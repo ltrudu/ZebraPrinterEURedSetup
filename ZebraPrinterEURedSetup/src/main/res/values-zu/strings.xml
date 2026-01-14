@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Thumela Iskripthi Kuphrinta</string>
     <string name="content_description_clear_auth_password">Sula iphasiwedi yokuqinisekisa</string>
     <string name="connectivity_bluetooth">I-Bluetooth</string>
+    <string name="label_password_current">Iphasiwedi Yamanje</string>
+    <string name="helper_password_current">Faka iphasiwedi yesibonisi samanje</string>
+    <string name="content_description_clear_password_current">Sula iphasiwedi yamanje</string>
+    <string name="content_description_scan_password_current">Skena iphasiwedi yamanje</string>
+    <string name="title_display_password_current">Bonisa Iphasiwedi Yamanje</string>
+    <string name="title_device_prompted_network_reset">Ukusetha Kabusha Inethiwekhi Yedivayisi</string>
+    <string name="option_yes">Yebo</string>
+    <string name="option_no">Cha</string>
+    <string name="label_is_discoverable">Iyatholakala</string>
+    <string name="title_setvar_wlan_enable">Setha i-Var WLan Vumela</string>
+    <string name="label_wlan_enabled">I-WLan inikwe amandla</string>
+    <string name="option_on">Vuliwe</string>
+    <string name="option_off">Valiwe</string>
+    <string name="title_setvar_ip_http_enable">I-IP HTTP Vumela</string>
+    <string name="label_ip_http_enabled">IP HTTP inikwe amandla</string>
+    <string name="title_display_password_level">Ileveli Yephasiwedi Yokubonisa</string>
+    <string name="option_all">Konke</string>
+    <string name="option_none">Akukho</string>
+    <string name="option_selected">Ikhethiwe</string>
+    <string name="title_restore_pre_eured">Buyisela kuzilungiselelo ze-EURed yangaphambili</string>
+    <string name="button_reset_printer_settings">Setha kabusha Izilungiselelo Zephrinta</string>
 </resources>

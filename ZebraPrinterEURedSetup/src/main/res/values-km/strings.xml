@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ផ្ញើស្គ្រីបទៅម៉ាស៊ីនបោះពុម្ព</string>
     <string name="content_description_clear_auth_password">ជម្រះពាក្យសម្ងាត់ផ្ទៀងផ្ទាត់</string>
     <string name="connectivity_bluetooth">ប៊្លូធូស</string>
+    <string name="label_password_current">ពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="helper_password_current">បញ្ចូលពាក្យសម្ងាត់បង្ហាញបច្ចុប្បន្ន</string>
+    <string name="content_description_clear_password_current">ជម្រះពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="content_description_scan_password_current">ស្កេនពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="title_display_password_current">បង្ហាញពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="title_device_prompted_network_reset">ការកំណត់បណ្តាញដែលបានជំរុញឱ្យឧបករណ៍ឡើងវិញ</string>
+    <string name="option_yes">បាទ</string>
+    <string name="option_no">ទេ។</string>
+    <string name="label_is_discoverable">គឺអាចរកឃើញបាន។</string>
+    <string name="title_setvar_wlan_enable">កំណត់ Var Wlan អនុញ្ញាត</string>
+    <string name="label_wlan_enabled">WLan ត្រូវបានបើក</string>
+    <string name="option_on">បើក</string>
+    <string name="option_off">បិទ</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP អនុញ្ញាត</string>
+    <string name="label_ip_http_enabled">IP HTTP ត្រូវបានបើក</string>
+    <string name="title_display_password_level">បង្ហាញកម្រិតពាក្យសម្ងាត់</string>
+    <string name="option_all">ទាំងអស់។</string>
+    <string name="option_none">គ្មាន</string>
+    <string name="option_selected">បានជ្រើសរើស</string>
+    <string name="title_restore_pre_eured">ស្ដារ​ទៅ​ការ​កំណត់​មុន​អឺរ៉ូ</string>
+    <string name="button_reset_printer_settings">កំណត់ការកំណត់ម៉ាស៊ីនបោះពុម្ពឡើងវិញ</string>
 </resources>

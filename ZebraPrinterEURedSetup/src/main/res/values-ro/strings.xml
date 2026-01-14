@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Trimiteți scriptul la imprimantă</string>
     <string name="content_description_clear_auth_password">Ștergeți parola de autentificare</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Parola curentă</string>
+    <string name="helper_password_current">Introduceți parola curentă de afișare</string>
+    <string name="content_description_clear_password_current">Ștergeți parola curentă</string>
+    <string name="content_description_scan_password_current">Scanează parola curentă</string>
+    <string name="title_display_password_current">Afișează parola curentă</string>
+    <string name="title_device_prompted_network_reset">Resetare rețea solicitată de dispozitiv</string>
+    <string name="option_yes">Da</string>
+    <string name="option_no">Nu</string>
+    <string name="label_is_discoverable">Se poate descoperi</string>
+    <string name="title_setvar_wlan_enable">Setați Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan activat</string>
+    <string name="option_on">Pornit</string>
+    <string name="option_off">Dezactivat</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Activare</string>
+    <string name="label_ip_http_enabled">IP HTTP activat</string>
+    <string name="title_display_password_level">Afișează nivelul parolei</string>
+    <string name="option_all">Toate</string>
+    <string name="option_none">Niciuna</string>
+    <string name="option_selected">Selectat</string>
+    <string name="title_restore_pre_eured">Restabiliți setările pre-EURed</string>
+    <string name="button_reset_printer_settings">Resetați setările imprimantei</string>
 </resources>

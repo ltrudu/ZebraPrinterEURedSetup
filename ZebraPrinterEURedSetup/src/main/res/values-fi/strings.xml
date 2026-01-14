@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Lähetä komentosarja tulostimeen</string>
     <string name="content_description_clear_auth_password">Tyhjennä todennussalasana</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Nykyinen salasana</string>
+    <string name="helper_password_current">Syötä nykyinen näytön salasana</string>
+    <string name="content_description_clear_password_current">Tyhjennä salasana</string>
+    <string name="content_description_scan_password_current">Tarkista salasana voimassa</string>
+    <string name="title_display_password_current">Näytä nykyinen salasana</string>
+    <string name="title_device_prompted_network_reset">Laitteen kehotteen nollaus</string>
+    <string name="option_yes">Kyllä</string>
+    <string name="option_no">Ei</string>
+    <string name="label_is_discoverable">On löydettävissä</string>
+    <string name="title_setvar_wlan_enable">Aseta Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN käytössä</string>
+    <string name="option_on">Käytössä</string>
+    <string name="option_off">Pois päältä</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP käyttöön</string>
+    <string name="label_ip_http_enabled">IP HTTP käytössä</string>
+    <string name="title_display_password_level">Näytä salasanataso</string>
+    <string name="option_all">Kaikki</string>
+    <string name="option_none">Ei mitään</string>
+    <string name="option_selected">Valittu</string>
+    <string name="title_restore_pre_eured">Palauta valmiiksi EUR-asetuksiin</string>
+    <string name="button_reset_printer_settings">Palauta tulostimen asetukset</string>
 </resources>

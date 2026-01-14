@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">프린터로 스크립트 보내기</string>
     <string name="content_description_clear_auth_password">인증 비밀번호 지우기</string>
     <string name="connectivity_bluetooth">블루투스</string>
+    <string name="label_password_current">비밀번호 현재</string>
+    <string name="helper_password_current">현재 디스플레이 비밀번호를 입력하세요</string>
+    <string name="content_description_clear_password_current">현재 비밀번호 지우기</string>
+    <string name="content_description_scan_password_current">현재 비밀번호 스캔</string>
+    <string name="title_display_password_current">현재 비밀번호 표시</string>
+    <string name="title_device_prompted_network_reset">장치 프롬프트 네트워크 재설정</string>
+    <string name="option_yes">예</string>
+    <string name="option_no">아니요</string>
+    <string name="label_is_discoverable">검색 가능</string>
+    <string name="title_setvar_wlan_enable">Var WLan 활성화 설정</string>
+    <string name="label_wlan_enabled">WLAN 활성화</string>
+    <string name="option_on">켜짐</string>
+    <string name="option_off">끄기</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP 활성화</string>
+    <string name="label_ip_http_enabled">IP HTTP 활성화</string>
+    <string name="title_display_password_level">비밀번호 레벨 표시</string>
+    <string name="option_all">모두</string>
+    <string name="option_none">없음</string>
+    <string name="option_selected">선택됨</string>
+    <string name="title_restore_pre_eured">EURed 이전 설정으로 복원</string>
+    <string name="button_reset_printer_settings">프린터 설정 재설정</string>
 </resources>

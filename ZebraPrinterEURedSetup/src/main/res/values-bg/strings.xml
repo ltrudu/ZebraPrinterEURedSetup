@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Изпращане на скрипт до принтер</string>
     <string name="content_description_clear_auth_password">Изчистване на паролата за удостоверяване</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Текуща парола</string>
+    <string name="helper_password_current">Въведете текущата парола за дисплея</string>
+    <string name="content_description_clear_password_current">Изчистване на текущата парола</string>
+    <string name="content_description_scan_password_current">Текуща парола за сканиране</string>
+    <string name="title_display_password_current">Показване на текуща парола</string>
+    <string name="title_device_prompted_network_reset">Нулиране на мрежата, подканено от устройството</string>
+    <string name="option_yes">Да</string>
+    <string name="option_no">Не</string>
+    <string name="label_is_discoverable">Може да се открие</string>
+    <string name="title_setvar_wlan_enable">Задайте Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan е активиран</string>
+    <string name="option_on">Включено</string>
+    <string name="option_off">Изкл</string>
+    <string name="title_setvar_ip_http_enable">Активиране на IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP активиран</string>
+    <string name="title_display_password_level">Показване на ниво на парола</string>
+    <string name="option_all">Всички</string>
+    <string name="option_none">Няма</string>
+    <string name="option_selected">Избрано</string>
+    <string name="title_restore_pre_eured">Възстановяване на предварително зададени настройки</string>
+    <string name="button_reset_printer_settings">Нулирайте настройките на принтера</string>
 </resources>

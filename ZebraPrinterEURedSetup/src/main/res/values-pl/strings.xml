@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Wyślij skrypt do drukarki</string>
     <string name="content_description_clear_auth_password">Usuń hasło uwierzytelniające</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Hasło aktualne</string>
+    <string name="helper_password_current">Wprowadź aktualne hasło wyświetlacza</string>
+    <string name="content_description_clear_password_current">Usuń aktualne hasło</string>
+    <string name="content_description_scan_password_current">Skanuj aktualne hasło</string>
+    <string name="title_display_password_current">Wyświetl aktualne hasło</string>
+    <string name="title_device_prompted_network_reset">Urządzenie wyświetli monit o zresetowanie sieci</string>
+    <string name="option_yes">Tak</string>
+    <string name="option_no">Nie</string>
+    <string name="label_is_discoverable">Jest wykrywalny</string>
+    <string name="title_setvar_wlan_enable">Ustaw opcję Włącz opcję WLan</string>
+    <string name="label_wlan_enabled">WLAN włączony</string>
+    <string name="option_on">Włączone</string>
+    <string name="option_off">Wyłączone</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Włącz</string>
+    <string name="label_ip_http_enabled">IP HTTP włączone</string>
+    <string name="title_display_password_level">Wyświetl poziom hasła</string>
+    <string name="option_all">Wszystko</string>
+    <string name="option_none">Brak</string>
+    <string name="option_selected">Wybrano</string>
+    <string name="title_restore_pre_eured">Przywróć ustawienia sprzed EUR</string>
+    <string name="button_reset_printer_settings">Zresetuj ustawienia drukarki</string>
 </resources>

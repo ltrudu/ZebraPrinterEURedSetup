@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">প্রিন্টারে স্ক্রিপ্ট পাঠান</string>
     <string name="content_description_clear_auth_password">প্রমাণীকরণ পাসওয়ার্ড সাফ করুন</string>
     <string name="connectivity_bluetooth">ব্লুটুথ</string>
+    <string name="label_password_current">পাসওয়ার্ড বর্তমান</string>
+    <string name="helper_password_current">বর্তমান প্রদর্শন পাসওয়ার্ড লিখুন</string>
+    <string name="content_description_clear_password_current">বর্তমান পাসওয়ার্ড পরিষ্কার করুন</string>
+    <string name="content_description_scan_password_current">বর্তমান পাসওয়ার্ড স্ক্যান করুন</string>
+    <string name="title_display_password_current">ডিসপ্লে পাসওয়ার্ড বর্তমান</string>
+    <string name="title_device_prompted_network_reset">ডিভাইস প্রম্পটেড নেটওয়ার্ক রিসেট</string>
+    <string name="title_setvar_wlan_enable">Var WLan সক্ষম সেট করুন</string>
+    <string name="label_wlan_enabled">WLan সক্ষম</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP সক্ষম করুন</string>
+    <string name="label_ip_http_enabled">IP HTTP সক্ষম</string>
+    <string name="title_display_password_level">ডিসপ্লে পাসওয়ার্ড লেভেল</string>
+    <string name="title_restore_pre_eured">পূর্ব-EURed সেটিংসে পুনরুদ্ধার করুন</string>
+    <string name="button_reset_printer_settings">প্রিন্টার সেটিংস রিসেট করুন</string>
+    <string name="option_yes">হ্যাঁ</string>
+    <string name="option_no">না</string>
+    <string name="option_on">চালু</string>
+    <string name="option_off">বন্ধ</string>
+    <string name="option_selected">নির্বাচিত</string>
+    <string name="label_is_discoverable">আবিষ্কারযোগ্য</string>
+    <string name="option_all">সব</string>
+    <string name="option_none">কোনোটিই নয়</string>
 </resources>

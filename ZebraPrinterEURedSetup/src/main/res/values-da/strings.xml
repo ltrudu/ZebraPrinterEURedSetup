@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Send script til printer</string>
     <string name="content_description_clear_auth_password">Ryd godkendelsesadgangskode</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Nuværende adgangskode</string>
+    <string name="helper_password_current">Indtast den aktuelle skærmadgangskode</string>
+    <string name="content_description_clear_password_current">Ryd aktuel adgangskode</string>
+    <string name="content_description_scan_password_current">Scan adgangskode aktuel</string>
+    <string name="title_display_password_current">Vis aktuel adgangskode</string>
+    <string name="title_device_prompted_network_reset">Enheden bedt om netværksnulstilling</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nej</string>
+    <string name="label_is_discoverable">Kan opdages</string>
+    <string name="title_setvar_wlan_enable">Indstil Var WLan Aktiver</string>
+    <string name="label_wlan_enabled">WLan aktiveret</string>
+    <string name="option_on">Til</string>
+    <string name="option_off">Fra</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktiver</string>
+    <string name="label_ip_http_enabled">IP HTTP aktiveret</string>
+    <string name="title_display_password_level">Vis adgangskodeniveau</string>
+    <string name="option_all">Alle</string>
+    <string name="option_none">Ingen</string>
+    <string name="option_selected">Valgt</string>
+    <string name="title_restore_pre_eured">Gendan til præ-EURed indstillinger</string>
+    <string name="button_reset_printer_settings">Nulstil printerindstillinger</string>
 </resources>

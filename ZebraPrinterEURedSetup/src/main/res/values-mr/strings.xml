@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">प्रिंटरला स्क्रिप्ट पाठवा</string>
     <string name="content_description_clear_auth_password">प्रमाणीकरण पासवर्ड साफ करा</string>
     <string name="connectivity_bluetooth">ब्लूटूथ</string>
+    <string name="label_password_current">पासवर्ड चालू</string>
+    <string name="helper_password_current">वर्तमान प्रदर्शन संकेतशब्द प्रविष्ट करा</string>
+    <string name="content_description_clear_password_current">वर्तमान पासवर्ड साफ करा</string>
+    <string name="content_description_scan_password_current">पासवर्ड चालू स्कॅन करा</string>
+    <string name="title_display_password_current">वर्तमान संकेतशब्द प्रदर्शित करा</string>
+    <string name="title_device_prompted_network_reset">डिव्हाइस प्रॉम्प्ट केलेले नेटवर्क रीसेट</string>
+    <string name="label_is_discoverable">शोधण्यायोग्य आहे</string>
+    <string name="title_setvar_wlan_enable">Var WLan सक्षम सेट करा</string>
+    <string name="label_wlan_enabled">WLan सक्षम</string>
+    <string name="option_on">चालू</string>
+    <string name="option_off">बंद</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP सक्षम</string>
+    <string name="label_ip_http_enabled">IP HTTP सक्षम</string>
+    <string name="title_display_password_level">संकेतशब्द स्तर प्रदर्शित करा</string>
+    <string name="option_selected">निवडले</string>
+    <string name="title_restore_pre_eured">पूर्व-EURed सेटिंग्जवर पुनर्संचयित करा</string>
+    <string name="button_reset_printer_settings">प्रिंटर सेटिंग्ज रीसेट करा</string>
+    <string name="option_yes">होय</string>
+    <string name="option_no">नाही</string>
+    <string name="option_all">सर्व</string>
+    <string name="option_none">काहीही नाही</string>
 </resources>

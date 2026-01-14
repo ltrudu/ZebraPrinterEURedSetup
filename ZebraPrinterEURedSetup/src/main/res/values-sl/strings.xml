@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Pošlji skript v tiskalnik</string>
     <string name="content_description_clear_auth_password">Počisti geslo za preverjanje pristnosti</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Geslo trenutno</string>
+    <string name="helper_password_current">Vnesite trenutno geslo za prikaz</string>
+    <string name="content_description_clear_password_current">Počisti trenutno geslo</string>
+    <string name="content_description_scan_password_current">Skeniraj trenutno geslo</string>
+    <string name="title_display_password_current">Prikaži trenutno geslo</string>
+    <string name="title_device_prompted_network_reset">Naprava zahteva ponastavitev omrežja</string>
+    <string name="option_yes">Da</string>
+    <string name="option_no">Ne</string>
+    <string name="label_is_discoverable">Je vidno</string>
+    <string name="title_setvar_wlan_enable">Nastavite Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan omogočen</string>
+    <string name="option_on">Vklopljeno</string>
+    <string name="option_off">Izključeno</string>
+    <string name="title_setvar_ip_http_enable">Omogoči IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP omogočen</string>
+    <string name="title_display_password_level">Prikaz ravni gesla</string>
+    <string name="option_all">Vse</string>
+    <string name="option_none">Brez</string>
+    <string name="option_selected">Izbrano</string>
+    <string name="title_restore_pre_eured">Povrnitev na predhodno izbrane nastavitve</string>
+    <string name="button_reset_printer_settings">Ponastavi nastavitve tiskalnika</string>
 </resources>

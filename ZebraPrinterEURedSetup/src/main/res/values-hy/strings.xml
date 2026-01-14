@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Ուղարկել սցենար տպիչին</string>
     <string name="content_description_clear_auth_password">Մաքրել նույնականացման գաղտնաբառը</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Ներկայիս գաղտնաբառը</string>
+    <string name="helper_password_current">Մուտքագրեք ցուցադրման ընթացիկ գաղտնաբառը</string>
+    <string name="content_description_clear_password_current">Մաքրել ընթացիկ գաղտնաբառը</string>
+    <string name="content_description_scan_password_current">Սկանավորեք ընթացիկ գաղտնաբառը</string>
+    <string name="title_display_password_current">Ցուցադրել ընթացիկ գաղտնաբառը</string>
+    <string name="title_device_prompted_network_reset">Սարքի հուշում Ցանցի վերակայում</string>
+    <string name="option_yes">Այո</string>
+    <string name="option_no">Ոչ</string>
+    <string name="label_is_discoverable">Հայտնաբերելի է</string>
+    <string name="title_setvar_wlan_enable">Սահմանեք Var WLan Enable-ը</string>
+    <string name="label_wlan_enabled">WLan-ը միացված է</string>
+    <string name="option_on">Միացված է</string>
+    <string name="option_off">Անջատված</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Միացնել</string>
+    <string name="label_ip_http_enabled">IP HTTP-ն միացված է</string>
+    <string name="title_display_password_level">Ցուցադրել գաղտնաբառի մակարդակը</string>
+    <string name="option_all">Բոլորը</string>
+    <string name="option_none">Ոչ մի</string>
+    <string name="option_selected">Ընտրված է</string>
+    <string name="title_restore_pre_eured">Վերականգնել նախնական EUR-ի կարգավորումներին</string>
+    <string name="button_reset_printer_settings">Վերականգնել տպիչի կարգավորումները</string>
 </resources>

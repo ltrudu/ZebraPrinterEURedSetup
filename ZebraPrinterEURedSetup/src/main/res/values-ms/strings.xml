@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Hantar Skrip Ke Pencetak</string>
     <string name="content_description_clear_auth_password">Kosongkan kata laluan pengesahan</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Kata Laluan Semasa</string>
+    <string name="helper_password_current">Masukkan kata laluan paparan semasa</string>
+    <string name="content_description_clear_password_current">Kosongkan kata laluan semasa</string>
+    <string name="content_description_scan_password_current">Imbas kata laluan semasa</string>
+    <string name="title_display_password_current">Paparkan Kata Laluan Semasa</string>
+    <string name="title_device_prompted_network_reset">Tetapan Semula Rangkaian Gesaan Peranti</string>
+    <string name="option_yes">Ya</string>
+    <string name="option_no">Tidak</string>
+    <string name="label_is_discoverable">Boleh Ditemui</string>
+    <string name="title_setvar_wlan_enable">Tetapkan Var WLan Dayakan</string>
+    <string name="label_wlan_enabled">WLan didayakan</string>
+    <string name="option_on">Hidup</string>
+    <string name="option_off">Mati</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Dayakan</string>
+    <string name="label_ip_http_enabled">IP HTTP didayakan</string>
+    <string name="title_display_password_level">Paparkan Tahap Kata Laluan</string>
+    <string name="option_all">Semua</string>
+    <string name="option_none">Tiada</string>
+    <string name="option_selected">Dipilih</string>
+    <string name="title_restore_pre_eured">Pulihkan kepada tetapan pra-EUR</string>
+    <string name="button_reset_printer_settings">Tetapkan Semula Tetapan Pencetak</string>
 </resources>

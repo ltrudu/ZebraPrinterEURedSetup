@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ສົ່ງ Script ໄປໃສ່ເຄື່ອງພິມ</string>
     <string name="content_description_clear_auth_password">ລຶບລະຫັດຜ່ານການພິສູດຢືນຢັນ</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">ລະຫັດຜ່ານປະຈຸບັນ</string>
+    <string name="helper_password_current">ໃສ່ລະຫັດຜ່ານສະແດງຜົນປະຈຸບັນ</string>
+    <string name="content_description_clear_password_current">ລຶບລະຫັດຜ່ານປັດຈຸບັນ</string>
+    <string name="content_description_scan_password_current">ສະແກນລະຫັດຜ່ານໃນປະຈຸບັນ</string>
+    <string name="title_display_password_current">ສະແດງລະຫັດຜ່ານປັດຈຸບັນ</string>
+    <string name="title_device_prompted_network_reset">ອຸປະກອນຖືກເຕືອນໃຫ້ຕັ້ງເຄືອຂ່າຍຄືນໃໝ່</string>
+    <string name="option_yes">ແມ່ນແລ້ວ</string>
+    <string name="option_no">ບໍ່</string>
+    <string name="label_is_discoverable">ສາມາດຄົ້ນພົບໄດ້</string>
+    <string name="title_setvar_wlan_enable">ຕັ້ງຄ່າ Var WLan Enable</string>
+    <string name="label_wlan_enabled">ເປີດໃຊ້ງານ WL</string>
+    <string name="option_on">ເປີດ</string>
+    <string name="option_off">ປິດ</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP ເປີດໃຊ້ງານ</string>
+    <string name="label_ip_http_enabled">IP HTTP ຖືກເປີດໃຊ້ແລ້ວ</string>
+    <string name="title_display_password_level">ສະແດງລະດັບລະຫັດຜ່ານ</string>
+    <string name="option_all">ທັງໝົດ</string>
+    <string name="option_none">ບໍ່ມີ</string>
+    <string name="option_selected">ເລືອກແລ້ວ</string>
+    <string name="title_restore_pre_eured">ຟື້ນຟູເປັນການຕັ້ງຄ່າກ່ອນ EURed</string>
+    <string name="button_reset_printer_settings">ຕັ້ງຄ່າເຄື່ອງພິມຄືນໃໝ່</string>
 </resources>

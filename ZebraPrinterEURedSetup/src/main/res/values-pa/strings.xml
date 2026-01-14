@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ਪ੍ਰਿੰਟਰ ਨੂੰ ਸਕ੍ਰਿਪਟ ਭੇਜੋ</string>
     <string name="content_description_clear_auth_password">ਪ੍ਰਮਾਣੀਕਰਨ ਪਾਸਵਰਡ ਸਾਫ਼ ਕਰੋ</string>
     <string name="connectivity_bluetooth">ਬਲੂਟੁੱਥ</string>
+    <string name="label_password_current">ਮੌਜੂਦਾ ਪਾਸਵਰਡ</string>
+    <string name="helper_password_current">ਮੌਜੂਦਾ ਡਿਸਪਲੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ</string>
+    <string name="content_description_clear_password_current">ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਸਾਫ਼ ਕਰੋ</string>
+    <string name="content_description_scan_password_current">ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਸਕੈਨ ਕਰੋ</string>
+    <string name="title_display_password_current">ਡਿਸਪਲੇ ਪਾਸਵਰਡ ਮੌਜੂਦਾ</string>
+    <string name="title_device_prompted_network_reset">ਡਿਵਾਈਸ ਪ੍ਰੋਂਪਟ ਕੀਤਾ ਨੈੱਟਵਰਕ ਰੀਸੈਟ</string>
+    <string name="option_yes">ਹਾਂ</string>
+    <string name="option_no">ਨਹੀਂ</string>
+    <string name="label_is_discoverable">ਖੋਜਣਯੋਗ ਹੈ</string>
+    <string name="title_setvar_wlan_enable">Var WLan ਯੋਗ ਸੈੱਟ ਕਰੋ</string>
+    <string name="label_wlan_enabled">WLan ਸਮਰਥਿਤ</string>
+    <string name="option_on">ਚਾਲੂ</string>
+    <string name="option_off">ਬੰਦ</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP ਯੋਗ</string>
+    <string name="label_ip_http_enabled">IP HTTP ਸਮਰਥਿਤ</string>
+    <string name="title_display_password_level">ਡਿਸਪਲੇ ਪਾਸਵਰਡ ਪੱਧਰ</string>
+    <string name="option_selected">ਚੁਣਿਆ ਗਿਆ</string>
+    <string name="title_restore_pre_eured">ਪ੍ਰੀ-EURed ਸੈਟਿੰਗਾਂ \'ਤੇ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <string name="button_reset_printer_settings">ਪ੍ਰਿੰਟਰ ਸੈਟਿੰਗਾਂ ਰੀਸੈਟ ਕਰੋ</string>
+    <string name="option_all">ਸਭ</string>
+    <string name="option_none">ਕੋਈ ਨਹੀਂ</string>
 </resources>

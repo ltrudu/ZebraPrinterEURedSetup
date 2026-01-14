@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ارسال اسکریپت به چاپگر</string>
     <string name="content_description_clear_auth_password">رمز عبور احراز هویت را پاک کنید</string>
     <string name="connectivity_bluetooth">بلوتوث</string>
+    <string name="label_password_current">رمز عبور فعلی</string>
+    <string name="helper_password_current">رمز عبور نمایشگر فعلی را وارد کنید</string>
+    <string name="content_description_clear_password_current">رمز عبور فعلی را پاک کنید</string>
+    <string name="content_description_scan_password_current">رمز عبور فعلی را اسکن کنید</string>
+    <string name="title_display_password_current">نمایش رمز عبور فعلی</string>
+    <string name="title_device_prompted_network_reset">بازنشانی شبکه از دستگاه خواسته شد</string>
+    <string name="option_yes">بله</string>
+    <string name="option_no">خیر</string>
+    <string name="label_is_discoverable">قابل کشف است</string>
+    <string name="title_setvar_wlan_enable">Var WLan Enable را تنظیم کنید</string>
+    <string name="label_wlan_enabled">WLan فعال است</string>
+    <string name="option_on">روشن</string>
+    <string name="option_off">خاموش</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP فعال شود</string>
+    <string name="label_ip_http_enabled">IP HTTP فعال است</string>
+    <string name="title_display_password_level">نمایش سطح رمز عبور</string>
+    <string name="option_all">همه</string>
+    <string name="option_none">هیچکدام</string>
+    <string name="option_selected">انتخاب شد</string>
+    <string name="title_restore_pre_eured">به تنظیمات پیش از EUREUR بازیابی کنید</string>
+    <string name="button_reset_printer_settings">تنظیمات چاپگر را بازنشانی کنید</string>
 </resources>

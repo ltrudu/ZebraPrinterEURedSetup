@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Пошаљи скрипту на штампач</string>
     <string name="content_description_clear_auth_password">Обриши лозинку за аутентификацију</string>
     <string name="connectivity_bluetooth">Блуетоотх</string>
+    <string name="label_password_current">Тренутна лозинка</string>
+    <string name="helper_password_current">Унесите тренутну лозинку за екран</string>
+    <string name="content_description_clear_password_current">Обриши тренутну лозинку</string>
+    <string name="content_description_scan_password_current">Актуелна лозинка скенирања</string>
+    <string name="title_display_password_current">Прикажи тренутну лозинку</string>
+    <string name="title_device_prompted_network_reset">Уређај је затражио ресетовање мреже</string>
+    <string name="option_yes">Да</string>
+    <string name="option_no">Не</string>
+    <string name="label_is_discoverable">Може се открити</string>
+    <string name="title_setvar_wlan_enable">Подесите Вар ВЛан Енабле</string>
+    <string name="label_wlan_enabled">ВЛАН омогућен</string>
+    <string name="option_on">Укључено</string>
+    <string name="option_off">Искључено</string>
+    <string name="title_setvar_ip_http_enable">ИП ХТТП Омогући</string>
+    <string name="label_ip_http_enabled">ИП ХТТП омогућен</string>
+    <string name="title_display_password_level">Прикажи ниво лозинке</string>
+    <string name="option_all">Све</string>
+    <string name="option_none">Ниједан</string>
+    <string name="option_selected">Изабрано</string>
+    <string name="title_restore_pre_eured">Вратите се на унапред подешена подешавања</string>
+    <string name="button_reset_printer_settings">Ресетујте подешавања штампача</string>
 </resources>

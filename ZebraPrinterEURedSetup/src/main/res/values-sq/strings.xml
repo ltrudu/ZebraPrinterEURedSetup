@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Dërgo skriptin te printeri</string>
     <string name="content_description_clear_auth_password">Pastro fjalëkalimin e vërtetimit</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Fjalëkalimi aktual</string>
+    <string name="helper_password_current">Futni fjalëkalimin aktual të ekranit</string>
+    <string name="content_description_clear_password_current">Pastro fjalëkalimin aktual</string>
+    <string name="content_description_scan_password_current">Skanoni fjalëkalimin aktual</string>
+    <string name="title_display_password_current">Shfaq fjalëkalimin aktual</string>
+    <string name="title_device_prompted_network_reset">Rivendosja e rrjetit të kërkuar nga pajisja</string>
+    <string name="option_yes">Po</string>
+    <string name="option_no">Jo</string>
+    <string name="label_is_discoverable">Është i zbulueshëm</string>
+    <string name="title_setvar_wlan_enable">Cakto Var WLan Aktivizo</string>
+    <string name="label_wlan_enabled">WLan është aktivizuar</string>
+    <string name="option_on">Aktiv</string>
+    <string name="option_off">Joaktiv</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktivizo</string>
+    <string name="label_ip_http_enabled">IP HTTP i aktivizuar</string>
+    <string name="title_display_password_level">Shfaqni nivelin e fjalëkalimit</string>
+    <string name="option_all">Të gjitha</string>
+    <string name="option_none">Asnjë</string>
+    <string name="option_selected">Zgjedhur</string>
+    <string name="title_restore_pre_eured">Rikthe në cilësimet e para-EUR</string>
+    <string name="button_reset_printer_settings">Rivendos cilësimet e printerit</string>
 </resources>

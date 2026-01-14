@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Send skript til skriver</string>
     <string name="content_description_clear_auth_password">Slett autentiseringspassord</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Passord gjeldende</string>
+    <string name="helper_password_current">Skriv inn gjeldende skjermpassord</string>
+    <string name="content_description_clear_password_current">Fjern gjeldende passord</string>
+    <string name="content_description_scan_password_current">Skann gjeldende passord</string>
+    <string name="title_display_password_current">Vis gjeldende passord</string>
+    <string name="title_device_prompted_network_reset">Enhet bedt om tilbakestilling av nettverk</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nei</string>
+    <string name="label_is_discoverable">Kan oppdages</string>
+    <string name="title_setvar_wlan_enable">Sett Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan aktivert</string>
+    <string name="option_on">På</string>
+    <string name="option_off">Av</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktiver</string>
+    <string name="label_ip_http_enabled">IP HTTP aktivert</string>
+    <string name="title_display_password_level">Vis passordnivå</string>
+    <string name="option_all">Alle</string>
+    <string name="option_none">Ingen</string>
+    <string name="option_selected">Valgt</string>
+    <string name="title_restore_pre_eured">Gjenopprett til forhåndsbestemte innstillinger</string>
+    <string name="button_reset_printer_settings">Tilbakestill skriverinnstillinger</string>
 </resources>

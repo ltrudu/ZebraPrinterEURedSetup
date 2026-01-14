@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Tuma Hati kwa Kichapishi</string>
     <string name="content_description_clear_auth_password">Futa nenosiri la uthibitishaji</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Nenosiri la Sasa</string>
+    <string name="helper_password_current">Ingiza nenosiri la sasa la kuonyesha</string>
+    <string name="content_description_clear_password_current">Futa nenosiri la sasa</string>
+    <string name="content_description_scan_password_current">Changanua nenosiri la sasa</string>
+    <string name="title_display_password_current">Onyesha Nenosiri la Sasa</string>
+    <string name="title_device_prompted_network_reset">Rudisha Mtandao Unaoongozwa na Kifaa</string>
+    <string name="option_yes">Ndiyo</string>
+    <string name="option_no">Hapana</string>
+    <string name="label_is_discoverable">Inaweza Kugunduliwa</string>
+    <string name="title_setvar_wlan_enable">Weka Var WLan Wezesha</string>
+    <string name="label_wlan_enabled">WLan imewashwa</string>
+    <string name="option_on">Imewashwa</string>
+    <string name="option_off">Imezimwa</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Washa</string>
+    <string name="label_ip_http_enabled">IP HTTP imewashwa</string>
+    <string name="title_display_password_level">Onyesha Kiwango cha Nenosiri</string>
+    <string name="option_all">Wote</string>
+    <string name="option_none">Hakuna</string>
+    <string name="option_selected">Imechaguliwa</string>
+    <string name="title_restore_pre_eured">Rejesha kwa mipangilio ya awali ya EURed</string>
+    <string name="button_reset_printer_settings">Weka Upya Mipangilio ya Kichapishi</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">სკრიპტის გაგზავნა პრინტერზე</string>
     <string name="content_description_clear_auth_password">ავტორიზაციის პაროლის გასუფთავება</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">პაროლი მიმდინარე</string>
+    <string name="helper_password_current">შეიყვანეთ ეკრანის მიმდინარე პაროლი</string>
+    <string name="content_description_clear_password_current">მიმდინარე პაროლის გასუფთავება</string>
+    <string name="content_description_scan_password_current">მიმდინარე პაროლის სკანირება</string>
+    <string name="title_display_password_current">პაროლის ჩვენება მიმდინარე</string>
+    <string name="title_device_prompted_network_reset">მოწყობილობის მოთხოვნილი ქსელის გადატვირთვა</string>
+    <string name="option_yes">დიახ</string>
+    <string name="option_no">არა</string>
+    <string name="label_is_discoverable">აღმოჩენადია</string>
+    <string name="title_setvar_wlan_enable">დააყენეთ Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan ჩართულია</string>
+    <string name="option_on">ჩართულია</string>
+    <string name="option_off">გამორთულია</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP ჩართვა</string>
+    <string name="label_ip_http_enabled">IP HTTP ჩართულია</string>
+    <string name="title_display_password_level">პაროლის დონის ჩვენება</string>
+    <string name="option_all">ყველა</string>
+    <string name="option_none">არცერთი</string>
+    <string name="option_selected">არჩეულია</string>
+    <string name="title_restore_pre_eured">აღდგენა წინასწარ ევროპულ პარამეტრებზე</string>
+    <string name="button_reset_printer_settings">პრინტერის პარამეტრების გადატვირთვა</string>
 </resources>

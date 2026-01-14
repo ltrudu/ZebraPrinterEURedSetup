@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Enviar script para impressora</string>
     <string name="content_description_clear_auth_password">Limpar senha de autenticação</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Senha atual</string>
+    <string name="helper_password_current">Digite a senha de exibição atual</string>
+    <string name="content_description_clear_password_current">Limpar senha atual</string>
+    <string name="content_description_scan_password_current">Digitalizar senha atual</string>
+    <string name="title_display_password_current">Exibir senha atual</string>
+    <string name="title_device_prompted_network_reset">Redefinição de rede solicitada pelo dispositivo</string>
+    <string name="option_yes">Sim</string>
+    <string name="option_no">Não</string>
+    <string name="label_is_discoverable">É detectável</string>
+    <string name="title_setvar_wlan_enable">Definir Var WLan Habilitado</string>
+    <string name="label_wlan_enabled">WLAN habilitada</string>
+    <string name="option_on">Ligado</string>
+    <string name="option_off">Desligado</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Habilitado</string>
+    <string name="label_ip_http_enabled">IP HTTP habilitado</string>
+    <string name="title_display_password_level">Exibir nível de senha</string>
+    <string name="option_all">Todos</string>
+    <string name="option_none">Nenhum</string>
+    <string name="option_selected">Selecionado</string>
+    <string name="title_restore_pre_eured">Restaurar as configurações pré-EURed</string>
+    <string name="button_reset_printer_settings">Redefinir configurações da impressora</string>
 </resources>

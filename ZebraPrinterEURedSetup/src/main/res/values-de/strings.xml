@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Skript an Drucker senden</string>
     <string name="content_description_clear_auth_password">Authentifizierungspasswort löschen</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Passwort aktuell</string>
+    <string name="helper_password_current">Geben Sie das aktuelle Display-Passwort ein</string>
+    <string name="content_description_clear_password_current">Aktuelles Passwort löschen</string>
+    <string name="content_description_scan_password_current">Aktuelles Passwort scannen</string>
+    <string name="title_display_password_current">Aktuelles Passwort anzeigen</string>
+    <string name="title_device_prompted_network_reset">Vom Gerät veranlasster Netzwerk-Reset</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nein</string>
+    <string name="label_is_discoverable">ist erkennbar</string>
+    <string name="title_setvar_wlan_enable">Stellen Sie Var WLan Enable ein</string>
+    <string name="label_wlan_enabled">WLan aktiviert</string>
+    <string name="option_on">Ein</string>
+    <string name="option_off">Aus</string>
+    <string name="title_setvar_ip_http_enable">IP-HTTP-Aktivierung</string>
+    <string name="label_ip_http_enabled">IP-HTTP aktiviert</string>
+    <string name="title_display_password_level">Passwortebene anzeigen</string>
+    <string name="option_all">Alle</string>
+    <string name="option_none">Keine</string>
+    <string name="option_selected">Ausgewählt</string>
+    <string name="title_restore_pre_eured">Stellen Sie die vorinstallierten Einstellungen wieder her</string>
+    <string name="button_reset_printer_settings">Druckereinstellungen zurücksetzen</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">スクリプトをプリンタに送信</string>
     <string name="content_description_clear_auth_password">認証パスワードのクリア</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">現在のパスワード</string>
+    <string name="helper_password_current">現在の表示パスワードを入力</string>
+    <string name="content_description_clear_password_current">現在のパスワードをクリア</string>
+    <string name="content_description_scan_password_current">現在のパスワードをスキャンします</string>
+    <string name="title_display_password_current">現在のパスワードを表示</string>
+    <string name="title_device_prompted_network_reset">デバイスによるネットワークのリセット</string>
+    <string name="option_yes">はい</string>
+    <string name="option_no">いいえ</string>
+    <string name="label_is_discoverable">発見可能</string>
+    <string name="title_setvar_wlan_enable">Var WLAN を有効に設定する</string>
+    <string name="label_wlan_enabled">WLAN 有効</string>
+    <string name="option_on">オン</string>
+    <string name="option_off">オフ</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP 有効化</string>
+    <string name="label_ip_http_enabled">IP HTTP を有効にする</string>
+    <string name="title_display_password_level">パスワードレベルの表示</string>
+    <string name="option_all">すべて</string>
+    <string name="option_none">なし</string>
+    <string name="option_selected">選択済み</string>
+    <string name="title_restore_pre_eured">EURed 以前の設定に戻す</string>
+    <string name="button_reset_printer_settings">プリンター設定をリセットする</string>
 </resources>

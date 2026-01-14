@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ஸ்கிரிப்டை பிரிண்டருக்கு அனுப்பவும்</string>
     <string name="content_description_clear_auth_password">அங்கீகார கடவுச்சொல்லை அழிக்கவும்</string>
     <string name="connectivity_bluetooth">புளூடூத்</string>
+    <string name="label_password_current">கடவுச்சொல் நடப்பு</string>
+    <string name="helper_password_current">தற்போதைய காட்சி கடவுச்சொல்லை உள்ளிடவும்</string>
+    <string name="content_description_clear_password_current">தற்போதைய கடவுச்சொல்லை அழிக்கவும்</string>
+    <string name="content_description_scan_password_current">தற்போதைய கடவுச்சொல்லை ஸ்கேன் செய்யவும்</string>
+    <string name="title_display_password_current">கடவுச்சொல் தற்போதைய காட்சி</string>
+    <string name="title_device_prompted_network_reset">சாதனம் தூண்டப்பட்ட பிணைய மீட்டமைப்பு</string>
+    <string name="option_yes">ஆம்</string>
+    <string name="option_no">இல்லை</string>
+    <string name="label_is_discoverable">கண்டறியக்கூடியது</string>
+    <string name="title_setvar_wlan_enable">வார் WLan இயக்கு அமைக்கவும்</string>
+    <string name="label_wlan_enabled">WLan இயக்கப்பட்டது</string>
+    <string name="option_on">ஆன்</string>
+    <string name="option_off">ஆஃப்</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP இயக்கு</string>
+    <string name="label_ip_http_enabled">IP HTTP இயக்கப்பட்டது</string>
+    <string name="title_display_password_level">காட்சி கடவுச்சொல் நிலை</string>
+    <string name="option_all">அனைத்தும்</string>
+    <string name="option_none">இல்லை</string>
+    <string name="option_selected">தேர்ந்தெடுக்கப்பட்டது</string>
+    <string name="title_restore_pre_eured">யூரோவுக்கு முந்தைய அமைப்புகளுக்கு மீட்டமைக்கவும்</string>
+    <string name="button_reset_printer_settings">பிரிண்டர் அமைப்புகளை மீட்டமைக்கவும்</string>
 </resources>

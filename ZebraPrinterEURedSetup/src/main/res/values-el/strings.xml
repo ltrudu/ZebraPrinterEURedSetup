@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Αποστολή σεναρίου στον εκτυπωτή</string>
     <string name="content_description_clear_auth_password">Διαγραφή κωδικού πρόσβασης ελέγχου ταυτότητας</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Τρέχων κωδικός πρόσβασης</string>
+    <string name="helper_password_current">Εισαγάγετε τον τρέχοντα κωδικό πρόσβασης στην οθόνη</string>
+    <string name="content_description_clear_password_current">Διαγραφή τρέχοντος κωδικού πρόσβασης</string>
+    <string name="content_description_scan_password_current">Σάρωση τρέχοντος κωδικού πρόσβασης</string>
+    <string name="title_display_password_current">Εμφάνιση τρέχοντος κωδικού πρόσβασης</string>
+    <string name="title_device_prompted_network_reset">Επαναφορά δικτύου που ζητήθηκε από τη συσκευή</string>
+    <string name="option_yes">Ναι</string>
+    <string name="option_no">Όχι</string>
+    <string name="label_is_discoverable">Είναι ανιχνεύσιμο</string>
+    <string name="title_setvar_wlan_enable">Ορίστε το Var WLan Enable</string>
+    <string name="label_wlan_enabled">Το WLan είναι ενεργοποιημένο</string>
+    <string name="option_on">Ενεργό</string>
+    <string name="option_off">Απενεργοποίηση</string>
+    <string name="title_setvar_ip_http_enable">Ενεργοποίηση IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP ενεργοποιημένο</string>
+    <string name="title_display_password_level">Εμφάνιση επιπέδου κωδικού πρόσβασης</string>
+    <string name="option_all">Όλα</string>
+    <string name="option_none">Κανένα</string>
+    <string name="option_selected">Επιλέχτηκε</string>
+    <string name="title_restore_pre_eured">Επαναφορά σε ρυθμίσεις πριν από το EUR</string>
+    <string name="button_reset_printer_settings">Επαναφορά ρυθμίσεων εκτυπωτή</string>
 </resources>

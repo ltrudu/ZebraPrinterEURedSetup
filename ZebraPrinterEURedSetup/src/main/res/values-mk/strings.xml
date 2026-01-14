@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Испрати скрипта до печатачот</string>
     <string name="content_description_clear_auth_password">Исчистете ја лозинката за автентикација</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Тековна лозинка</string>
+    <string name="helper_password_current">Внесете ја тековната лозинка за екранот</string>
+    <string name="content_description_clear_password_current">Избриши ја тековната лозинка</string>
+    <string name="content_description_scan_password_current">Скенирајте ја тековната лозинка</string>
+    <string name="title_display_password_current">Прикажи ја тековната лозинка</string>
+    <string name="title_device_prompted_network_reset">Ресетирање на мрежата побарано од уредот</string>
+    <string name="option_yes">Да</string>
+    <string name="option_no">Бр</string>
+    <string name="label_is_discoverable">Може да се открие</string>
+    <string name="title_setvar_wlan_enable">Поставете Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan е овозможен</string>
+    <string name="option_on">Вклучено</string>
+    <string name="option_off">Исклучено</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Овозможи</string>
+    <string name="label_ip_http_enabled">IP HTTP е овозможена</string>
+    <string name="title_display_password_level">Прикажи го нивото на лозинка</string>
+    <string name="option_all">Сите</string>
+    <string name="option_none">Никој</string>
+    <string name="option_selected">Избрано</string>
+    <string name="title_restore_pre_eured">Вратете се на поставките претходно дадени во ЕУР</string>
+    <string name="button_reset_printer_settings">Ресетирајте ги поставките за печатачот</string>
 </resources>

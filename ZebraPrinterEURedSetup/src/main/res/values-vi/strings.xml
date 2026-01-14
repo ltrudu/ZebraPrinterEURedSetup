@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Gửi tập lệnh tới máy in</string>
     <string name="content_description_clear_auth_password">Xóa mật khẩu xác thực</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Mật khẩu hiện tại</string>
+    <string name="helper_password_current">Nhập mật khẩu hiển thị hiện tại</string>
+    <string name="content_description_clear_password_current">Xóa mật khẩu hiện tại</string>
+    <string name="content_description_scan_password_current">Quét mật khẩu hiện tại</string>
+    <string name="title_display_password_current">Hiển thị mật khẩu hiện tại</string>
+    <string name="title_device_prompted_network_reset">Thiết lập lại mạng được nhắc nhở trên thiết bị</string>
+    <string name="option_yes">Có</string>
+    <string name="option_no">Không</string>
+    <string name="label_is_discoverable">Có thể khám phá được</string>
+    <string name="title_setvar_wlan_enable">Đặt Bật WLAN Var</string>
+    <string name="label_wlan_enabled">Đã bật mạng WLAN</string>
+    <string name="option_on">Bật</string>
+    <string name="option_off">Tắt</string>
+    <string name="title_setvar_ip_http_enable">Kích hoạt HTTP IP</string>
+    <string name="label_ip_http_enabled">Đã bật IP HTTP</string>
+    <string name="title_display_password_level">Hiển thị cấp độ mật khẩu</string>
+    <string name="option_all">Tất cả</string>
+    <string name="option_none">Không có</string>
+    <string name="option_selected">Đã chọn</string>
+    <string name="title_restore_pre_eured">Khôi phục về cài đặt trước EURed</string>
+    <string name="button_reset_printer_settings">Đặt lại cài đặt máy in</string>
 </resources>

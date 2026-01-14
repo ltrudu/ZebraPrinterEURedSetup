@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">发送脚本到打印机</string>
     <string name="content_description_clear_auth_password">清除认证密码</string>
     <string name="connectivity_bluetooth">蓝牙</string>
+    <string name="label_password_current">当前密码</string>
+    <string name="helper_password_current">输入当前显示密码</string>
+    <string name="content_description_clear_password_current">清除当前密码</string>
+    <string name="content_description_scan_password_current">扫描当前密码</string>
+    <string name="title_display_password_current">显示当前密码</string>
+    <string name="title_device_prompted_network_reset">设备提示网络重置</string>
+    <string name="option_yes">是的</string>
+    <string name="option_no">否</string>
+    <string name="label_is_discoverable">是可发现的</string>
+    <string name="title_setvar_wlan_enable">设置 Var WLAN 启用</string>
+    <string name="label_wlan_enabled">WLAN 已启用</string>
+    <string name="option_on">开</string>
+    <string name="option_off">关闭</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP 启用</string>
+    <string name="label_ip_http_enabled">IP HTTP 启用</string>
+    <string name="title_display_password_level">显示密码级别</string>
+    <string name="option_all">全部</string>
+    <string name="option_none">无</string>
+    <string name="option_selected">已选择</string>
+    <string name="title_restore_pre_eured">恢复到EURed之前的设置</string>
+    <string name="button_reset_printer_settings">重置打印机设置</string>
 </resources>

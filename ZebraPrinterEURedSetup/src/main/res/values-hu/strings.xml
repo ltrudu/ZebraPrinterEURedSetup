@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Szkript küldése a nyomtatóra</string>
     <string name="content_description_clear_auth_password">Törölje a hitelesítési jelszót</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Jelszó Aktuális</string>
+    <string name="helper_password_current">Adja meg az aktuális megjelenítési jelszót</string>
+    <string name="content_description_clear_password_current">Aktuális jelszó törlése</string>
+    <string name="content_description_scan_password_current">Aktuális jelszó beolvasása</string>
+    <string name="title_display_password_current">Aktuális jelszó megjelenítése</string>
+    <string name="title_device_prompted_network_reset">Eszköz kért hálózati visszaállítás</string>
+    <string name="option_yes">Igen</string>
+    <string name="option_no">Nem</string>
+    <string name="label_is_discoverable">Felfedezhető</string>
+    <string name="title_setvar_wlan_enable">Állítsa be a Var WLan engedélyezését</string>
+    <string name="label_wlan_enabled">WLan engedélyezve</string>
+    <string name="option_on">Be</string>
+    <string name="option_off">Ki</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP engedélyezése</string>
+    <string name="label_ip_http_enabled">IP HTTP engedélyezve</string>
+    <string name="title_display_password_level">Jelszószint megjelenítése</string>
+    <string name="option_all">Mind</string>
+    <string name="option_none">Nincs</string>
+    <string name="option_selected">Kijelölve</string>
+    <string name="title_restore_pre_eured">Visszaállítás az előre EUR-beállításokra</string>
+    <string name="button_reset_printer_settings">Nyomtatóbeállítások visszaállítása</string>
 </resources>

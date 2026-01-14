@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">प्रिंटर को स्क्रिप्ट भेजें</string>
     <string name="content_description_clear_auth_password">प्रमाणीकरण पासवर्ड साफ़ करें</string>
     <string name="connectivity_bluetooth">ब्लूटूथ</string>
+    <string name="label_password_current">पासवर्ड वर्तमान</string>
+    <string name="helper_password_current">वर्तमान डिस्प्ले पासवर्ड दर्ज करें</string>
+    <string name="content_description_clear_password_current">वर्तमान पासवर्ड साफ़ करें</string>
+    <string name="content_description_scan_password_current">वर्तमान पासवर्ड स्कैन करें</string>
+    <string name="title_display_password_current">पासवर्ड करंट प्रदर्शित करें</string>
+    <string name="title_device_prompted_network_reset">डिवाइस ने नेटवर्क रीसेट का संकेत दिया</string>
+    <string name="option_yes">हाँ</string>
+    <string name="option_no">नहीं</string>
+    <string name="label_is_discoverable">खोजने योग्य है</string>
+    <string name="title_setvar_wlan_enable">वर डब्लूएलएएन सक्षम सेट करें</string>
+    <string name="label_wlan_enabled">डब्लूएलएएन सक्षम</string>
+    <string name="option_on">चालू</string>
+    <string name="option_off">बंद</string>
+    <string name="title_setvar_ip_http_enable">आईपी HTTP सक्षम करें</string>
+    <string name="label_ip_http_enabled">आईपी HTTP सक्षम</string>
+    <string name="title_display_password_level">पासवर्ड स्तर प्रदर्शित करें</string>
+    <string name="option_all">सभी</string>
+    <string name="option_none">कोई नहीं</string>
+    <string name="option_selected">चयनित</string>
+    <string name="title_restore_pre_eured">प्री-यूरिड सेटिंग्स पर पुनर्स्थापित करें</string>
+    <string name="button_reset_printer_settings">प्रिंटर सेटिंग्स रीसेट करें</string>
 </resources>

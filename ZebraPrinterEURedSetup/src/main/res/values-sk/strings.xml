@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Odoslať skript do tlačiarne</string>
     <string name="content_description_clear_auth_password">Vymazať overovacie heslo</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Heslo aktuálne</string>
+    <string name="helper_password_current">Zadajte aktuálne heslo pre zobrazenie</string>
+    <string name="content_description_clear_password_current">Vymazať aktuálne heslo</string>
+    <string name="content_description_scan_password_current">Skenovať aktuálne heslo</string>
+    <string name="title_display_password_current">Zobraziť aktuálne heslo</string>
+    <string name="title_device_prompted_network_reset">Reset siete so žiadosťou o zariadenie</string>
+    <string name="option_yes">Áno</string>
+    <string name="option_no">Nie</string>
+    <string name="label_is_discoverable">Je zistiteľný</string>
+    <string name="title_setvar_wlan_enable">Nastavte možnosť Var WLan Enable</string>
+    <string name="label_wlan_enabled">Povolená sieť WLAN</string>
+    <string name="option_on">Zapnuté</string>
+    <string name="option_off">Vypnuté</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Povoliť</string>
+    <string name="label_ip_http_enabled">IP HTTP povolený</string>
+    <string name="title_display_password_level">Zobrazenie úrovne hesla</string>
+    <string name="option_all">Všetky</string>
+    <string name="option_none">Žiadne</string>
+    <string name="option_selected">Vybraté</string>
+    <string name="title_restore_pre_eured">Obnovte prednastavené nastavenia</string>
+    <string name="button_reset_printer_settings">Obnovenie nastavení tlačiarne</string>
 </resources>

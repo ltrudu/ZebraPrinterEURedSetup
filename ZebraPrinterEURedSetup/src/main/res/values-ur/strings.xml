@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">اسکرپٹ پرنٹر کو بھیجیں</string>
     <string name="content_description_clear_auth_password">واضح توثیق کا پاس ورڈ</string>
     <string name="connectivity_bluetooth">بلوٹوتھ</string>
+    <string name="label_password_current">پاس ورڈ موجودہ</string>
+    <string name="helper_password_current">موجودہ ڈسپلے پاس ورڈ درج کریں</string>
+    <string name="content_description_clear_password_current">واضح پاس ورڈ موجودہ</string>
+    <string name="content_description_scan_password_current">پاس ورڈ موجودہ اسکین کریں</string>
+    <string name="title_display_password_current">پاس ورڈ ڈسپلے موجودہ</string>
+    <string name="title_device_prompted_network_reset">ڈیوائس نے نیٹ ورک ری سیٹ کو اشارہ کیا</string>
+    <string name="option_yes">ہاں</string>
+    <string name="option_no">نہیں</string>
+    <string name="label_is_discoverable">قابل دریافت ہے</string>
+    <string name="title_setvar_wlan_enable">VAR WLAN کو قابل بنائیں</string>
+    <string name="label_wlan_enabled">WLAN فعال</string>
+    <string name="option_on">آن</string>
+    <string name="option_off">آف</string>
+    <string name="title_display_password_level">پاس ورڈ کی سطح ڈسپلے کریں</string>
+    <string name="option_all">سب</string>
+    <string name="option_none">کوئی نہیں</string>
+    <string name="option_selected">منتخب</string>
+    <string name="title_restore_pre_eured">پہلے سے پیدا ہونے والی ترتیبات کو بحال کریں</string>
+    <string name="button_reset_printer_settings">پرنٹر کی ترتیبات کو دوبارہ ترتیب دیں</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP قابل</string>
+    <string name="label_ip_http_enabled">IP HTTP فعال ہے</string>
 </resources>

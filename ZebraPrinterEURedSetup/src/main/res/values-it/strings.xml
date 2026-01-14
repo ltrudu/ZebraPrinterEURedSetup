@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Invia script alla stampante</string>
     <string name="content_description_clear_auth_password">Cancella la password di autenticazione</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Password corrente</string>
+    <string name="helper_password_current">Immettere la password del display corrente</string>
+    <string name="content_description_clear_password_current">Cancella la password corrente</string>
+    <string name="content_description_scan_password_current">Scansiona la password corrente</string>
+    <string name="title_display_password_current">Visualizza password corrente</string>
+    <string name="title_device_prompted_network_reset">Ripristino della rete richiesto dal dispositivo</string>
+    <string name="option_yes">Sì</string>
+    <string name="option_no">No</string>
+    <string name="label_is_discoverable">È rilevabile</string>
+    <string name="title_setvar_wlan_enable">Imposta Var Abilitazione WLAN</string>
+    <string name="label_wlan_enabled">WLAN abilitata</string>
+    <string name="option_on">Acceso</string>
+    <string name="option_off">Spento</string>
+    <string name="title_setvar_ip_http_enable">Abilitazione IP HTTP</string>
+    <string name="label_ip_http_enabled">IP HTTP abilitato</string>
+    <string name="title_display_password_level">Visualizza il livello della password</string>
+    <string name="option_all">Tutti</string>
+    <string name="option_none">Nessuno</string>
+    <string name="option_selected">Selezionato</string>
+    <string name="title_restore_pre_eured">Ripristina le impostazioni precedenti all\'EUR</string>
+    <string name="button_reset_printer_settings">Ripristina le impostazioni della stampante</string>
 </resources>

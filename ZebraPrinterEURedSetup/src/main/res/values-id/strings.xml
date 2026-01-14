@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Kirim Skrip Ke Printer</string>
     <string name="content_description_clear_auth_password">Hapus kata sandi autentikasi</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Kata Sandi Saat Ini</string>
+    <string name="helper_password_current">Masukkan kata sandi tampilan saat ini</string>
+    <string name="content_description_clear_password_current">Hapus kata sandi saat ini</string>
+    <string name="content_description_scan_password_current">Pindai kata sandi saat ini</string>
+    <string name="title_display_password_current">Tampilkan Kata Sandi Saat Ini</string>
+    <string name="title_device_prompted_network_reset">Perangkat Diminta Reset Jaringan</string>
+    <string name="option_yes">Ya</string>
+    <string name="option_no">Tidak</string>
+    <string name="label_is_discoverable">Dapat Ditemukan</string>
+    <string name="title_setvar_wlan_enable">Setel Aktifkan Var WLan</string>
+    <string name="label_wlan_enabled">WLan diaktifkan</string>
+    <string name="option_on">Aktif</string>
+    <string name="option_off">Mati</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktif</string>
+    <string name="label_ip_http_enabled">IP HTTP diaktifkan</string>
+    <string name="title_display_password_level">Tampilkan Tingkat Kata Sandi</string>
+    <string name="option_all">Semua</string>
+    <string name="option_none">Tidak ada</string>
+    <string name="option_selected">Dipilih</string>
+    <string name="title_restore_pre_eured">Kembalikan ke pengaturan pra-EUR</string>
+    <string name="button_reset_printer_settings">Atur Ulang Pengaturan Pencetak</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Skicka skript till skrivare</string>
     <string name="content_description_clear_auth_password">Rensa autentiseringslösenord</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Lösenord Aktuellt</string>
+    <string name="helper_password_current">Ange det aktuella lösenordet för displayen</string>
+    <string name="content_description_clear_password_current">Rensa aktuellt lösenord</string>
+    <string name="content_description_scan_password_current">Skanna lösenordet aktuellt</string>
+    <string name="title_display_password_current">Visa aktuellt lösenord</string>
+    <string name="title_device_prompted_network_reset">Enheten uppmanas att återställa nätverket</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nej</string>
+    <string name="label_is_discoverable">Går att upptäcka</string>
+    <string name="title_setvar_wlan_enable">Ställ in Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan aktiverat</string>
+    <string name="option_on">På</string>
+    <string name="option_off">Av</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktivera</string>
+    <string name="label_ip_http_enabled">IP HTTP aktiverat</string>
+    <string name="title_display_password_level">Visa lösenordsnivå</string>
+    <string name="option_all">Alla</string>
+    <string name="option_none">Inga</string>
+    <string name="option_selected">Vald</string>
+    <string name="title_restore_pre_eured">Återställ till pre-EURed inställningar</string>
+    <string name="button_reset_printer_settings">Återställ skrivarinställningar</string>
 </resources>

@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Script naar printer verzenden</string>
     <string name="content_description_clear_auth_password">Wis het authenticatiewachtwoord</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Wachtwoord huidig</string>
+    <string name="helper_password_current">Voer het huidige weergavewachtwoord in</string>
+    <string name="content_description_clear_password_current">Wis huidige wachtwoord</string>
+    <string name="content_description_scan_password_current">Huidig scanwachtwoord</string>
+    <string name="title_display_password_current">Huidig wachtwoord weergeven</string>
+    <string name="title_device_prompted_network_reset">Apparaat vraagt om netwerkreset</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nee</string>
+    <string name="label_is_discoverable">Is vindbaar</string>
+    <string name="title_setvar_wlan_enable">Stel Var WLAN inschakelen in</string>
+    <string name="label_wlan_enabled">WLAN ingeschakeld</string>
+    <string name="option_on">Aan</string>
+    <string name="option_off">Uit</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP ingeschakeld</string>
+    <string name="label_ip_http_enabled">IP HTTP ingeschakeld</string>
+    <string name="title_display_password_level">Wachtwoordniveau weergeven</string>
+    <string name="option_all">Allemaal</string>
+    <string name="option_none">Geen</string>
+    <string name="option_selected">Geselecteerd</string>
+    <string name="title_restore_pre_eured">Herstel naar vooraf EUR-instellingen</string>
+    <string name="button_reset_printer_settings">Printerinstellingen resetten</string>
 </resources>

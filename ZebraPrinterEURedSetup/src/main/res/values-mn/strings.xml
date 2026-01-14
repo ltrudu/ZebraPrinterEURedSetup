@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Скриптийг хэвлэгч рүү илгээх</string>
     <string name="content_description_clear_auth_password">Баталгаажуулах нууц үгийг арилгана уу</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Одоогийн нууц үг</string>
+    <string name="helper_password_current">Одоогийн дэлгэцийн нууц үгийг оруулна уу</string>
+    <string name="content_description_clear_password_current">Одоогийн нууц үгийг арилгах</string>
+    <string name="content_description_scan_password_current">Одоогийн нууц үгийг сканнердах</string>
+    <string name="title_display_password_current">Нууц үгийн одоогийн мэдээллийг харуулах</string>
+    <string name="title_device_prompted_network_reset">Төхөөрөмжийн сануулсан сүлжээг дахин тохируулах</string>
+    <string name="option_yes">Тийм</string>
+    <string name="option_no">Үгүй</string>
+    <string name="label_is_discoverable">Илрүүлэх боломжтой</string>
+    <string name="title_setvar_wlan_enable">Var WLan идэвхжүүлэхийг тохируулна уу</string>
+    <string name="label_wlan_enabled">WL-ийг идэвхжүүлсэн</string>
+    <string name="option_on">Асаалттай</string>
+    <string name="option_off">Унтраах</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP идэвхжүүлэх</string>
+    <string name="label_ip_http_enabled">IP HTTP идэвхжсэн</string>
+    <string name="title_display_password_level">Нууц үгийн түвшинг харуулах</string>
+    <string name="option_all">Бүгд</string>
+    <string name="option_none">Байхгүй</string>
+    <string name="option_selected">Сонгосон</string>
+    <string name="title_restore_pre_eured">Урьдчилан EUR хийсэн тохиргоог сэргээнэ үү</string>
+    <string name="button_reset_printer_settings">Принтерийн тохиргоог дахин тохируулна уу</string>
 </resources>

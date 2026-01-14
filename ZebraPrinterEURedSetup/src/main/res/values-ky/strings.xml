@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Скриптти принтерге жөнөтүү</string>
     <string name="content_description_clear_auth_password">Аутентификация сырсөзүн тазалоо</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Учурдагы сырсөз</string>
+    <string name="helper_password_current">Учурдагы дисплей сырсөзүн киргизиңиз</string>
+    <string name="content_description_clear_password_current">Учурдагы сырсөздү тазалоо</string>
+    <string name="content_description_scan_password_current">Учурдагы сырсөздү скандоо</string>
+    <string name="title_display_password_current">Учурдагы Сырсөздү көрсөтүү</string>
+    <string name="title_device_prompted_network_reset">Түзмөктүн Тармакты баштапкы абалга келтирүү</string>
+    <string name="option_yes">Ооба</string>
+    <string name="option_no">Жок</string>
+    <string name="label_is_discoverable">Ачууга болот</string>
+    <string name="title_setvar_wlan_enable">Var WLan иштетүү</string>
+    <string name="label_wlan_enabled">WLan иштетилген</string>
+    <string name="option_on">Күйүк</string>
+    <string name="option_off">Өчүк</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP иштетүү</string>
+    <string name="label_ip_http_enabled">IP HTTP иштетилди</string>
+    <string name="title_display_password_level">Сырсөз деңгээлин көрсөтүү</string>
+    <string name="option_all">Баары</string>
+    <string name="option_none">Жок</string>
+    <string name="option_selected">Тандалган</string>
+    <string name="title_restore_pre_eured">Алдын ала EUR коюлган жөндөөлөргө калыбына келтириңиз</string>
+    <string name="button_reset_printer_settings">Принтердин жөндөөлөрүн баштапкы абалга келтирүү</string>
 </resources>

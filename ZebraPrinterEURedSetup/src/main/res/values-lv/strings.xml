@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Nosūtīt skriptu uz printeri</string>
     <string name="content_description_clear_auth_password">Notīrīt autentifikācijas paroli</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Pašreizējā parole</string>
+    <string name="helper_password_current">Ievadiet pašreizējo displeja paroli</string>
+    <string name="content_description_clear_password_current">Notīrīt pašreizējo paroli</string>
+    <string name="content_description_scan_password_current">Skenēt pašreizējo paroli</string>
+    <string name="title_display_password_current">Parādīt pašreizējo paroli</string>
+    <string name="title_device_prompted_network_reset">Ierīces aicinājums tīkla atiestatīšanai</string>
+    <string name="option_yes">Jā</string>
+    <string name="option_no">Nē</string>
+    <string name="label_is_discoverable">Ir atklājams</string>
+    <string name="title_setvar_wlan_enable">Iestatiet Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLAN iespējots</string>
+    <string name="option_on">Ieslēgts</string>
+    <string name="option_off">Izslēgts</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP iespējot</string>
+    <string name="label_ip_http_enabled">IP HTTP ir iespējots</string>
+    <string name="title_display_password_level">Parādīt paroles līmeni</string>
+    <string name="option_all">Viss</string>
+    <string name="option_none">Nav</string>
+    <string name="option_selected">Atlasīts</string>
+    <string name="title_restore_pre_eured">Atjaunot uz iepriekš EUR iestatītajiem iestatījumiem</string>
+    <string name="button_reset_printer_settings">Atiestatīt printera iestatījumus</string>
 </resources>

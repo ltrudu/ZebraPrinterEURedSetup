@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Magpadala ng Script Sa Printer</string>
     <string name="content_description_clear_auth_password">I-clear ang authentication password</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Kasalukuyang Password</string>
+    <string name="helper_password_current">Ipasok ang kasalukuyang display password</string>
+    <string name="content_description_clear_password_current">I-clear ang kasalukuyang password</string>
+    <string name="content_description_scan_password_current">I-scan ang kasalukuyang password</string>
+    <string name="title_display_password_current">Ipakita ang Kasalukuyang Password</string>
+    <string name="title_device_prompted_network_reset">Pag-reset ng Network na Prompted ng Device</string>
+    <string name="option_yes">Oo</string>
+    <string name="option_no">Hindi</string>
+    <string name="label_is_discoverable">Ay Natutuklasan</string>
+    <string name="title_setvar_wlan_enable">Itakda ang Var WLan Enable</string>
+    <string name="label_wlan_enabled">Pinagana ang WLan</string>
+    <string name="option_on">Naka-on</string>
+    <string name="option_off">Naka-off</string>
+    <string name="title_setvar_ip_http_enable">Paganahin ang IP HTTP</string>
+    <string name="label_ip_http_enabled">Pinagana ang IP HTTP</string>
+    <string name="title_display_password_level">Display Password Level</string>
+    <string name="option_all">Lahat</string>
+    <string name="option_none">Wala</string>
+    <string name="option_selected">Napili</string>
+    <string name="title_restore_pre_eured">Ibalik sa pre-EURed na mga setting</string>
+    <string name="button_reset_printer_settings">I-reset ang Mga Setting ng Printer</string>
 </resources>

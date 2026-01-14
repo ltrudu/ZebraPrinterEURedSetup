@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">ส่งสคริปต์ไปยังเครื่องพิมพ์</string>
     <string name="content_description_clear_auth_password">ล้างรหัสผ่านการตรวจสอบสิทธิ์</string>
     <string name="connectivity_bluetooth">บลูทูธ</string>
+    <string name="label_password_current">รหัสผ่านปัจจุบัน</string>
+    <string name="helper_password_current">ป้อนรหัสผ่านการแสดงผลปัจจุบัน</string>
+    <string name="content_description_clear_password_current">ล้างรหัสผ่านปัจจุบัน</string>
+    <string name="content_description_scan_password_current">สแกนรหัสผ่านปัจจุบัน</string>
+    <string name="title_display_password_current">แสดงรหัสผ่านปัจจุบัน</string>
+    <string name="title_device_prompted_network_reset">อุปกรณ์แจ้งรีเซ็ตเครือข่าย</string>
+    <string name="option_yes">ใช่</string>
+    <string name="option_no">ไม่</string>
+    <string name="label_is_discoverable">สามารถค้นพบได้</string>
+    <string name="title_setvar_wlan_enable">ตั้งค่าเปิดใช้งาน WLan</string>
+    <string name="label_wlan_enabled">เปิดใช้งาน WLan</string>
+    <string name="option_on">เปิด</string>
+    <string name="option_off">ปิด</string>
+    <string name="title_setvar_ip_http_enable">เปิดใช้งาน IP HTTP</string>
+    <string name="label_ip_http_enabled">เปิดใช้งาน IP HTTP แล้ว</string>
+    <string name="title_display_password_level">แสดงระดับรหัสผ่าน</string>
+    <string name="option_all">ทั้งหมด</string>
+    <string name="option_none">ไม่มี</string>
+    <string name="option_selected">เลือกแล้ว</string>
+    <string name="title_restore_pre_eured">คืนค่าเป็นการตั้งค่าก่อน EURed</string>
+    <string name="button_reset_printer_settings">รีเซ็ตการตั้งค่าเครื่องพิมพ์</string>
 </resources>

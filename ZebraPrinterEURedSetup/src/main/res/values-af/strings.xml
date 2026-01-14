@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Stuur skrif na drukker</string>
     <string name="content_description_clear_auth_password">Vee verifikasiewagwoord uit</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Wagwoord Huidig</string>
+    <string name="helper_password_current">Voer die huidige skermwagwoord in</string>
+    <string name="content_description_clear_password_current">Vee huidige wagwoord uit</string>
+    <string name="content_description_scan_password_current">Skandeer wagwoord huidige</string>
+    <string name="title_display_password_current">Vertoon Huidige wagwoord</string>
+    <string name="title_device_prompted_network_reset">Toestel gevra netwerkterugstelling</string>
+    <string name="option_yes">Ja</string>
+    <string name="option_no">Nee</string>
+    <string name="label_is_discoverable">Is vindbaar</string>
+    <string name="title_setvar_wlan_enable">Stel Var WLan Aktiveer</string>
+    <string name="label_wlan_enabled">WLan geaktiveer</string>
+    <string name="option_on">Aan</string>
+    <string name="option_off">Af</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktiveer</string>
+    <string name="label_ip_http_enabled">IP HTTP geaktiveer</string>
+    <string name="title_display_password_level">Vertoon wagwoordvlak</string>
+    <string name="option_all">Almal</string>
+    <string name="option_none">Geen</string>
+    <string name="option_selected">Gekies</string>
+    <string name="title_restore_pre_eured">Herstel na vooraf-EUR-instellings</string>
+    <string name="button_reset_printer_settings">Stel drukkerinstellings terug</string>
 </resources>

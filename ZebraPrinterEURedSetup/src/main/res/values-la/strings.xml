@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Scriptum mittere ad Typographum</string>
     <string name="content_description_clear_auth_password">Serena authenticas password</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Password Current</string>
+    <string name="helper_password_current">Intrant hodiernam ostentationem password</string>
+    <string name="content_description_clear_password_current">Ignota password current</string>
+    <string name="content_description_scan_password_current">Scan password current</string>
+    <string name="title_display_password_current">Propono Password Current</string>
+    <string name="option_yes">Ita</string>
+    <string name="option_no">No</string>
+    <string name="label_is_discoverable">Inventibile est</string>
+    <string name="title_setvar_wlan_enable">Pone Var WLan Admitte</string>
+    <string name="label_wlan_enabled">WLan para</string>
+    <string name="option_on">On</string>
+    <string name="option_off">Off</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Admitte</string>
+    <string name="label_ip_http_enabled">IP HTTP para</string>
+    <string name="title_display_password_level">Propono Password Level</string>
+    <string name="option_all">All</string>
+    <string name="option_none">Nonam</string>
+    <string name="option_selected">Electus</string>
+    <string name="title_restore_pre_eured">Redde pre-eured occasus</string>
+    <string name="title_device_prompted_network_reset">Network Praemonita Fabrica Reddere</string>
+    <string name="button_reset_printer_settings">Reset Printer Occasus</string>
 </resources>

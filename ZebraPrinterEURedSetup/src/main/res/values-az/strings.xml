@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">Skripti Printerə Göndər</string>
     <string name="content_description_clear_auth_password">Doğrulama parolunu silin</string>
     <string name="connectivity_bluetooth">Bluetooth</string>
+    <string name="label_password_current">Cari parol</string>
+    <string name="helper_password_current">Cari ekran parolunu daxil edin</string>
+    <string name="content_description_clear_password_current">Cari parolu silin</string>
+    <string name="content_description_scan_password_current">Cari parolu skan edin</string>
+    <string name="title_display_password_current">Cari parolu göstərin</string>
+    <string name="title_device_prompted_network_reset">Cihazın Şəbəkə Sıfırlanması Tələb Edildi</string>
+    <string name="option_yes">Bəli</string>
+    <string name="option_no">Xeyr</string>
+    <string name="label_is_discoverable">Aşkar edilə bilər</string>
+    <string name="title_setvar_wlan_enable">Var WLan Enable seçin</string>
+    <string name="label_wlan_enabled">WLan aktivdir</string>
+    <string name="option_on">Aktivdir</string>
+    <string name="option_off">Deaktiv</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Aktivləşdirin</string>
+    <string name="label_ip_http_enabled">IP HTTP aktivdir</string>
+    <string name="title_display_password_level">Parol Səviyyəsini göstərin</string>
+    <string name="option_all">Hamısı</string>
+    <string name="option_none">Yoxdur</string>
+    <string name="option_selected">Seçildi</string>
+    <string name="title_restore_pre_eured">Əvvəlcədən EUR edilmiş parametrlərə bərpa edin</string>
+    <string name="button_reset_printer_settings">Printer Parametrlərini Sıfırlayın</string>
 </resources>

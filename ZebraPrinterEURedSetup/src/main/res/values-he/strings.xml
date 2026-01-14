@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">שלח סקריפט למדפסת</string>
     <string name="content_description_clear_auth_password">נקה סיסמת אימות</string>
     <string name="connectivity_bluetooth">בלוטות\'</string>
+    <string name="label_password_current">סיסמה נוכחית</string>
+    <string name="helper_password_current">הזן את סיסמת התצוגה הנוכחית</string>
+    <string name="content_description_clear_password_current">נקה את הסיסמה הנוכחית</string>
+    <string name="content_description_scan_password_current">סרוק את הסיסמה הנוכחית</string>
+    <string name="title_display_password_current">הצג את הסיסמה הנוכחית</string>
+    <string name="title_device_prompted_network_reset">התקן מוזמן לאפס רשת</string>
+    <string name="option_yes">כן</string>
+    <string name="option_no">לא</string>
+    <string name="label_is_discoverable">ניתן לגילוי</string>
+    <string name="title_setvar_wlan_enable">הגדר את Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan מופעל</string>
+    <string name="option_on">פועל</string>
+    <string name="option_off">כבוי</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP Enable</string>
+    <string name="label_ip_http_enabled">IP HTTP מופעל</string>
+    <string name="title_display_password_level">הצג את רמת הסיסמה</string>
+    <string name="option_all">הכל</string>
+    <string name="option_none">אין</string>
+    <string name="option_selected">נבחר</string>
+    <string name="title_restore_pre_eured">שחזר להגדרות שנקבעו מראש ב-EUR</string>
+    <string name="button_reset_printer_settings">אפס את הגדרות המדפסת</string>
 </resources>

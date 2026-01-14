@@ -98,4 +98,25 @@
     <string name="button_send_script_to_printer">මුද්‍රණ යන්ත්‍රයට ස්ක්‍රිප්ට් යවන්න</string>
     <string name="content_description_clear_auth_password">සත්‍යාපන මුරපදය හිස් කරන්න</string>
     <string name="connectivity_bluetooth">බ්ලූටූත්</string>
+    <string name="label_password_current">මුරපද ධාරාව</string>
+    <string name="helper_password_current">වත්මන් සංදර්ශක මුරපදය ඇතුළත් කරන්න</string>
+    <string name="content_description_clear_password_current">මුරපද ධාරාව හිස් කරන්න</string>
+    <string name="content_description_scan_password_current">මුරපද ධාරාව පරිලෝකනය කරන්න</string>
+    <string name="title_display_password_current">මුරපද ධාරාව පෙන්වන්න</string>
+    <string name="title_device_prompted_network_reset">උපාංග පෙළඹවූ ජාල යළි පිහිටුවීම</string>
+    <string name="option_yes">ඔව්</string>
+    <string name="option_no">නැත</string>
+    <string name="label_is_discoverable">සොයා ගත හැකි ය</string>
+    <string name="title_setvar_wlan_enable">Var WLan සබල කරන්න</string>
+    <string name="label_wlan_enabled">WLan සබල කර ඇත</string>
+    <string name="option_on">ක්‍රියාත්මකයි</string>
+    <string name="option_off">ක්‍රියාවිරහිතයි</string>
+    <string name="title_setvar_ip_http_enable">IP HTTP සබල කරන්න</string>
+    <string name="label_ip_http_enabled">IP HTTP සබල කර ඇත</string>
+    <string name="title_display_password_level">මුරපද මට්ටම පෙන්වන්න</string>
+    <string name="option_all">සියල්ල</string>
+    <string name="option_none">කිසිවක් නැත</string>
+    <string name="option_selected">තෝරා ඇත</string>
+    <string name="title_restore_pre_eured">පෙර යුරෝ සැකසුම් වෙත ප්‍රතිසාධනය කරන්න</string>
+    <string name="button_reset_printer_settings">මුද්‍රණ සැකසුම් යළි පිහිටුවන්න</string>
 </resources>
