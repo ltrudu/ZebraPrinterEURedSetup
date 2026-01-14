@@ -95,7 +95,21 @@ public class PrinterHelper {
     public void setupPasswordAndBluetooth(Context context, String macAddress, PrinterHelperCallback callback) {
         this.context = context;
         this.printerHelperCallback = callback;
-        final byte[] message = getEURedConfiguration().getBytes();
+        final byte[] message = getEURedConfigurationFromSettings().getBytes();
+        new Thread(() -> {
+            Looper.prepare();
+            doSendDataToPrinterBLE(context, macAddress, message);
+            Looper.loop();
+            Looper.myLooper().quit();
+            if (printerHelperCallback != null)
+                printerHelperCallback.onSuccess();
+        }).start();
+    }
+
+    public void restorePreEUREDSettingsBLE(Context context, String macAddress, PrinterHelperCallback callback) {
+        this.context = context;
+        this.printerHelperCallback = callback;
+        final byte[] message = getBeforeEURedConfiguration().getBytes();
         new Thread(() -> {
             Looper.prepare();
             doSendDataToPrinterBLE(context, macAddress, message);
@@ -266,7 +280,7 @@ public class PrinterHelper {
         }
     }
 
-    public String getEURedConfiguration()
+    public String getEURedConfigurationFromSettings()
     {
         // Retrieve parameters from settings
         boolean changePasswordEnabled = SettingsHelper.getChangePasswordEnabled(context);
@@ -275,6 +289,10 @@ public class PrinterHelper {
         String newSecurePassword = SettingsHelper.getNewAdminpassword(context);
         String httpAdminPassword = SettingsHelper.getHttpadminpasswordKey(context);
         String authenticationPassword = newSecurePassword;
+        boolean setdisplaypasswordcurrentEnabled = SettingsHelper.getDisplayPasswordCurrentEnabled(context);
+        String displayPasswordCurrent = SettingsHelper.getDisplayPasswordCurrent(context);
+        boolean promptedNetworkResetEnabled = SettingsHelper.getDevicePromptedNetworkResetEnabled(context);
+        boolean promtedNetworkReset = SettingsHelper.getDevicePromptedNetworkReset(context);
 
         // Retrieve protected mode allowed
         boolean protectedModeAllowed = SettingsHelper.getProtectedModeAllowed(context);
@@ -291,7 +309,18 @@ public class PrinterHelper {
         boolean zbiEnable = SettingsHelper.getEuredZbiEnable(context);
 
         // Retrieve bluetooth discoverable
+        boolean setBluetoothDiscoverableEnabled = SettingsHelper.getBluetoothDiscoverableEnabled(context);
         boolean setBluetoothDiscoverable = SettingsHelper.getBluetoothDiscoverable(context);
+
+        // Retrieve Wlan enable parameter
+        boolean setVarWLANEnableEnabled = SettingsHelper.getSetvarWlanEnableEnabled(context);
+        boolean setVarWLANEnabled = SettingsHelper.getSetvarWlanEnable(context);
+
+        boolean setVarIPHTTPEnabled = SettingsHelper.getSetvarIpHttpEnableEnabled(context);
+        boolean setVarIPHTTP = SettingsHelper.getSetvarIpHttpEnable(context);
+
+        boolean setDisplayPasswordLevelEnabled = SettingsHelper.getDisplayPasswordLevelEnabled(context);
+        String displaypasswordLevel = SettingsHelper.getDisplayPasswordLevel(context);
 
         // Build the Setup Helper
         SetupHelper setupHelper = new SetupHelper();
@@ -304,11 +333,49 @@ public class PrinterHelper {
                 .setEURedParams(authenticationPassword,
                 allowFirmwareDownload, tcpEnable, lpdEnable, httpsEnable, ftpEnable,
                 snmpEnable, wlanEnable, usbMirrorEnable, zbiEnable,
-                httpAdminEnabled ? httpAdminPassword : null, null)
-                .setDevicePromptedNetworkReset(authenticationPassword)
+                httpAdminEnabled ? httpAdminPassword : null, setdisplaypasswordcurrentEnabled ? displayPasswordCurrent : null);
+
+        if(promptedNetworkResetEnabled)
+            setupHelper = setupHelper.setDevicePromptedNetworkReset(authenticationPassword, promtedNetworkReset);
+
+        setupHelper = setupHelper.restoreDeviceLanguage();
+
+        if(setVarWLANEnableEnabled)
+            setupHelper = setupHelper.setWLanEnabled(setVarWLANEnabled);
+
+        if(setDisplayPasswordLevelEnabled)
+            setupHelper = setupHelper.setDisplayPasswordLevel(displaypasswordLevel);
+
+        if(setBluetoothDiscoverableEnabled)
+            setupHelper = setupHelper.changeBluetoothDiscoverable(setBluetoothDiscoverable);
+
+        if(setVarIPHTTPEnabled)
+            setupHelper = setupHelper.setIPHttpEnable(setVarIPHTTP);
+
+        setupHelper = setupHelper.resetDevice();
+
+        return setupHelper.getString();
+    }
+
+    public String getBeforeEURedConfiguration()
+    {
+        // Build the Setup Helper
+        SetupHelper setupHelper = new SetupHelper();
+        setupHelper = setupHelper.setDeviceLanguageZPL();
+
+        setupHelper = setupHelper.changePassword("", "ZebraPassword1234")
+                    .setProtectedModeAllowed("ZebraPassword1234", false)
+                    .setEURedParams("ZebraPassword1234",
+                        true, true, true, true, true,
+                            true, true, true, true,
+                        "1234", "1234")
+                .setDevicePromptedNetworkReset("ZebraPassword1234", true)
                 .restoreDeviceLanguage()
-                .changeBluetoothDiscoverable(setBluetoothDiscoverable)
-                .resetDevice();
+                .setWLanEnabled(true)
+                .setDisplayPasswordLevel("None")
+                .setIPHttpEnable(true);
+
+        setupHelper = setupHelper.resetDevice();
 
         return setupHelper.getString();
     }
@@ -324,10 +391,22 @@ public class PrinterHelper {
         }).start();
     }
 
+    public void restorePreEURedSettingsUSB(Context context, PrinterHelperCallback callback) {
+        this.context = context;
+        this.printerHelperCallback = callback;
+        final String message = getBeforeEURedConfiguration();
+        Log.d(Constants.TAG, message);
+        new Thread(() -> {
+            sendDataToUSBPrinter(context, message, callback);
+            if (printerHelperCallback != null)
+                printerHelperCallback.onSuccess();
+        }).start();
+    }
+
     public void setupPasswordAndBluetoothUSB(Context context, PrinterHelperCallback callback) {
         this.context = context;
         this.printerHelperCallback = callback;
-        final String message = getEURedConfiguration();
+        final String message = getEURedConfigurationFromSettings();
         Log.d(Constants.TAG, message);
         new Thread(() -> {
             sendDataToUSBPrinter(context, message, callback);

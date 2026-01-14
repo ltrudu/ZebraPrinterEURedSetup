@@ -36,7 +36,34 @@ public class Constants {
     public static final String SETTINGS_PROTECTED_MODE_ALLOWED = "ZEURED_PROTECTED_MODE_ALLOWED";
 
     // Bluetooth Discoverable setting
+    public static final String SETTINGS_BLUETOOTH_DISCOVERABLE_ENABLED = "ZEURED_BLUETOOTH_DISCOVERABLE_ENABLED";
     public static final String SETTINGS_BLUETOOTH_DISCOVERABLE = "ZEURED_BLUETOOTH_DISCOVERABLE";
+    public static final boolean DEFAULT_BLUETOOTH_DISCOVERABLE = true;
+
+    // Setvar Wlan Enable setting
+    public static final String SETTINGS_SETVAR_WLAN_ENABLE_ENABLED = "ZEURED_SETVAR_WLAN_ENABLE_ENABLED";
+    public static final String SETTINGS_SETVAR_WLAN_ENABLE = "ZEURED_SETVAR_WLAN_ENABLE";
+    public static final boolean DEFAULT_SETVAR_WLAN_ENABLE = false;
+
+    // Setvar IP HTTP Enable setting
+    public static final String SETTINGS_SETVAR_IP_HTTP_ENABLE_ENABLED = "ZEURED_SETVAR_IP_HTTP_ENABLE_ENABLED";
+    public static final String SETTINGS_SETVAR_IP_HTTP_ENABLE = "ZEURED_SETVAR_IP_HTTP_ENABLE";
+    public static final boolean DEFAULT_SETVAR_IP_HTTP_ENABLE = false;
+
+    // Display Password Level setting
+    public static final String SETTINGS_DISPLAY_PASSWORD_LEVEL_ENABLED = "ZEURED_DISPLAY_PASSWORD_LEVEL_ENABLED";
+    public static final String SETTINGS_DISPLAY_PASSWORD_LEVEL = "ZEURED_DISPLAY_PASSWORD_LEVEL";
+    public static final String DEFAULT_DISPLAY_PASSWORD_LEVEL = "None";
+
+    // Display Password Current setting
+    public static final String SETTINGS_DISPLAY_PASSWORD_CURRENT = "ZEURED_DISPLAY_PASSWORD_CURRENT";
+    public static final String SETTINGS_DISPLAY_PASSWORD_CURRENT_ENABLED = "ZEURED_DISPLAY_PASSWORD_CURRENT_ENABLED";
+    public static final String DEFAULT_DISPLAY_PASSWORD_CURRENT = "JeSuisUneZebra";
+
+    // Device Prompted Network Reset setting
+    public static final String SETTINGS_DEVICE_PROMPTED_NETWORK_RESET = "ZEURED_DEVICE_PROMPTED_NETWORK_RESET";
+    public static final String SETTINGS_DEVICE_PROMPTED_NETWORK_RESET_ENABLED = "ZEURED_DEVICE_PROMPTED_NETWORK_RESET_ENABLED";
+    public static final boolean DEFAULT_DEVICE_PROMPTED_NETWORK_RESET = true;
 
     // EURed Configuration settings
     public static final String SETTINGS_EURED_FIRMWARE_DOWNLOAD = "ZEURED_FIRMWARE_DOWNLOAD";

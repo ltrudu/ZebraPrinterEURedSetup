@@ -14,6 +14,7 @@
     <string name="label_printer_mac_address">Printer Mac Address</string>
     <string name="label_old_password">Old Secure Password</string>
     <string name="label_new_password">New Secure Password</string>
+    <string name="label_password_current">Password Current</string>
     <string name="label_http_admin_password">Http Admin Password</string>
 
     <!-- Hints -->
@@ -25,6 +26,7 @@
     <!-- Helper Text -->
     <string name="helper_old_password">Leave blank if setting up a new hardware</string>
     <string name="helper_new_password">Set here the new admin password</string>
+    <string name="helper_password_current">Enter the current display password</string>
     <string name="helper_http_admin_password">Set here the new HTTP admin password</string>
 
     <!-- Buttons -->
@@ -74,6 +76,8 @@
     <string name="content_description_scan_http_admin_password">Scan HTTP admin password</string>
     <string name="content_description_scan_auth_password">Scan authentication password</string>
     <string name="content_description_clear_auth_password">Clear authentication password</string>
+    <string name="content_description_clear_password_current">Clear password current</string>
+    <string name="content_description_scan_password_current">Scan password current</string>
     <string name="content_description_toggle_flash">Toggle flash</string>
 
     <!-- Scanner -->
@@ -151,6 +155,37 @@
     <string name="label_usb_mirror_enable">USB Mirror Enable</string>
     <string name="label_zbi_enable">ZBI Enable</string>
 
+    <!-- Display Password Current -->
+    <string name="title_display_password_current">Display Password Current</string>
+
     <!-- Bluetooth Discoverable -->
     <string name="title_bluetooth_discoverable">Bluetooth Discoverable</string>
+
+    <!-- Device Prompted Network Reset -->
+    <string name="title_device_prompted_network_reset">Device Prompted Network Reset</string>
+    <string name="option_yes">Yes</string>
+    <string name="option_no">No</string>
+
+    <!-- Bluetooth Discoverable -->
+    <string name="label_is_discoverable">Is Discoverable</string>
+
+    <!-- Setvar Wlan Enable -->
+    <string name="title_setvar_wlan_enable">Set Var WLan Enable</string>
+    <string name="label_wlan_enabled">WLan enabled</string>
+    <string name="option_on">On</string>
+    <string name="option_off">Off</string>
+
+    <!-- Setvar IP HTTP Enable -->
+    <string name="title_setvar_ip_http_enable">IP HTTP Enable</string>
+    <string name="label_ip_http_enabled">IP HTTP enabled</string>
+
+    <!-- Display Password Level -->
+    <string name="title_display_password_level">Display Password Level</string>
+    <string name="option_all">All</string>
+    <string name="option_none">None</string>
+    <string name="option_selected">Selected</string>
+
+    <!-- Restore Pre-EURed Settings -->
+    <string name="title_restore_pre_eured">Restore to pre-EURed settings</string>
+    <string name="button_reset_printer_settings">Reset Printer Settings</string>
 </resources>

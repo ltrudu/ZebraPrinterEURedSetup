@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private EditText editTextMacAddress;
     private MaterialButton buttonSetupPasswordBluetooth;
     private MaterialButton buttonTestLabel;
+    private MaterialButton buttonResetPrinterSettings;
     private TextView textViewStatus;
     private boolean isFormattingMacAddress = false;
 
@@ -70,6 +71,7 @@ public class HomeFragment extends Fragment {
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
         buttonSetupPasswordBluetooth = view.findViewById(R.id.buttonSetupPasswordBluetooth);
         buttonTestLabel = view.findViewById(R.id.buttonTestLabel);
+        buttonResetPrinterSettings = view.findViewById(R.id.buttonResetPrinterSettings);
         textViewStatus = view.findViewById(R.id.textViewStatus);
 
         // Connectivity type spinner
@@ -248,6 +250,42 @@ public class HomeFragment extends Fragment {
             } else {
                 // USB mode - use async wrapper to avoid blocking UI thread
                 printerHelper.sendDataToUSB(requireContext(), testZpl, callback);
+            }
+        });
+
+        // Reset Printer Settings button click listener
+        buttonResetPrinterSettings.setOnClickListener(v -> {
+            // For BLE mode, validate MAC address
+            if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
+                String macAddress = editTextMacAddress.getText().toString();
+                if (!isValidMacAddress(macAddress)) {
+                    textInputLayoutMacAddress.setError(getString(R.string.error_valid_mac_address_required));
+                    return;
+                }
+            }
+            PrinterHelper.PrinterHelperCallback callback = new PrinterHelper.PrinterHelperCallback() {
+                @Override
+                public void OnStatus(String message, int color) {
+                    requireActivity().runOnUiThread(() -> setStatus(message, color));
+                }
+
+                @Override
+                public void onSuccess() {
+                    requireActivity().runOnUiThread(() -> {
+                        textViewStatus.setText(R.string.status_setup_completed);
+                        textViewStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
+                    });
+                }
+            };
+
+            if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
+                String macAddress = editTextMacAddress.getText().toString();
+                // Save MAC address
+                SettingsHelper.saveBluetoothAddress(requireContext(), macAddress);
+                printerHelper.restorePreEUREDSettingsBLE(requireContext(), macAddress, callback);
+            } else {
+                // USB mode
+                printerHelper.restorePreEURedSettingsUSB(requireContext(), callback);
             }
         });
 

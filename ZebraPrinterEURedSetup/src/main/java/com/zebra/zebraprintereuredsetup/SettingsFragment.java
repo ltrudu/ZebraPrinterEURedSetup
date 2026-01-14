@@ -13,7 +13,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,8 +60,35 @@ public class SettingsFragment extends Fragment {
     private CheckBox checkboxUsbMirrorEnable;
     private CheckBox checkboxZbiEnable;
 
-    // Bluetooth Discoverable checkbox
-    private CheckBox checkboxBluetoothDiscoverable;
+    // Bluetooth Discoverable
+    private CheckBox checkboxBluetoothDiscoverableEnabled;
+    private Spinner spinnerBluetoothDiscoverable;
+    private LinearLayout contentBluetoothDiscoverable;
+
+    // Setvar Wlan Enable
+    private CheckBox checkboxSetvarWlanEnableEnabled;
+    private Spinner spinnerSetvarWlanEnable;
+    private LinearLayout contentSetvarWlanEnable;
+
+    // Setvar IP HTTP Enable
+    private CheckBox checkboxSetvarIpHttpEnableEnabled;
+    private Spinner spinnerSetvarIpHttpEnable;
+    private LinearLayout contentSetvarIpHttpEnable;
+
+    // Display Password Level
+    private CheckBox checkboxDisplayPasswordLevelEnabled;
+    private Spinner spinnerDisplayPasswordLevel;
+    private LinearLayout contentDisplayPasswordLevel;
+
+    // Display Password Current
+    private CheckBox checkboxDisplayPasswordCurrentEnabled;
+    private EditText editTextPasswordCurrent;
+    private LinearLayout contentDisplayPasswordCurrent;
+
+    // Device Prompted Network Reset
+    private CheckBox checkboxDevicePromptedNetworkResetEnabled;
+    private Spinner spinnerDevicePromptedNetworkReset;
+    private LinearLayout contentDevicePromptedNetworkReset;
 
     // Content containers for showing/hiding
     private LinearLayout contentChangePassword;
@@ -70,6 +99,7 @@ public class SettingsFragment extends Fragment {
     private Button buttonPrefillNewPassword;
     private Button buttonPrefillHttpAdminPassword;
     private Button buttonClearAuthPassword;
+    private Button buttonClearPasswordCurrent;
 
     private final Handler saveHandler = new Handler(Looper.getMainLooper());
     private final Runnable saveRunnable = this::saveValuesWithStatus;
@@ -119,8 +149,86 @@ public class SettingsFragment extends Fragment {
         checkboxUsbMirrorEnable = view.findViewById(R.id.checkboxUsbMirrorEnable);
         checkboxZbiEnable = view.findViewById(R.id.checkboxZbiEnable);
 
-        // Bluetooth Discoverable checkbox
-        checkboxBluetoothDiscoverable = view.findViewById(R.id.checkboxBluetoothDiscoverable);
+        // Bluetooth Discoverable
+        checkboxBluetoothDiscoverableEnabled = view.findViewById(R.id.checkboxBluetoothDiscoverableEnabled);
+        spinnerBluetoothDiscoverable = view.findViewById(R.id.spinnerBluetoothDiscoverable);
+        contentBluetoothDiscoverable = view.findViewById(R.id.contentBluetoothDiscoverable);
+
+        // Setup Bluetooth Discoverable spinner (Yes/No)
+        String[] bluetoothDiscoverableOptions = {
+            getString(R.string.option_yes),
+            getString(R.string.option_no)
+        };
+        ArrayAdapter<String> bluetoothDiscoverableAdapter = new ArrayAdapter<>(requireContext(),
+            android.R.layout.simple_spinner_item, bluetoothDiscoverableOptions);
+        bluetoothDiscoverableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBluetoothDiscoverable.setAdapter(bluetoothDiscoverableAdapter);
+
+        // Setvar Wlan Enable
+        checkboxSetvarWlanEnableEnabled = view.findViewById(R.id.checkboxSetvarWlanEnableEnabled);
+        spinnerSetvarWlanEnable = view.findViewById(R.id.spinnerSetvarWlanEnable);
+        contentSetvarWlanEnable = view.findViewById(R.id.contentSetvarWlanEnable);
+
+        // Setup Setvar Wlan Enable spinner (On/Off)
+        String[] wlanEnableOptions = {
+            getString(R.string.option_on),
+            getString(R.string.option_off)
+        };
+        ArrayAdapter<String> wlanEnableAdapter = new ArrayAdapter<>(requireContext(),
+            android.R.layout.simple_spinner_item, wlanEnableOptions);
+        wlanEnableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSetvarWlanEnable.setAdapter(wlanEnableAdapter);
+
+        // Setvar IP HTTP Enable
+        checkboxSetvarIpHttpEnableEnabled = view.findViewById(R.id.checkboxSetvarIpHttpEnableEnabled);
+        spinnerSetvarIpHttpEnable = view.findViewById(R.id.spinnerSetvarIpHttpEnable);
+        contentSetvarIpHttpEnable = view.findViewById(R.id.contentSetvarIpHttpEnable);
+
+        // Setup Setvar IP HTTP Enable spinner (On/Off)
+        String[] ipHttpEnableOptions = {
+            getString(R.string.option_on),
+            getString(R.string.option_off)
+        };
+        ArrayAdapter<String> ipHttpEnableAdapter = new ArrayAdapter<>(requireContext(),
+            android.R.layout.simple_spinner_item, ipHttpEnableOptions);
+        ipHttpEnableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSetvarIpHttpEnable.setAdapter(ipHttpEnableAdapter);
+
+        // Display Password Level
+        checkboxDisplayPasswordLevelEnabled = view.findViewById(R.id.checkboxDisplayPasswordLevelEnabled);
+        spinnerDisplayPasswordLevel = view.findViewById(R.id.spinnerDisplayPasswordLevel);
+        contentDisplayPasswordLevel = view.findViewById(R.id.contentDisplayPasswordLevel);
+
+        // Setup Display Password Level spinner (All, None, Selected)
+        String[] passwordLevelOptions = {
+            getString(R.string.option_all),
+            getString(R.string.option_none),
+            getString(R.string.option_selected)
+        };
+        ArrayAdapter<String> passwordLevelAdapter = new ArrayAdapter<>(requireContext(),
+            android.R.layout.simple_spinner_item, passwordLevelOptions);
+        passwordLevelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDisplayPasswordLevel.setAdapter(passwordLevelAdapter);
+
+        // Display Password Current
+        checkboxDisplayPasswordCurrentEnabled = view.findViewById(R.id.checkboxDisplayPasswordCurrentEnabled);
+        editTextPasswordCurrent = view.findViewById(R.id.editTextPasswordCurrent);
+        contentDisplayPasswordCurrent = view.findViewById(R.id.contentDisplayPasswordCurrent);
+
+        // Device Prompted Network Reset
+        checkboxDevicePromptedNetworkResetEnabled = view.findViewById(R.id.checkboxDevicePromptedNetworkResetEnabled);
+        spinnerDevicePromptedNetworkReset = view.findViewById(R.id.spinnerDevicePromptedNetworkReset);
+        contentDevicePromptedNetworkReset = view.findViewById(R.id.contentDevicePromptedNetworkReset);
+
+        // Setup Device Prompted Network Reset spinner
+        String[] networkResetOptions = {
+            getString(R.string.option_yes),
+            getString(R.string.option_no)
+        };
+        ArrayAdapter<String> networkResetAdapter = new ArrayAdapter<>(requireContext(),
+            android.R.layout.simple_spinner_item, networkResetOptions);
+        networkResetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDevicePromptedNetworkReset.setAdapter(networkResetAdapter);
 
         // Setup language dropdown
         setupLanguageDropdown();
@@ -133,15 +241,57 @@ public class SettingsFragment extends Fragment {
         Button buttonScanHttpAdminPassword = view.findViewById(R.id.buttonScanHttpAdminPassword);
         buttonClearAuthPassword = view.findViewById(R.id.buttonClearAuthPassword);
         Button buttonScanAuthPassword = view.findViewById(R.id.buttonScanAuthPassword);
+        buttonClearPasswordCurrent = view.findViewById(R.id.buttonClearPasswordCurrent);
+        Button buttonScanPasswordCurrent = view.findViewById(R.id.buttonScanPasswordCurrent);
 
         // Load saved values
         editTextOldPassword.setText(SettingsHelper.getOldAdminpassword(requireContext()));
         editTextNewPassword.setText(SettingsHelper.getNewAdminpassword(requireContext()));
         editTextHttpAdminPassword.setText(SettingsHelper.getHttpadminpasswordKey(requireContext()));
         editTextAuthPassword.setText(SettingsHelper.getAuthPassword(requireContext()));
+        editTextPasswordCurrent.setText(SettingsHelper.getDisplayPasswordCurrent(requireContext()));
 
         // Set initial visibility of clear buttons based on content
         updateClearButtonsVisibility();
+
+        // Load and apply Display Password Current checkbox state
+        boolean displayPasswordCurrentEnabled = SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext());
+        checkboxDisplayPasswordCurrentEnabled.setChecked(displayPasswordCurrentEnabled);
+        contentDisplayPasswordCurrent.setVisibility(displayPasswordCurrentEnabled ? View.VISIBLE : View.GONE);
+
+        // Display Password Current checkbox listener
+        checkboxDisplayPasswordCurrentEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentDisplayPasswordCurrent.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveDisplayPasswordCurrentEnabled(requireContext(), isChecked);
+        });
+
+        // Load and apply Device Prompted Network Reset state
+        boolean devicePromptedNetworkResetEnabled = SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext());
+        checkboxDevicePromptedNetworkResetEnabled.setChecked(devicePromptedNetworkResetEnabled);
+        contentDevicePromptedNetworkReset.setVisibility(devicePromptedNetworkResetEnabled ? View.VISIBLE : View.GONE);
+
+        // Set spinner selection based on saved value (true=Yes=0, false=No=1)
+        boolean savedNetworkResetValue = SettingsHelper.getDevicePromptedNetworkReset(requireContext());
+        spinnerDevicePromptedNetworkReset.setSelection(savedNetworkResetValue ? 0 : 1);
+
+        // Device Prompted Network Reset checkbox listener
+        checkboxDevicePromptedNetworkResetEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentDevicePromptedNetworkReset.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveDevicePromptedNetworkResetEnabled(requireContext(), isChecked);
+        });
+
+        // Device Prompted Network Reset spinner listener (Yes=true, No=false)
+        spinnerDevicePromptedNetworkReset.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                boolean value = (position == 0); // Yes=true, No=false
+                SettingsHelper.saveDevicePromptedNetworkReset(requireContext(), value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // Load and apply checkbox states
         boolean changePasswordEnabled = SettingsHelper.getChangePasswordEnabled(requireContext());
@@ -198,10 +348,126 @@ public class SettingsFragment extends Fragment {
         checkboxZbiEnable.setOnCheckedChangeListener((buttonView, isChecked) ->
             SettingsHelper.saveEuredZbiEnable(requireContext(), isChecked));
 
-        // Load and apply Bluetooth Discoverable checkbox state
-        checkboxBluetoothDiscoverable.setChecked(SettingsHelper.getBluetoothDiscoverable(requireContext()));
-        checkboxBluetoothDiscoverable.setOnCheckedChangeListener((buttonView, isChecked) ->
-            SettingsHelper.saveBluetoothDiscoverable(requireContext(), isChecked));
+        // Load and apply Bluetooth Discoverable state
+        boolean bluetoothDiscoverableEnabled = SettingsHelper.getBluetoothDiscoverableEnabled(requireContext());
+        checkboxBluetoothDiscoverableEnabled.setChecked(bluetoothDiscoverableEnabled);
+        contentBluetoothDiscoverable.setVisibility(bluetoothDiscoverableEnabled ? View.VISIBLE : View.GONE);
+
+        // Set spinner selection based on saved value (true=Yes=0, false=No=1)
+        boolean savedBluetoothDiscoverable = SettingsHelper.getBluetoothDiscoverable(requireContext());
+        spinnerBluetoothDiscoverable.setSelection(savedBluetoothDiscoverable ? 0 : 1);
+
+        // Bluetooth Discoverable checkbox listener
+        checkboxBluetoothDiscoverableEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentBluetoothDiscoverable.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveBluetoothDiscoverableEnabled(requireContext(), isChecked);
+        });
+
+        // Bluetooth Discoverable spinner listener (Yes=true, No=false)
+        spinnerBluetoothDiscoverable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                boolean value = (position == 0); // Yes=true, No=false
+                SettingsHelper.saveBluetoothDiscoverable(requireContext(), value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Load and apply Setvar Wlan Enable state
+        boolean setvarWlanEnableEnabled = SettingsHelper.getSetvarWlanEnableEnabled(requireContext());
+        checkboxSetvarWlanEnableEnabled.setChecked(setvarWlanEnableEnabled);
+        contentSetvarWlanEnable.setVisibility(setvarWlanEnableEnabled ? View.VISIBLE : View.GONE);
+
+        // Set spinner selection based on saved value (true=On=0, false=Off=1)
+        boolean savedWlanEnable = SettingsHelper.getSetvarWlanEnable(requireContext());
+        spinnerSetvarWlanEnable.setSelection(savedWlanEnable ? 0 : 1);
+
+        // Setvar Wlan Enable checkbox listener
+        checkboxSetvarWlanEnableEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentSetvarWlanEnable.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveSetvarWlanEnableEnabled(requireContext(), isChecked);
+        });
+
+        // Setvar Wlan Enable spinner listener (On=true, Off=false)
+        spinnerSetvarWlanEnable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                boolean value = (position == 0); // On=true, Off=false
+                SettingsHelper.saveSetvarWlanEnable(requireContext(), value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Load and apply Setvar IP HTTP Enable state
+        boolean setvarIpHttpEnableEnabled = SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext());
+        checkboxSetvarIpHttpEnableEnabled.setChecked(setvarIpHttpEnableEnabled);
+        contentSetvarIpHttpEnable.setVisibility(setvarIpHttpEnableEnabled ? View.VISIBLE : View.GONE);
+
+        // Set spinner selection based on saved value (true=On=0, false=Off=1)
+        boolean savedIpHttpEnable = SettingsHelper.getSetvarIpHttpEnable(requireContext());
+        spinnerSetvarIpHttpEnable.setSelection(savedIpHttpEnable ? 0 : 1);
+
+        // Setvar IP HTTP Enable checkbox listener
+        checkboxSetvarIpHttpEnableEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentSetvarIpHttpEnable.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveSetvarIpHttpEnableEnabled(requireContext(), isChecked);
+        });
+
+        // Setvar IP HTTP Enable spinner listener (On=true, Off=false)
+        spinnerSetvarIpHttpEnable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                boolean value = (position == 0); // On=true, Off=false
+                SettingsHelper.saveSetvarIpHttpEnable(requireContext(), value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Load and apply Display Password Level state
+        boolean displayPasswordLevelEnabled = SettingsHelper.getDisplayPasswordLevelEnabled(requireContext());
+        checkboxDisplayPasswordLevelEnabled.setChecked(displayPasswordLevelEnabled);
+        contentDisplayPasswordLevel.setVisibility(displayPasswordLevelEnabled ? View.VISIBLE : View.GONE);
+
+        // Set spinner selection based on saved value (All=0, None=1, Selected=2)
+        String savedPasswordLevel = SettingsHelper.getDisplayPasswordLevel(requireContext());
+        int passwordLevelIndex = 1; // Default to None
+        if (savedPasswordLevel.equals("All")) passwordLevelIndex = 0;
+        else if (savedPasswordLevel.equals("None")) passwordLevelIndex = 1;
+        else if (savedPasswordLevel.equals("Selected")) passwordLevelIndex = 2;
+        spinnerDisplayPasswordLevel.setSelection(passwordLevelIndex);
+
+        // Display Password Level checkbox listener
+        checkboxDisplayPasswordLevelEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            contentDisplayPasswordLevel.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            SettingsHelper.saveDisplayPasswordLevelEnabled(requireContext(), isChecked);
+        });
+
+        // Display Password Level spinner listener
+        spinnerDisplayPasswordLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                String value;
+                switch (position) {
+                    case 0: value = "All"; break;
+                    case 2: value = "Selected"; break;
+                    default: value = "None"; break;
+                }
+                SettingsHelper.saveDisplayPasswordLevel(requireContext(), value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // Clear buttons - tap to clear, long press to reset to default
         buttonClearOldPassword.setOnClickListener(v -> editTextOldPassword.setText(""));
@@ -228,11 +494,18 @@ public class SettingsFragment extends Fragment {
             return true;
         });
 
+        buttonClearPasswordCurrent.setOnClickListener(v -> editTextPasswordCurrent.setText(""));
+        buttonClearPasswordCurrent.setOnLongClickListener(v -> {
+            editTextPasswordCurrent.setText(Constants.DEFAULT_DISPLAY_PASSWORD_CURRENT);
+            return true;
+        });
+
         // Scan buttons - open barcode scanner via MainActivity
         buttonScanOldPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_OLD_PASSWORD));
         buttonScanNewPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_NEW_PASSWORD));
         buttonScanHttpAdminPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_HTTP_ADMIN_PASSWORD));
         buttonScanAuthPassword.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_AUTH_PASSWORD));
+        buttonScanPasswordCurrent.setOnClickListener(v -> openBarcodeScanner(BarcodeScannerFragment.FIELD_PASSWORD_CURRENT));
 
         // Save values on text change (debounced)
         TextWatcher saveWatcher = new TextWatcher() {
@@ -254,6 +527,7 @@ public class SettingsFragment extends Fragment {
         editTextNewPassword.addTextChangedListener(saveWatcher);
         editTextHttpAdminPassword.addTextChangedListener(saveWatcher);
         editTextAuthPassword.addTextChangedListener(saveWatcher);
+        editTextPasswordCurrent.addTextChangedListener(saveWatcher);
 
         validatePasswords();
 
@@ -321,6 +595,8 @@ public class SettingsFragment extends Fragment {
                 editTextHttpAdminPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
         buttonClearAuthPassword.setVisibility(
                 editTextAuthPassword.getText().length() > 0 ? View.VISIBLE : View.GONE);
+        buttonClearPasswordCurrent.setVisibility(
+                editTextPasswordCurrent.getText().length() > 0 ? View.VISIBLE : View.GONE);
     }
 
     private void saveValuesWithStatus() {
@@ -348,6 +624,7 @@ public class SettingsFragment extends Fragment {
             SettingsHelper.saveNewAdminPassword(requireContext(), newPassword);
             SettingsHelper.saveHttpadminpasswordKey(requireContext(), httpAdminPassword);
             SettingsHelper.saveAuthPassword(requireContext(), editTextAuthPassword.getText().toString());
+            SettingsHelper.saveDisplayPasswordCurrent(requireContext(), editTextPasswordCurrent.getText().toString());
             return true;
         }
         return false;
@@ -427,6 +704,9 @@ public class SettingsFragment extends Fragment {
                                 break;
                             case BarcodeScannerFragment.FIELD_AUTH_PASSWORD:
                                 editTextAuthPassword.setText(barcode);
+                                break;
+                            case BarcodeScannerFragment.FIELD_PASSWORD_CURRENT:
+                                editTextPasswordCurrent.setText(barcode);
                                 break;
                         }
                     }

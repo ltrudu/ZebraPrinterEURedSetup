@@ -79,10 +79,10 @@ public class SetupHelper {
                 "      \"usb.mirror.enable\": \" " + (usbMirrorEnable ? "on" : "off") + "\",\n" +
                 "      \"zbi.enable\": \"" + (zbiEnable ? "on" : "off") + "\",\n";
 
-        if(displayPasswordCurrent != null && displayPasswordCurrent.isEmpty() == false)
+        if(displayPasswordCurrent != null)
             configLabelString += "      \"display.password.current\": \"" + displayPasswordCurrent + "\",\n";
 
-        if(httpadminpassword != null && httpadminpassword.isEmpty() == false)
+        if(httpadminpassword != null)
             configLabelString += "      \"ip.http.admin_password\": \""+ httpadminpassword + "\"\n";
 
         configLabelString += "    }\n" +
@@ -92,7 +92,7 @@ public class SetupHelper {
         return this;
     }
 
-    public SetupHelper setDevicePromptedNetworkReset(String password)
+    public SetupHelper setDevicePromptedNetworkReset(String password, boolean set)
     {
         configLabelString += "{}{\n" +
                 "  \"protect\": {\n" +
@@ -103,10 +103,28 @@ public class SetupHelper {
                 "    },\n" +
                 "    \"operation\": \"set\",\n" +
                 "    \"set\": {\n" +
-                "      \"device.prompted_network_reset\": \"yes\"\n" +
+                "      \"device.prompted_network_reset\": \"" + (set ? "yes" : "no") + "\"\n" +
                 "    }\n" +
                 "  }\n" +
                 "}\n";
+        return this;
+    }
+
+    public SetupHelper setWLanEnabled(boolean enabled)
+    {
+        configLabelString += "! U1 setvar \"wlan.enable\" \"" + (enabled ? "on" : "off") + "\"\r\n";
+        return this;
+    }
+
+    public SetupHelper setDisplayPasswordLevel(String displayPasswordLevel)
+    {
+        configLabelString += "! U1 setvar \"display.password.level\" \""+ displayPasswordLevel + "\"\r\n";
+        return this;
+    }
+
+    public SetupHelper setIPHttpEnable(boolean ipHttpEnable)
+    {
+        configLabelString += "! U1 setvar \"ip.http.enable\" \""+ (ipHttpEnable ? "on" : "off") +"\"\r\n";
         return this;
     }
 

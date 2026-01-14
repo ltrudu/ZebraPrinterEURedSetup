@@ -223,6 +223,41 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Restore Pre-EURed Settings Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardRestorePreEured"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/titleRestorePreEured"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center"
+                            android:text="@string/title_restore_pre_eured"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonResetPrinterSettings"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/button_reset_printer_settings" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <!-- Test Card -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardTest"

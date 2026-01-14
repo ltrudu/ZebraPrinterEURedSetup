@@ -145,16 +145,107 @@ public class SettingsHelper {
         editor.commit();
     }
 
-    // Bluetooth Discoverable setting (default to true)
-    public static boolean getBluetoothDiscoverable(Context context) {
+    // Bluetooth Discoverable enabled state
+    public static boolean getBluetoothDiscoverableEnabled(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE, true);
+        return settings.getBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE_ENABLED, true);
     }
 
-    public static void saveBluetoothDiscoverable(Context context, boolean enabled) {
+    public static void saveBluetoothDiscoverableEnabled(Context context, boolean enabled) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE, enabled);
+        editor.putBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Bluetooth Discoverable value (Yes=true, No=false)
+    public static boolean getBluetoothDiscoverable(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE, Constants.DEFAULT_BLUETOOTH_DISCOVERABLE);
+    }
+
+    public static void saveBluetoothDiscoverable(Context context, boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_BLUETOOTH_DISCOVERABLE, value);
+        editor.commit();
+    }
+
+    // Setvar Wlan Enable enabled state
+    public static boolean getSetvarWlanEnableEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_SETVAR_WLAN_ENABLE_ENABLED, false);
+    }
+
+    public static void saveSetvarWlanEnableEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_SETVAR_WLAN_ENABLE_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Setvar Wlan Enable value (On=true, Off=false)
+    public static boolean getSetvarWlanEnable(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_SETVAR_WLAN_ENABLE, Constants.DEFAULT_SETVAR_WLAN_ENABLE);
+    }
+
+    public static void saveSetvarWlanEnable(Context context, boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_SETVAR_WLAN_ENABLE, value);
+        editor.commit();
+    }
+
+    // Setvar IP HTTP Enable enabled state
+    public static boolean getSetvarIpHttpEnableEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_SETVAR_IP_HTTP_ENABLE_ENABLED, false);
+    }
+
+    public static void saveSetvarIpHttpEnableEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_SETVAR_IP_HTTP_ENABLE_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Setvar IP HTTP Enable value (On=true, Off=false)
+    public static boolean getSetvarIpHttpEnable(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_SETVAR_IP_HTTP_ENABLE, Constants.DEFAULT_SETVAR_IP_HTTP_ENABLE);
+    }
+
+    public static void saveSetvarIpHttpEnable(Context context, boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_SETVAR_IP_HTTP_ENABLE, value);
+        editor.commit();
+    }
+
+    // Display Password Level enabled state
+    public static boolean getDisplayPasswordLevelEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_DISPLAY_PASSWORD_LEVEL_ENABLED, false);
+    }
+
+    public static void saveDisplayPasswordLevelEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_DISPLAY_PASSWORD_LEVEL_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Display Password Level value (All, None, Selected - string)
+    public static String getDisplayPasswordLevel(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getString(Constants.SETTINGS_DISPLAY_PASSWORD_LEVEL, Constants.DEFAULT_DISPLAY_PASSWORD_LEVEL);
+    }
+
+    public static void saveDisplayPasswordLevel(Context context, String value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Constants.SETTINGS_DISPLAY_PASSWORD_LEVEL, value);
         editor.commit();
     }
 
@@ -264,6 +355,58 @@ public class SettingsHelper {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(Constants.SETTINGS_EURED_ZBI_ENABLE, enabled);
+        editor.commit();
+    }
+
+    // Display Password Current setting
+    public static String getDisplayPasswordCurrent(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getString(Constants.SETTINGS_DISPLAY_PASSWORD_CURRENT, Constants.DEFAULT_DISPLAY_PASSWORD_CURRENT);
+    }
+
+    public static void saveDisplayPasswordCurrent(Context context, String password) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Constants.SETTINGS_DISPLAY_PASSWORD_CURRENT, password);
+        editor.commit();
+    }
+
+    // Display Password Current enabled state
+    public static boolean getDisplayPasswordCurrentEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_DISPLAY_PASSWORD_CURRENT_ENABLED, true);
+    }
+
+    public static void saveDisplayPasswordCurrentEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_DISPLAY_PASSWORD_CURRENT_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Device Prompted Network Reset value (Yes=true, No=false)
+    public static boolean getDevicePromptedNetworkReset(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_DEVICE_PROMPTED_NETWORK_RESET, Constants.DEFAULT_DEVICE_PROMPTED_NETWORK_RESET);
+    }
+
+    public static void saveDevicePromptedNetworkReset(Context context, boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_DEVICE_PROMPTED_NETWORK_RESET, value);
+        editor.commit();
+    }
+
+    // Device Prompted Network Reset enabled state
+    public static boolean getDevicePromptedNetworkResetEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_DEVICE_PROMPTED_NETWORK_RESET_ENABLED, true);
+    }
+
+    public static void saveDevicePromptedNetworkResetEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_DEVICE_PROMPTED_NETWORK_RESET_ENABLED, enabled);
         editor.commit();
     }
 }

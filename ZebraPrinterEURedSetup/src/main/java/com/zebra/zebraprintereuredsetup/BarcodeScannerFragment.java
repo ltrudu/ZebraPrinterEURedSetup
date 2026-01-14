@@ -30,6 +30,7 @@ public class BarcodeScannerFragment extends Fragment {
     public static final int FIELD_NEW_PASSWORD = 2;
     public static final int FIELD_HTTP_ADMIN_PASSWORD = 3;
     public static final int FIELD_AUTH_PASSWORD = 4;
+    public static final int FIELD_PASSWORD_CURRENT = 5;
 
     private DecoratedBarcodeView barcodeView;
     private MaterialButton flashButton;
