@@ -85,6 +85,8 @@
 
     <!-- Navigation Drawer -->
     <string name="nav_home">Home</string>
+    <string name="nav_custom_script">Custom Script</string>
+    <string name="nav_factory_reset">Factory Reset</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About</string>
 
@@ -188,4 +190,53 @@
     <!-- Restore Pre-EURed Settings -->
     <string name="title_restore_pre_eured">Restore to pre-EURed settings</string>
     <string name="button_reset_printer_settings">Reset Printer Settings</string>
+
+    <!-- Factory Reset -->
+    <string name="title_serial_number">Settings</string>
+    <string name="label_serial_number">Serial Number</string>
+    <string name="hint_serial_number">Enter printer serial number</string>
+    <string name="content_description_scan_serial_number">Scan serial number</string>
+    <string name="error_serial_number_required">Serial number is required</string>
+    <string name="title_factory_reset">Factory Reset</string>
+    <string name="button_perform_factory_reset">Perform factory reset using USB</string>
+    <string name="button_confirm">Confirm</string>
+
+    <!-- Factory Reset Dialog -->
+    <string name="dialog_factory_reset_title">Factory Reset Warning</string>
+    <string name="dialog_factory_reset_warning">This operation may take up to 10 minutes and is NOT reversible!</string>
+    <string name="dialog_factory_reset_message1">All settings and configuration will be lost.</string>
+    <string name="dialog_factory_reset_message2">All parameters will be factory reset.</string>
+    <string name="dialog_factory_reset_message3">DO NOT UNPLUG the printer during the process!</string>
+    <string name="dialog_factory_reset_message4">Do not reset the printer while it is blinking/flashing.</string>
+    <string name="dialog_factory_reset_message5">Are you sure you want to proceed?</string>
+
+    <!-- Factory Reset Status -->
+    <string name="status_factory_reset_starting">Factory Reset Starting…</string>
+    <string name="status_factory_reset_initializing">Initializing factory reset process…</string>
+    <string name="status_factory_reset_completed">Factory Reset Completed!</string>
+    <string name="status_factory_reset_success_details">The printer has been successfully reset to factory settings. The printer may restart automatically.</string>
+
+    <!-- Custom Script -->
+    <string name="title_custom_script">Custom Script</string>
+    <string name="hint_custom_script">Enter ZPL/CPCL script here…</string>
+    <string name="title_send_data">Send Data</string>
+    <string name="error_script_required">Script is required</string>
+    <string name="status_script_sent">Script sent successfully!</string>
+
+    <!-- File Operations -->
+    <string name="title_file_operations">File Operations</string>
+    <string name="button_import_script">Import Script</string>
+    <string name="button_export_script">Export Script</string>
+    <string name="status_script_imported">Script imported successfully!</string>
+    <string name="status_script_exported">Script exported successfully!</string>
+    <string name="error_import_failed">Import failed: %1$s</string>
+    <string name="error_export_failed">Export failed: %1$s</string>
+
+    <!-- Settings File Operations -->
+    <string name="button_import_settings">Import Settings</string>
+    <string name="button_export_settings">Export Settings</string>
+    <string name="status_settings_imported">Settings imported successfully!</string>
+    <string name="status_settings_exported">Settings exported successfully!</string>
+    <string name="error_import_settings_failed">Import settings failed: %1$s</string>
+    <string name="error_export_settings_failed">Export settings failed: %1$s</string>
 </resources>

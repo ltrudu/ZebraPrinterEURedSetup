@@ -403,6 +403,14 @@ public class PrinterHelper {
         }).start();
     }
 
+    public void performFactoryResetPrinterUSB(Context context, String serialNumber, PrinterHelperCallback callback)
+    {
+        String factoryResetScript = "! U1 setvar \"device.languages\" \"zpl\"\r\n" +
+                "~PM"+ serialNumber + ",1\r\n";
+        // Send factory reset script to USB
+        sendDataToUSB(context, factoryResetScript, callback);
+    }
+
     public void setupPasswordAndBluetoothUSB(Context context, PrinterHelperCallback callback) {
         this.context = context;
         this.printerHelperCallback = callback;

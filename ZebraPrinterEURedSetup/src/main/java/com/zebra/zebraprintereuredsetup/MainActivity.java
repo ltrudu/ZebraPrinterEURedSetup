@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadFragmentForNavItem(int navItemId) {
         if (navItemId == R.id.nav_home) {
             loadFragment(new HomeFragment());
+        } else if (navItemId == R.id.nav_custom_script) {
+            loadFragment(new CustomScriptFragment());
+        } else if (navItemId == R.id.nav_factory_reset) {
+            loadFragment(new FactoryResetFragment());
         } else if (navItemId == R.id.nav_settings) {
             loadFragment(new SettingsFragment());
         } else if (navItemId == R.id.nav_about) {
@@ -140,6 +144,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (currentFragment instanceof HomeFragment) {
             if (((HomeFragment) currentFragment).handleBackPress()) {
+                return;
+            }
+            super.onBackPressed();
+        } else if (currentFragment instanceof CustomScriptFragment) {
+            if (((CustomScriptFragment) currentFragment).handleBackPress()) {
+                return;
+            }
+            super.onBackPressed();
+        } else if (currentFragment instanceof FactoryResetFragment) {
+            if (((FactoryResetFragment) currentFragment).handleBackPress()) {
                 return;
             }
             super.onBackPressed();

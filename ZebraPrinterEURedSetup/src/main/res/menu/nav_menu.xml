@@ -6,6 +6,14 @@
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
         <item
+            android:id="@+id/nav_custom_script"
+            android:icon="@drawable/ic_custom_script"
+            android:title="@string/nav_custom_script" />
+        <item
+            android:id="@+id/nav_factory_reset"
+            android:icon="@drawable/ic_factory_reset"
+            android:title="@string/nav_factory_reset" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/nav_settings" />
