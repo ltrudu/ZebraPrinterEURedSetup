@@ -123,37 +123,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadFragment(Fragment fragment) {
+        loadFragment(fragment, false);
+    }
+
+    private void loadFragment(Fragment fragment, boolean withAnimation) {
+        loadFragment(fragment, withAnimation, false);
+    }
+
+    private void loadFragment(Fragment fragment, boolean withAnimation, boolean reverseAnimation) {
         currentFragment = fragment;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (withAnimation) {
+            if (reverseAnimation) {
+                // Reverse animation for going back (slide in from left, slide out to right)
+                transaction.setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right,
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                );
+            } else {
+                // Forward animation (slide in from right, slide out to left)
+                transaction.setCustomAnimations(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left,
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                );
+            }
+        }
         transaction.replace(R.id.nav_host_fragment, fragment);
         transaction.commit();
     }
 
     private void loadFragmentForNavItem(int navItemId) {
+        loadFragmentForNavItemWithAnimation(navItemId, false);
+    }
+
+    private void loadFragmentForNavItemWithAnimation(int navItemId, boolean withAnimation) {
         if (navItemId == R.id.nav_home) {
-            loadFragment(new HomeFragment());
+            loadFragment(new HomeFragment(), withAnimation);
         } else if (navItemId == R.id.nav_eu_red) {
-            loadFragment(new EURedFragment());
+            loadFragment(new EURedFragment(), withAnimation);
         } else if (navItemId == R.id.nav_custom_script) {
-            loadFragment(new CustomScriptFragment());
+            loadFragment(new CustomScriptFragment(), withAnimation);
         } else if (navItemId == R.id.nav_script_documentation) {
-            loadFragment(new ScriptDocumentationFragment());
+            loadFragment(new ScriptDocumentationFragment(), withAnimation);
         } else if (navItemId == R.id.nav_advanced) {
-            loadFragment(new AdvancedFragment());
+            loadFragment(new AdvancedFragment(), withAnimation);
         } else if (navItemId == R.id.nav_settings) {
-            loadFragment(new SettingsFragment());
+            loadFragment(new SettingsFragment(), withAnimation);
         } else if (navItemId == R.id.nav_about) {
-            loadFragment(new AboutFragment());
+            loadFragment(new AboutFragment(), withAnimation);
         } else {
-            loadFragment(new HomeFragment());
+            loadFragment(new HomeFragment(), withAnimation);
         }
     }
 
     @Override
     public void navigateTo(int navItemId) {
         currentNavItemId = navItemId;
-        loadFragmentForNavItem(navItemId);
-        navigationView.setCheckedItem(navItemId);
+        // Use animation when navigating from Home to main features
+        boolean useAnimation = (navItemId == R.id.nav_eu_red ||
+                                navItemId == R.id.nav_custom_script ||
+                                navItemId == R.id.nav_script_documentation);
+        loadFragmentForNavItemWithAnimation(navItemId, useAnimation);
+        // Don't check item if it's not in the drawer menu
+        if (navItemId == R.id.nav_home || navItemId == R.id.nav_advanced ||
+            navItemId == R.id.nav_settings || navItemId == R.id.nav_about) {
+            navigationView.setCheckedItem(navItemId);
+        }
     }
 
     @Override
@@ -169,6 +208,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void navigateBackToHome() {
+        currentNavItemId = R.id.nav_home;
+        loadFragment(new HomeFragment(), true, true);
+        navigationView.setCheckedItem(R.id.nav_home);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -182,14 +227,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (((EURedFragment) currentFragment).handleBackPress()) {
                 return;
             }
-            // Navigate back to Home launcher
-            navigateTo(R.id.nav_home);
+            // Navigate back to Home launcher with animation
+            navigateBackToHome();
         } else if (currentFragment instanceof CustomScriptFragment) {
             if (((CustomScriptFragment) currentFragment).handleBackPress()) {
                 return;
             }
-            // Navigate back to Home launcher
-            navigateTo(R.id.nav_home);
+            // Navigate back to Home launcher with animation
+            navigateBackToHome();
         } else if (currentFragment instanceof AdvancedFragment) {
             if (((AdvancedFragment) currentFragment).handleBackPress()) {
                 return;
@@ -197,8 +242,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Navigate back to Home launcher
             navigateTo(R.id.nav_home);
         } else if (currentFragment instanceof ScriptDocumentationFragment) {
-            // Navigate back to Home launcher
-            navigateTo(R.id.nav_home);
+            // Navigate back to Home launcher with animation
+            navigateBackToHome();
         } else if (currentFragment instanceof SettingsFragment) {
             // Navigate back to Home launcher
             navigateTo(R.id.nav_home);

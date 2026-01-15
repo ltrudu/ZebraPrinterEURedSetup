@@ -256,6 +256,14 @@
     <string name="dialog_factory_reset_message4">Do not reset the printer while it is blinking/flashing.</string>
     <string name="dialog_factory_reset_message5">Are you sure you want to proceed?</string>
 
+    <!-- Pre-EURed Warning Dialog -->
+    <string name="warning_pre_eured_title">Warning: Pre-EURed Reset</string>
+    <string name="warning_pre_eured_message">This will configure an EURed printer like a pre-EURed printer with the following parameters:</string>
+
+    <!-- EURed Script Warning Dialog -->
+    <string name="warning_eured_script_title">Warning: EURed Configuration</string>
+    <string name="warning_eured_script_message">This will apply the following configuration to the printer:</string>
+
     <!-- Factory Reset Status -->
     <string name="status_factory_reset_starting">Factory Reset Starting…</string>
     <string name="status_factory_reset_initializing">Initializing factory reset process…</string>

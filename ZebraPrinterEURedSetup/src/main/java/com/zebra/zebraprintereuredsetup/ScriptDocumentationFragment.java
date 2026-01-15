@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.json.JSONArray;
@@ -75,6 +76,14 @@ public class ScriptDocumentationFragment extends Fragment {
     }
 
     private void setupViews(View view) {
+        // Setup toolbar with back navigation
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbarDocumentation);
+        toolbar.setNavigationOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
+
         editTextSearch = view.findViewById(R.id.editTextSearch);
         checkBoxZpl = view.findViewById(R.id.checkBoxZpl);
         checkBoxSgd = view.findViewById(R.id.checkBoxSgd);

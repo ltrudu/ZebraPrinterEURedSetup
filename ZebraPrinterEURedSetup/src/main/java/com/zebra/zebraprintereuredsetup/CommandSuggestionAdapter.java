@@ -114,7 +114,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                 }
             }
 
-            // Then find matching commands
+            // Then find matching commands (including raw versions of snippets)
             for (CommandSuggestion suggestion : allSuggestions) {
                 String command = suggestion.getCommand();
                 if (command == null) continue;
@@ -154,9 +154,6 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                     // For ZPL commands, match by command prefix (case insensitive)
                     String upperCommand = command.toUpperCase();
 
-                    // Skip if already added as snippet
-                    if (addedSnippets.contains(upperCommand)) continue;
-
                     // Check if command matches query (with or without ^ prefix)
                     boolean matches = false;
                     if (isZplQuery && upperCommand.startsWith(upperQuery)) {
@@ -174,9 +171,15 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                         String format = suggestion.getFormat();
                         String displayFormat = (format != null && !format.isEmpty()) ? format : command;
 
+                        // Add "(command)" suffix if a snippet exists for this command
+                        String displayName = suggestion.getName();
+                        if (addedSnippets.contains(upperCommand)) {
+                            displayName = suggestion.getName() + " (command)";
+                        }
+
                         zplSuggestions.add(new CommandSuggestion(
                                 command,
-                                suggestion.getName(),
+                                displayName,
                                 displayFormat,  // Use format as insert text
                                 "ZPL"
                         ));
@@ -185,11 +188,19 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                 } else {
                     // For ZBI and other, use regular filtering
                     String key = command.toUpperCase();
-                    // Skip if already added as snippet
-                    if (addedSnippets.contains(key)) continue;
 
                     if (suggestion.matchesQuery(query) && !addedCommands.contains(key)) {
-                        otherSuggestions.add(suggestion);
+                        // Add "(command)" suffix if a snippet exists for this command
+                        if (addedSnippets.contains(key)) {
+                            otherSuggestions.add(new CommandSuggestion(
+                                    suggestion.getCommand(),
+                                    suggestion.getName() + " (command)",
+                                    suggestion.getFormat(),
+                                    suggestion.getType()
+                            ));
+                        } else {
+                            otherSuggestions.add(suggestion);
+                        }
                         addedCommands.add(key);
                     }
                 }

@@ -165,9 +165,15 @@ public class SettingsFragment extends Fragment {
         String[] mimeTypes = {"application/json", "text/plain", "text/*"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
 
-        // Try to open in Documents folder
-        Uri documentsUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
-        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, documentsUri);
+        // Use last folder or default to Documents
+        String lastUri = SettingsHelper.getLastImportFolderUri(requireContext());
+        Uri initialUri;
+        if (lastUri != null) {
+            initialUri = Uri.parse(lastUri);
+        } else {
+            initialUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
+        }
+        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri);
 
         importSettingsLauncher.launch(intent);
     }
@@ -182,9 +188,15 @@ public class SettingsFragment extends Fragment {
         intent.setType("application/json");
         intent.putExtra(Intent.EXTRA_TITLE, filename);
 
-        // Try to open in Documents folder
-        Uri documentsUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
-        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, documentsUri);
+        // Use last folder or default to Documents
+        String lastUri = SettingsHelper.getLastExportFolderUri(requireContext());
+        Uri initialUri;
+        if (lastUri != null) {
+            initialUri = Uri.parse(lastUri);
+        } else {
+            initialUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
+        }
+        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri);
 
         exportSettingsLauncher.launch(intent);
     }
@@ -207,6 +219,9 @@ public class SettingsFragment extends Fragment {
                 Toast.makeText(requireContext(), R.string.status_settings_imported, Toast.LENGTH_SHORT).show();
                 setStatus(getString(R.string.status_settings_imported), requireContext().getColor(android.R.color.holo_green_dark));
 
+                // Save the folder URI for next time
+                SettingsHelper.saveLastImportFolderUri(requireContext(), uri.toString());
+
                 // Recreate activity to apply all imported settings
                 if (getActivity() != null) {
                     getActivity().recreate();
@@ -227,6 +242,9 @@ public class SettingsFragment extends Fragment {
                 outputStream.close();
                 Toast.makeText(requireContext(), R.string.status_settings_exported, Toast.LENGTH_SHORT).show();
                 setStatus(getString(R.string.status_settings_exported), requireContext().getColor(android.R.color.holo_green_dark));
+
+                // Save the folder URI for next time
+                SettingsHelper.saveLastExportFolderUri(requireContext(), uri.toString());
             }
         } catch (Exception e) {
             Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();

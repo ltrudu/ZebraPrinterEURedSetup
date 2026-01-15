@@ -422,4 +422,32 @@ public class SettingsHelper {
         editor.putBoolean(Constants.SETTINGS_ADVANCED_MODE_ENABLED, enabled);
         editor.commit();
     }
+
+    // Last used folder URIs for import/export
+    private static final String KEY_LAST_IMPORT_FOLDER_URI = "last_import_folder_uri";
+    private static final String KEY_LAST_EXPORT_FOLDER_URI = "last_export_folder_uri";
+
+    public static String getLastImportFolderUri(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getString(KEY_LAST_IMPORT_FOLDER_URI, null);
+    }
+
+    public static void saveLastImportFolderUri(Context context, String uri) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_LAST_IMPORT_FOLDER_URI, uri);
+        editor.commit();
+    }
+
+    public static String getLastExportFolderUri(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getString(KEY_LAST_EXPORT_FOLDER_URI, null);
+    }
+
+    public static void saveLastExportFolderUri(Context context, String uri) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_LAST_EXPORT_FOLDER_URI, uri);
+        editor.commit();
+    }
 }

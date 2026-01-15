@@ -1,7 +1,10 @@
 package com.zebra.zebraprintereuredsetup;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -69,6 +73,14 @@ public class EURedFragment extends Fragment {
     private void setupViews(View view) {
         fragmentContainer = view.findViewById(R.id.fragment_container);
         mainContent = view.findViewById(R.id.mainContent);
+
+        // Setup toolbar with back navigation
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbarEured);
+        toolbar.setNavigationOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
 
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
@@ -178,47 +190,24 @@ public class EURedFragment extends Fragment {
             }
 
             // Get passwords from SettingsHelper (stored by SettingsFragment)
-            String oldPassword = SettingsHelper.getOldAdminpassword(requireContext());
             String newPassword = SettingsHelper.getNewAdminpassword(requireContext());
             String httpAdminPassword = SettingsHelper.getHttpadminpasswordKey(requireContext());
 
             // Validate password lengths
-            if (newPassword.length() < MIN_NEW_PASSWORD_LENGTH) {
+            if (SettingsHelper.getChangePasswordEnabled(requireContext()) && newPassword.length() < MIN_NEW_PASSWORD_LENGTH) {
                 setStatus(getString(R.string.error_min_characters_required, MIN_NEW_PASSWORD_LENGTH, MIN_NEW_PASSWORD_LENGTH - newPassword.length()),
                     requireContext().getColor(android.R.color.holo_red_dark));
                 return;
             }
 
-            if (httpAdminPassword.length() < MIN_HTTP_ADMIN_PASSWORD_LENGTH) {
+            if (SettingsHelper.getHttpAdminEnabled(requireContext()) && httpAdminPassword.length() < MIN_HTTP_ADMIN_PASSWORD_LENGTH) {
                 setStatus(getString(R.string.error_min_characters_required, MIN_HTTP_ADMIN_PASSWORD_LENGTH, MIN_HTTP_ADMIN_PASSWORD_LENGTH - httpAdminPassword.length()),
                     requireContext().getColor(android.R.color.holo_red_dark));
                 return;
             }
 
-            PrinterHelper.PrinterHelperCallback callback = new PrinterHelper.PrinterHelperCallback() {
-                @Override
-                public void OnStatus(String message, int color) {
-                    requireActivity().runOnUiThread(() -> setStatus(message, color));
-                }
-
-                @Override
-                public void onSuccess() {
-                    requireActivity().runOnUiThread(() -> {
-                        textViewStatus.setText(R.string.status_setup_completed);
-                        textViewStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
-                    });
-                }
-            };
-
-            if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
-                String macAddress = editTextMacAddress.getText().toString();
-                // Save MAC address
-                SettingsHelper.saveBluetoothAddress(requireContext(), macAddress);
-                printerHelper.setupPasswordAndBluetooth(requireContext(), macAddress, callback);
-            } else {
-                // USB mode
-                printerHelper.setupPasswordAndBluetoothUSB(requireContext(), callback);
-            }
+            // Show warning dialog before executing
+            showEuredScriptWarningDialog();
         });
 
         // Test Label button click listener
@@ -262,7 +251,7 @@ public class EURedFragment extends Fragment {
 
         // Reset Printer Settings button click listener
         buttonResetPrinterSettings.setOnClickListener(v -> {
-            // For BLE mode, validate MAC address
+            // For BLE mode, validate MAC address first
             if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
                 String macAddress = editTextMacAddress.getText().toString();
                 if (!isValidMacAddress(macAddress)) {
@@ -270,30 +259,9 @@ public class EURedFragment extends Fragment {
                     return;
                 }
             }
-            PrinterHelper.PrinterHelperCallback callback = new PrinterHelper.PrinterHelperCallback() {
-                @Override
-                public void OnStatus(String message, int color) {
-                    requireActivity().runOnUiThread(() -> setStatus(message, color));
-                }
 
-                @Override
-                public void onSuccess() {
-                    requireActivity().runOnUiThread(() -> {
-                        textViewStatus.setText(R.string.status_setup_completed);
-                        textViewStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
-                    });
-                }
-            };
-
-            if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
-                String macAddress = editTextMacAddress.getText().toString();
-                // Save MAC address
-                SettingsHelper.saveBluetoothAddress(requireContext(), macAddress);
-                printerHelper.restorePreEUREDSettingsBLE(requireContext(), macAddress, callback);
-            } else {
-                // USB mode
-                printerHelper.restorePreEURedSettingsUSB(requireContext(), callback);
-            }
+            // Show warning dialog
+            showPreEuredWarningDialog();
         });
 
         validateForm();
@@ -343,6 +311,189 @@ public class EURedFragment extends Fragment {
 
     private boolean isValidMacAddress(String macAddress) {
         return MAC_ADDRESS_PATTERN.matcher(macAddress).matches();
+    }
+
+    private void showPreEuredWarningDialog() {
+        String warningMessage = getString(R.string.warning_pre_eured_message) + "\n\n" +
+                "• Admin Password: ZebraPassword1234\n" +
+                "• Protected Mode: No\n" +
+                "• device.allow_firmware_downloads: yes\n" +
+                "• ip.tcp.enable: on\n" +
+                "• ip.lpd.enable: on\n" +
+                "• ip.https.enable: on\n" +
+                "• ip.ftp.enable: on\n" +
+                "• ip.snmp.enable: on\n" +
+                "• wlan.enable: on\n" +
+                "• usb.mirror.enable: on\n" +
+                "• zbi.enable: on\n" +
+                "• display.password.current: 1234\n" +
+                "• display.password.level: none\n" +
+                "• ip.http.enable: on\n" +
+                "• ip.http.admin_password: 1234\n" +
+                "• device.prompted_network_reset: yes";
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.warning_pre_eured_title)
+                .setMessage(warningMessage)
+                .setNegativeButton(R.string.button_cancel, null)
+                .setPositiveButton(R.string.button_confirm, (dialogInterface, which) -> {
+                    executePreEuredReset();
+                })
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            // Style the confirm button with red outline and red text
+            android.widget.Button confirmButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            if (confirmButton != null) {
+                confirmButton.setTextColor(requireContext().getColor(android.R.color.holo_red_dark));
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void executePreEuredReset() {
+        PrinterHelper.PrinterHelperCallback callback = new PrinterHelper.PrinterHelperCallback() {
+            @Override
+            public void OnStatus(String message, int color) {
+                requireActivity().runOnUiThread(() -> setStatus(message, color));
+            }
+
+            @Override
+            public void onSuccess() {
+                requireActivity().runOnUiThread(() -> {
+                    textViewStatus.setText(R.string.status_setup_completed);
+                    textViewStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
+                });
+            }
+        };
+
+        if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
+            String macAddress = editTextMacAddress.getText().toString();
+            // Save MAC address
+            SettingsHelper.saveBluetoothAddress(requireContext(), macAddress);
+            printerHelper.restorePreEUREDSettingsBLE(requireContext(), macAddress, callback);
+        } else {
+            // USB mode
+            printerHelper.restorePreEURedSettingsUSB(requireContext(), callback);
+        }
+    }
+
+    private void showEuredScriptWarningDialog() {
+        StringBuilder warningMessage = new StringBuilder();
+        warningMessage.append(getString(R.string.warning_eured_script_message)).append("\n");
+
+        // Change Password settings
+        if (SettingsHelper.getChangePasswordEnabled(requireContext())) {
+            String oldPassword = SettingsHelper.getOldAdminpassword(requireContext());
+            String newPassword = SettingsHelper.getNewAdminpassword(requireContext());
+            warningMessage.append("\n• Old Admin Password: ").append(maskPassword(oldPassword));
+            warningMessage.append("\n• New Admin Password: ").append(maskPassword(newPassword));
+        }
+
+        // HTTP Admin Password
+        if (SettingsHelper.getHttpAdminEnabled(requireContext())) {
+            String httpPassword = SettingsHelper.getHttpadminpasswordKey(requireContext());
+            warningMessage.append("\n• HTTP Admin Password: ").append(maskPassword(httpPassword));
+        }
+
+        // Protected Mode
+        boolean protectedMode = SettingsHelper.getProtectedModeAllowed(requireContext());
+        warningMessage.append("\n• Protected Mode: ").append(protectedMode ? "Yes" : "No");
+
+        // EURed Configuration settings
+        warningMessage.append("\n• device.allow_firmware_downloads: ").append(SettingsHelper.getEuredFirmwareDownload(requireContext()) ? "yes" : "no");
+        warningMessage.append("\n• ip.tcp.enable: ").append(SettingsHelper.getEuredTcpEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• ip.lpd.enable: ").append(SettingsHelper.getEuredLpdEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• ip.https.enable: ").append(SettingsHelper.getEuredHttpsEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• ip.ftp.enable: ").append(SettingsHelper.getEuredFtpEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• ip.snmp.enable: ").append(SettingsHelper.getEuredSnmpEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• wlan.enable: ").append(SettingsHelper.getEuredWlanEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• usb.mirror.enable: ").append(SettingsHelper.getEuredUsbMirrorEnable(requireContext()) ? "on" : "off");
+        warningMessage.append("\n• zbi.enable: ").append(SettingsHelper.getEuredZbiEnable(requireContext()) ? "on" : "off");
+
+        // Display Password Current
+        if (SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext())) {
+            warningMessage.append("\n• display.password.current: ").append(maskPassword(SettingsHelper.getDisplayPasswordCurrent(requireContext())));
+        }
+
+        // Bluetooth Discoverable
+        if (SettingsHelper.getBluetoothDiscoverableEnabled(requireContext())) {
+            warningMessage.append("\n• bluetooth.discoverable: ").append(SettingsHelper.getBluetoothDiscoverable(requireContext()) ? "yes" : "no");
+        }
+
+        // Setvar Wlan Enable
+        if (SettingsHelper.getSetvarWlanEnableEnabled(requireContext())) {
+            warningMessage.append("\n• wlan.enable (setvar): ").append(SettingsHelper.getSetvarWlanEnable(requireContext()) ? "on" : "off");
+        }
+
+        // Setvar IP HTTP Enable
+        if (SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext())) {
+            warningMessage.append("\n• ip.http.enable: ").append(SettingsHelper.getSetvarIpHttpEnable(requireContext()) ? "on" : "off");
+        }
+
+        // Display Password Level
+        if (SettingsHelper.getDisplayPasswordLevelEnabled(requireContext())) {
+            warningMessage.append("\n• display.password.level: ").append(SettingsHelper.getDisplayPasswordLevel(requireContext()));
+        }
+
+        // Device Prompted Network Reset
+        if (SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext())) {
+            warningMessage.append("\n• device.prompted_network_reset: ").append(SettingsHelper.getDevicePromptedNetworkReset(requireContext()) ? "yes" : "no");
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.warning_eured_script_title)
+                .setMessage(warningMessage.toString())
+                .setNegativeButton(R.string.button_cancel, null)
+                .setPositiveButton(R.string.button_confirm, (dialogInterface, which) -> {
+                    executeEuredScript();
+                })
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            // Style the confirm button with red text
+            android.widget.Button confirmButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            if (confirmButton != null) {
+                confirmButton.setTextColor(requireContext().getColor(android.R.color.holo_red_dark));
+            }
+        });
+
+        dialog.show();
+    }
+
+    private String maskPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return "(empty)";
+        }
+        return "****";
+    }
+
+    private void executeEuredScript() {
+        PrinterHelper.PrinterHelperCallback callback = new PrinterHelper.PrinterHelperCallback() {
+            @Override
+            public void OnStatus(String message, int color) {
+                requireActivity().runOnUiThread(() -> setStatus(message, color));
+            }
+
+            @Override
+            public void onSuccess() {
+                requireActivity().runOnUiThread(() -> {
+                    textViewStatus.setText(R.string.status_setup_completed);
+                    textViewStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
+                });
+            }
+        };
+
+        if (currentConnectivityType == Constants.CONNECTIVITY_TYPE_BLE) {
+            String macAddress = editTextMacAddress.getText().toString();
+            // Save MAC address
+            SettingsHelper.saveBluetoothAddress(requireContext(), macAddress);
+            printerHelper.setupPasswordAndBluetooth(requireContext(), macAddress, callback);
+        } else {
+            // USB mode
+            printerHelper.setupPasswordAndBluetoothUSB(requireContext(), callback);
+        }
     }
 
     private void setStatus(String message, int color) {

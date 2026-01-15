@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputLayout;
@@ -165,6 +166,14 @@ public class CustomScriptFragment extends Fragment {
     private void setupViews(View view) {
         fragmentContainer = view.findViewById(R.id.fragment_container);
         mainContent = view.findViewById(R.id.mainContent);
+
+        // Setup toolbar with back navigation
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbarCustomScript);
+        toolbar.setNavigationOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
 
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
@@ -437,9 +446,15 @@ public class CustomScriptFragment extends Fragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
 
-        // Try to open in Downloads folder
-        Uri downloadsUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Download");
-        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, downloadsUri);
+        // Use last folder or default to Documents
+        String lastUri = SettingsHelper.getLastImportFolderUri(requireContext());
+        Uri initialUri;
+        if (lastUri != null) {
+            initialUri = Uri.parse(lastUri);
+        } else {
+            initialUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
+        }
+        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri);
 
         importScriptLauncher.launch(intent);
     }
@@ -460,9 +475,15 @@ public class CustomScriptFragment extends Fragment {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TITLE, filename);
 
-        // Try to open in Downloads folder
-        Uri downloadsUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Download");
-        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, downloadsUri);
+        // Use last folder or default to Documents
+        String lastUri = SettingsHelper.getLastExportFolderUri(requireContext());
+        Uri initialUri;
+        if (lastUri != null) {
+            initialUri = Uri.parse(lastUri);
+        } else {
+            initialUri = Uri.parse("content://com.android.externalstorage.documents/document/primary:Documents");
+        }
+        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri);
 
         exportScriptLauncher.launch(intent);
     }
@@ -485,6 +506,11 @@ public class CustomScriptFragment extends Fragment {
 
                 editTextScript.setText(stringBuilder.toString());
                 Toast.makeText(requireContext(), R.string.status_script_imported, Toast.LENGTH_SHORT).show();
+
+                // Save the folder URI for next time
+                Uri parentUri = DocumentsContract.buildDocumentUriUsingTree(uri,
+                        DocumentsContract.getTreeDocumentId(uri));
+                SettingsHelper.saveLastImportFolderUri(requireContext(), uri.toString());
             }
         } catch (Exception e) {
             Toast.makeText(requireContext(), getString(R.string.error_import_failed, e.getMessage()), Toast.LENGTH_LONG).show();
@@ -499,6 +525,9 @@ public class CustomScriptFragment extends Fragment {
                 outputStream.write(script.getBytes());
                 outputStream.close();
                 Toast.makeText(requireContext(), R.string.status_script_exported, Toast.LENGTH_SHORT).show();
+
+                // Save the folder URI for next time
+                SettingsHelper.saveLastExportFolderUri(requireContext(), uri.toString());
             }
         } catch (Exception e) {
             Toast.makeText(requireContext(), getString(R.string.error_export_failed, e.getMessage()), Toast.LENGTH_LONG).show();
