@@ -6,6 +6,10 @@
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
         <item
+            android:id="@+id/nav_eu_red"
+            android:icon="@drawable/ic_eu_red"
+            android:title="@string/launcher_eu_red_setup" />
+        <item
             android:id="@+id/nav_custom_script"
             android:icon="@drawable/ic_custom_script"
             android:title="@string/nav_custom_script" />

@@ -91,6 +91,16 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About</string>
 
+    <!-- Launcher -->
+    <string name="launcher_subtitle">Select a feature to get started</string>
+    <string name="launcher_eu_red_setup">EU Red Setup</string>
+    <string name="title_setup">Setup</string>
+    <string name="button_setup_script">Setup Script</string>
+    <string name="launcher_eu_red_description">Configure EU Radio Equipment Directive settings</string>
+    <string name="launcher_custom_script_description">Write and send custom ZPL scripts</string>
+    <string name="launcher_documentation_description">Search ZPL, SGD, and ZBI commands</string>
+    <string name="launcher_settings_description">Configure passwords and options</string>
+
     <!-- Advanced Tools -->
     <string name="title_advanced_tools">Advanced Tools</string>
     <string name="desc_factory_reset">Reset printer to factory defaults via USB</string>

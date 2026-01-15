@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -57,6 +58,14 @@ public class FactoryResetFragment extends Fragment {
     private void setupViews(View view) {
         fragmentContainer = view.findViewById(R.id.fragment_container);
         mainContent = view.findViewById(R.id.mainContent);
+
+        // Setup toolbar with back navigation
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbarFactoryReset);
+        toolbar.setNavigationOnClickListener(v -> {
+            if (getParentFragment() != null) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
         textInputLayoutSerialNumber = view.findViewById(R.id.textInputLayoutSerialNumber);
         editTextSerialNumber = view.findViewById(R.id.editTextSerialNumber);

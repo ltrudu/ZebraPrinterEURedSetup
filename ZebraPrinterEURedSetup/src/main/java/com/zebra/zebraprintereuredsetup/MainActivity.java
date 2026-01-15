@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.NavigationCallback {
 
     private final ActivityResultLauncher<String[]> permissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), this::onPermissionsResult);
@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadFragmentForNavItem(int navItemId) {
         if (navItemId == R.id.nav_home) {
             loadFragment(new HomeFragment());
+        } else if (navItemId == R.id.nav_eu_red) {
+            loadFragment(new EURedFragment());
         } else if (navItemId == R.id.nav_custom_script) {
             loadFragment(new CustomScriptFragment());
         } else if (navItemId == R.id.nav_script_documentation) {
@@ -145,6 +147,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             loadFragment(new HomeFragment());
         }
+    }
+
+    @Override
+    public void navigateTo(int navItemId) {
+        currentNavItemId = navItemId;
+        loadFragmentForNavItem(navItemId);
+        navigationView.setCheckedItem(navItemId);
     }
 
     @Override
@@ -169,16 +178,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return;
             }
             super.onBackPressed();
+        } else if (currentFragment instanceof EURedFragment) {
+            if (((EURedFragment) currentFragment).handleBackPress()) {
+                return;
+            }
+            // Navigate back to Home launcher
+            navigateTo(R.id.nav_home);
         } else if (currentFragment instanceof CustomScriptFragment) {
             if (((CustomScriptFragment) currentFragment).handleBackPress()) {
                 return;
             }
-            super.onBackPressed();
+            // Navigate back to Home launcher
+            navigateTo(R.id.nav_home);
         } else if (currentFragment instanceof AdvancedFragment) {
             if (((AdvancedFragment) currentFragment).handleBackPress()) {
                 return;
             }
-            super.onBackPressed();
+            // Navigate back to Home launcher
+            navigateTo(R.id.nav_home);
+        } else if (currentFragment instanceof ScriptDocumentationFragment) {
+            // Navigate back to Home launcher
+            navigateTo(R.id.nav_home);
+        } else if (currentFragment instanceof SettingsFragment) {
+            // Navigate back to Home launcher
+            navigateTo(R.id.nav_home);
         } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
