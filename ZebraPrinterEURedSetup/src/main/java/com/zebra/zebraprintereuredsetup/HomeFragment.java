@@ -1,15 +1,21 @@
 package com.zebra.zebraprintereuredsetup;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -18,6 +24,31 @@ public class HomeFragment extends Fragment {
     }
 
     private NavigationCallback navigationCallback;
+    private EditText editTextSearch;
+    private List<MenuItemCard> menuItems;
+
+    private static class MenuItemCard {
+        MaterialCardView card;
+        int navId;
+        String title;
+        String description;
+
+        MenuItemCard(MaterialCardView card, int navId, String title, String description) {
+            this.card = card;
+            this.navId = navId;
+            this.title = title;
+            this.description = description;
+        }
+
+        boolean matches(String query) {
+            if (query == null || query.isEmpty()) {
+                return true;
+            }
+            String lowerQuery = query.toLowerCase();
+            return title.toLowerCase().contains(lowerQuery) ||
+                   description.toLowerCase().contains(lowerQuery);
+        }
+    }
 
     @Nullable
     @Override
@@ -35,41 +66,73 @@ public class HomeFragment extends Fragment {
         }
 
         setupLauncherCards(view);
+        setupSearch(view);
     }
 
     private void setupLauncherCards(View view) {
-        MaterialCardView cardEuRed = view.findViewById(R.id.cardEuRed);
-        MaterialCardView cardCustomScript = view.findViewById(R.id.cardCustomScript);
-        MaterialCardView cardDocumentation = view.findViewById(R.id.cardDocumentation);
-        MaterialCardView cardSettings = view.findViewById(R.id.cardSettings);
+        menuItems = new ArrayList<>();
 
-        // EU Red Setup - Navigate to EURedFragment
-        cardEuRed.setOnClickListener(v -> {
-            if (navigationCallback != null) {
-                navigationCallback.navigateTo(R.id.nav_eu_red);
-            }
-        });
+        // EU Red Setup
+        MaterialCardView cardEuRed = view.findViewById(R.id.cardEuRed);
+        menuItems.add(new MenuItemCard(
+            cardEuRed,
+            R.id.nav_eu_red,
+            getString(R.string.launcher_eu_red_setup),
+            getString(R.string.launcher_eu_red_description)
+        ));
+        cardEuRed.setOnClickListener(v -> navigateTo(R.id.nav_eu_red));
 
         // Custom Script
-        cardCustomScript.setOnClickListener(v -> {
-            if (navigationCallback != null) {
-                navigationCallback.navigateTo(R.id.nav_custom_script);
-            }
-        });
+        MaterialCardView cardCustomScript = view.findViewById(R.id.cardCustomScript);
+        menuItems.add(new MenuItemCard(
+            cardCustomScript,
+            R.id.nav_custom_script,
+            getString(R.string.nav_custom_script),
+            getString(R.string.launcher_custom_script_description)
+        ));
+        cardCustomScript.setOnClickListener(v -> navigateTo(R.id.nav_custom_script));
 
         // Script Documentation
-        cardDocumentation.setOnClickListener(v -> {
-            if (navigationCallback != null) {
-                navigationCallback.navigateTo(R.id.nav_script_documentation);
-            }
-        });
+        MaterialCardView cardDocumentation = view.findViewById(R.id.cardDocumentation);
+        menuItems.add(new MenuItemCard(
+            cardDocumentation,
+            R.id.nav_script_documentation,
+            getString(R.string.nav_script_documentation),
+            getString(R.string.launcher_documentation_description)
+        ));
+        cardDocumentation.setOnClickListener(v -> navigateTo(R.id.nav_script_documentation));
+    }
 
-        // Settings
-        cardSettings.setOnClickListener(v -> {
-            if (navigationCallback != null) {
-                navigationCallback.navigateTo(R.id.nav_settings);
+    private void setupSearch(View view) {
+        editTextSearch = view.findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterMenuItems(s.toString());
             }
         });
+    }
+
+    private void filterMenuItems(String query) {
+        for (MenuItemCard item : menuItems) {
+            if (item.matches(query)) {
+                item.card.setVisibility(View.VISIBLE);
+            } else {
+                item.card.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void navigateTo(int navItemId) {
+        if (navigationCallback != null) {
+            navigationCallback.navigateTo(navItemId);
+        }
     }
 
     public boolean handleBackPress() {

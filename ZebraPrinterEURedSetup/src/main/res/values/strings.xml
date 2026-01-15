@@ -100,6 +100,9 @@
     <string name="launcher_custom_script_description">Write and send custom ZPL scripts</string>
     <string name="launcher_documentation_description">Search ZPL, SGD, and ZBI commands</string>
     <string name="launcher_settings_description">Configure passwords and options</string>
+    <string name="launcher_advanced_description">Factory reset and advanced printer tools</string>
+    <string name="launcher_about_description">App version and information</string>
+    <string name="hint_search_features">Search features...</string>
 
     <!-- Advanced Tools -->
     <string name="title_advanced_tools">Advanced Tools</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation IDs for items not in the drawer menu -->
+    <item name="nav_eu_red" type="id" />
+    <item name="nav_custom_script" type="id" />
+    <item name="nav_script_documentation" type="id" />
+</resources>
