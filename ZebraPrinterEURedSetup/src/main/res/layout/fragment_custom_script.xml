@@ -178,16 +178,55 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editTextScript"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textMultiLine"
+                                android:layout_height="200dp"
+                                android:inputType="textMultiLine|textNoSuggestions"
                                 android:gravity="top|start"
-                                android:minLines="20"
-                                android:maxLines="50"
                                 android:scrollbars="vertical"
+                                android:overScrollMode="always"
+                                android:nestedScrollingEnabled="true"
                                 android:fontFamily="monospace"
                                 android:textSize="12sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Suggestions Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSuggestions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutline">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textViewSuggestionsHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="8dp"
+                            android:text="@string/label_suggestions"
+                            android:textAppearance="?attr/textAppearanceLabelMedium"
+                            android:textColor="?attr/colorPrimary"
+                            android:background="?attr/colorSurfaceVariant" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewSuggestions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxHeight="200dp"
+                            android:nestedScrollingEnabled="true" />
 
                     </LinearLayout>
 

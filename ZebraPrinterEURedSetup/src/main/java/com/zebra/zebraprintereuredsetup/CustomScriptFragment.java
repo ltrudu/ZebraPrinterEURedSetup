@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -29,14 +30,25 @@ import androidx.fragment.app.FragmentContainerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
+
+import android.os.Handler;
+import android.os.Looper;
 
 public class CustomScriptFragment extends Fragment {
 
@@ -65,6 +77,16 @@ public class CustomScriptFragment extends Fragment {
     private ActivityResultLauncher<Intent> importScriptLauncher;
     private ActivityResultLauncher<Intent> exportScriptLauncher;
 
+    // Autocomplete suggestions
+    private MaterialCardView cardSuggestions;
+    private RecyclerView recyclerViewSuggestions;
+    private CommandSuggestionAdapter suggestionAdapter;
+    private final Handler suggestionHandler = new Handler(Looper.getMainLooper());
+    private Runnable suggestionRunnable;
+    private static final long SUGGESTION_DEBOUNCE_MS = 200;
+    private static final int MIN_CHARS_FOR_SUGGESTION = 2;
+    private boolean isInsertingSuggestion = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +106,14 @@ public class CustomScriptFragment extends Fragment {
         printerHelper = new PrinterHelper();
         setupViews(view);
         setupBarcodeResultListener();
+        setupAutoComplete(view);
+        loadSuggestions();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        suggestionHandler.removeCallbacksAndMessages(null);
     }
 
     private void setupActivityResultLaunchers() {
@@ -123,6 +153,20 @@ public class CustomScriptFragment extends Fragment {
         textInputLayoutScript = view.findViewById(R.id.textInputLayoutScript);
         editTextScript = view.findViewById(R.id.editTextScript);
         buttonSendScript = view.findViewById(R.id.buttonSendScript);
+
+        // Enable vertical scrolling inside the fixed-size EditText
+        editTextScript.setMaxLines(Integer.MAX_VALUE);
+        editTextScript.setVerticalScrollBarEnabled(true);
+        editTextScript.setNestedScrollingEnabled(true);
+        editTextScript.setOnTouchListener((v, event) -> {
+            // Prevent all parent views from intercepting touch events while scrolling
+            ViewParent parent = v.getParent();
+            while (parent != null) {
+                parent.requestDisallowInterceptTouchEvent(true);
+                parent = parent.getParent();
+            }
+            return false;
+        });
         textViewStatus = view.findViewById(R.id.textViewStatus);
 
         // Connectivity type spinner
@@ -439,6 +483,253 @@ public class CustomScriptFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(requireContext(), getString(R.string.error_export_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // ===== Autocomplete Methods =====
+
+    private void setupAutoComplete(View view) {
+        cardSuggestions = view.findViewById(R.id.cardSuggestions);
+        recyclerViewSuggestions = view.findViewById(R.id.recyclerViewSuggestions);
+
+        suggestionAdapter = new CommandSuggestionAdapter(requireContext());
+        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerViewSuggestions.setAdapter(suggestionAdapter);
+
+        // Handle suggestion click
+        suggestionAdapter.setOnSuggestionClickListener(suggestion -> {
+            insertSuggestion(suggestion);
+            hideSuggestions();
+        });
+
+        // Add text watcher with debounce for suggestions
+        editTextScript.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isInsertingSuggestion) return;
+                debounceSuggestion();
+            }
+        });
+    }
+
+    private void loadSuggestions() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                InputStream is = requireContext().getAssets().open("zebra_documentation.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                reader.close();
+                is.close();
+
+                List<CommandSuggestion> suggestions = CommandSuggestion.parseFromJson(sb.toString());
+
+                requireActivity().runOnUiThread(() -> {
+                    suggestionAdapter.setSuggestions(suggestions);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void debounceSuggestion() {
+        if (suggestionRunnable != null) {
+            suggestionHandler.removeCallbacks(suggestionRunnable);
+        }
+        suggestionRunnable = this::updateSuggestions;
+        suggestionHandler.postDelayed(suggestionRunnable, SUGGESTION_DEBOUNCE_MS);
+    }
+
+    private void updateSuggestions() {
+        String currentWord = getCurrentWord();
+        String lineContext = getCurrentLineContext();
+
+        // Special handling for SGD command building
+        if (currentWord.equals("!")) {
+            // User typed "!", suggest "! U1"
+            suggestionAdapter.setSpecialSuggestions(createSgdPrefixSuggestions());
+            showSuggestions();
+            return;
+        }
+
+        // Check if we're after "! U1" or "!U1"
+        String trimmedContext = lineContext.trim().toLowerCase();
+        if (trimmedContext.matches("!\\s*u1\\s*$") || currentWord.equalsIgnoreCase("u1")) {
+            // User typed "! U1", suggest setvar/getvar/do
+            suggestionAdapter.setSpecialSuggestions(createSgdActionSuggestions());
+            showSuggestions();
+            return;
+        }
+
+        // Check if we're inside quotes after getvar/setvar/do - suggest SGD commands
+        if (trimmedContext.matches("!\\s*u1\\s+(getvar|setvar|do)\\s+\"[^\"]*$")) {
+            // Filter SGD commands only
+            if (currentWord.length() >= MIN_CHARS_FOR_SUGGESTION) {
+                suggestionAdapter.filterSgdOnly(currentWord);
+                if (suggestionAdapter.hasSuggestions()) {
+                    showSuggestions();
+                } else {
+                    hideSuggestions();
+                }
+                return;
+            }
+        }
+
+        // Normal suggestion filtering
+        if (currentWord.length() >= MIN_CHARS_FOR_SUGGESTION) {
+            suggestionAdapter.filter(currentWord);
+            if (suggestionAdapter.hasSuggestions()) {
+                showSuggestions();
+            } else {
+                hideSuggestions();
+            }
+        } else {
+            hideSuggestions();
+        }
+    }
+
+    private String getCurrentLineContext() {
+        int cursorPos = editTextScript.getSelectionStart();
+        String text = editTextScript.getText().toString();
+
+        if (cursorPos == 0 || text.isEmpty()) {
+            return "";
+        }
+
+        // Find the start of the current line
+        int lineStart = cursorPos - 1;
+        while (lineStart >= 0 && text.charAt(lineStart) != '\n') {
+            lineStart--;
+        }
+        lineStart++;
+
+        return text.substring(lineStart, cursorPos);
+    }
+
+    private java.util.List<CommandSuggestion> createSgdPrefixSuggestions() {
+        java.util.List<CommandSuggestion> suggestions = new java.util.ArrayList<>();
+        suggestions.add(new CommandSuggestion("! U1", "SGD Command Prefix", "! U1 ", "SGD"));
+        return suggestions;
+    }
+
+    private java.util.List<CommandSuggestion> createSgdActionSuggestions() {
+        java.util.List<CommandSuggestion> suggestions = new java.util.ArrayList<>();
+        suggestions.add(new CommandSuggestion("setvar", "Set variable value", "setvar \"", "SGD"));
+        suggestions.add(new CommandSuggestion("getvar", "Get variable value", "getvar \"", "SGD"));
+        suggestions.add(new CommandSuggestion("do", "Execute action", "do \"", "SGD"));
+        return suggestions;
+    }
+
+    private String getCurrentWord() {
+        int cursorPos = editTextScript.getSelectionStart();
+        String text = editTextScript.getText().toString();
+
+        if (cursorPos == 0 || text.isEmpty()) {
+            return "";
+        }
+
+        // Find the start of the current word
+        // Stop at whitespace, newline, or opening quote (for SGD commands)
+        int wordStart = cursorPos - 1;
+        while (wordStart >= 0) {
+            char c = text.charAt(wordStart);
+            if (Character.isWhitespace(c) || c == '\n' || c == '"') {
+                break;
+            }
+            wordStart--;
+        }
+        wordStart++;
+
+        // Extract the current word
+        if (wordStart < cursorPos) {
+            return text.substring(wordStart, cursorPos);
+        }
+        return "";
+    }
+
+    private void insertSuggestion(CommandSuggestion suggestion) {
+        isInsertingSuggestion = true;
+
+        int cursorPos = editTextScript.getSelectionStart();
+        String text = editTextScript.getText().toString();
+        String insertText = suggestion.getInsertText();
+        String lineContext = getCurrentLineContext();
+
+        // Special case: inserting SGD action (setvar/getvar/do) after "! U1"
+        String trimmedContext = lineContext.trim().toLowerCase();
+        if ((suggestion.getCommand().equals("setvar") ||
+             suggestion.getCommand().equals("getvar") ||
+             suggestion.getCommand().equals("do")) &&
+            trimmedContext.matches("!\\s*u1\\s*$")) {
+            // Just append the action, don't replace anything
+            String newText = text.substring(0, cursorPos) + insertText + text.substring(cursorPos);
+            editTextScript.setText(newText);
+            editTextScript.setSelection(cursorPos + insertText.length());
+            isInsertingSuggestion = false;
+            return;
+        }
+
+        // Special case: inserting SGD command inside quotes after getvar/setvar/do
+        if (trimmedContext.matches("!\\s*u1\\s+(getvar|setvar|do)\\s+\"[^\"]*$") &&
+            "SGD".equalsIgnoreCase(suggestion.getType())) {
+            // Insert just the command name (for SGD path like "device.languages")
+            String sgdCommand = suggestion.getCommand();
+            // Find start of word after the quote
+            int wordStart = cursorPos - 1;
+            while (wordStart >= 0 && text.charAt(wordStart) != '"') {
+                wordStart--;
+            }
+            wordStart++; // Move past the quote
+
+            // Replace partial text with full command and add closing quote
+            String newText = text.substring(0, wordStart) + sgdCommand + "\"" + text.substring(cursorPos);
+            editTextScript.setText(newText);
+            editTextScript.setSelection(wordStart + sgdCommand.length() + 1);
+            isInsertingSuggestion = false;
+            return;
+        }
+
+        // Find the start of the current word
+        int wordStart = cursorPos - 1;
+        while (wordStart >= 0) {
+            char c = text.charAt(wordStart);
+            if (Character.isWhitespace(c) || c == '\n' || c == '"') {
+                break;
+            }
+            wordStart--;
+        }
+        wordStart++;
+
+        // Replace the current word with the suggestion
+        String newText = text.substring(0, wordStart) + insertText + text.substring(cursorPos);
+        editTextScript.setText(newText);
+
+        // Move cursor to end of inserted text
+        editTextScript.setSelection(wordStart + insertText.length());
+
+        isInsertingSuggestion = false;
+    }
+
+    private void showSuggestions() {
+        if (cardSuggestions != null) {
+            cardSuggestions.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideSuggestions() {
+        if (cardSuggestions != null) {
+            cardSuggestions.setVisibility(View.GONE);
         }
     }
 }

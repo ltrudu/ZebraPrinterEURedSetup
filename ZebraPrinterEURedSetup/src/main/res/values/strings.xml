@@ -86,9 +86,35 @@
     <!-- Navigation Drawer -->
     <string name="nav_home">Home</string>
     <string name="nav_custom_script">Custom Script</string>
+    <string name="nav_advanced">Advanced</string>
     <string name="nav_factory_reset">Factory Reset</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About</string>
+
+    <!-- Advanced Tools -->
+    <string name="title_advanced_tools">Advanced Tools</string>
+    <string name="desc_factory_reset">Reset printer to factory defaults via USB</string>
+
+    <!-- Script Documentation -->
+    <string name="nav_script_documentation">Script Documentation</string>
+    <string name="hint_search_documentation">Search commands…</string>
+    <string name="label_filter">Filter:</string>
+    <string name="filter_zpl">ZPL</string>
+    <string name="filter_sgd">SGD</string>
+    <string name="filter_zbi">ZBI</string>
+    <string name="label_commands_found">%1$d commands found</string>
+    <string name="message_no_commands_found">No commands found</string>
+    <string name="content_description_no_results">No results</string>
+    <string name="label_format">Format</string>
+    <string name="label_description">Description</string>
+    <string name="label_parameters">Parameters</string>
+    <string name="label_returns">Returns</string>
+    <string name="label_supported_actions">Supported Actions</string>
+    <string name="label_possible_values">Possible Values</string>
+    <string name="label_default_value">Default Value</string>
+    <string name="label_page_number">Page %1$d</string>
+    <string name="error_loading_documentation">Error loading documentation: %1$s</string>
+    <string name="label_suggestions">Suggestions</string>
 
     <!-- Card Titles - Additional -->
     <string name="title_change_password">Change Password</string>

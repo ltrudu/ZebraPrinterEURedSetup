@@ -114,8 +114,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loadFragment(new HomeFragment());
         } else if (navItemId == R.id.nav_custom_script) {
             loadFragment(new CustomScriptFragment());
-        } else if (navItemId == R.id.nav_factory_reset) {
-            loadFragment(new FactoryResetFragment());
+        } else if (navItemId == R.id.nav_script_documentation) {
+            loadFragment(new ScriptDocumentationFragment());
+        } else if (navItemId == R.id.nav_advanced) {
+            loadFragment(new AdvancedFragment());
         } else if (navItemId == R.id.nav_settings) {
             loadFragment(new SettingsFragment());
         } else if (navItemId == R.id.nav_about) {
@@ -152,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return;
             }
             super.onBackPressed();
-        } else if (currentFragment instanceof FactoryResetFragment) {
-            if (((FactoryResetFragment) currentFragment).handleBackPress()) {
+        } else if (currentFragment instanceof AdvancedFragment) {
+            if (((AdvancedFragment) currentFragment).handleBackPress()) {
                 return;
             }
             super.onBackPressed();
