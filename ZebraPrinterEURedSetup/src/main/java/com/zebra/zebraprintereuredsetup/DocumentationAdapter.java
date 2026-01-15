@@ -28,6 +28,7 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
     private boolean showZpl = true;
     private boolean showSgd = true;
     private boolean showZbi = true;
+    private boolean showSnippets = true;
     private String searchQuery = "";
 
     // Track expanded items
@@ -43,10 +44,11 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
         applyFilters();
     }
 
-    public void setFilters(boolean zpl, boolean sgd, boolean zbi) {
+    public void setFilters(boolean zpl, boolean sgd, boolean zbi, boolean snippets) {
         this.showZpl = zpl;
         this.showSgd = sgd;
         this.showZbi = zbi;
+        this.showSnippets = snippets;
         applyFilters();
     }
 
@@ -71,6 +73,9 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
                     break;
                 case ZBI:
                     typeMatches = showZbi;
+                    break;
+                case SNIPPET:
+                    typeMatches = showSnippets;
                     break;
             }
 
@@ -211,6 +216,9 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
                 case ZBI:
                     colorRes = R.color.badge_zbi;
                     break;
+                case SNIPPET:
+                    colorRes = R.color.badge_snippet;
+                    break;
                 default:
                     colorRes = R.color.badge_default;
             }
@@ -242,10 +250,18 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
                 case SGD:
                     bindSgdFields(command);
                     break;
+                case SNIPPET:
+                    bindSnippetFields(command);
+                    break;
             }
 
-            // Page reference
-            textViewPage.setText(context.getString(R.string.label_page_number, command.getPage()));
+            // Page reference (hide for snippets which have no page)
+            if (command.getPage() > 0) {
+                textViewPage.setVisibility(View.VISIBLE);
+                textViewPage.setText(context.getString(R.string.label_page_number, command.getPage()));
+            } else {
+                textViewPage.setVisibility(View.GONE);
+            }
         }
 
         private void bindZplFields(DocumentationCommand command) {
@@ -281,6 +297,22 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
             if (defaultVal != null && !defaultVal.isEmpty() && !defaultVal.equals("NA")) {
                 layoutDefault.setVisibility(View.VISIBLE);
                 textViewDefault.setText(defaultVal);
+            }
+        }
+
+        private void bindSnippetFields(DocumentationCommand command) {
+            // Show parameters if available
+            String params = command.getParametersDisplayString();
+            if (!params.isEmpty()) {
+                layoutParameters.setVisibility(View.VISIBLE);
+                textViewParameters.setText(params);
+            }
+
+            // Show example in the "Returns" field (reusing existing layout)
+            String example = command.getExample();
+            if (example != null && !example.isEmpty()) {
+                layoutReturns.setVisibility(View.VISIBLE);
+                textViewReturns.setText(example);
             }
         }
     }

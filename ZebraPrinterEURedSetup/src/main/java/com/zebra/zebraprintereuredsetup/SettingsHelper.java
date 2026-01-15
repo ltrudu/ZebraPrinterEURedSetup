@@ -249,10 +249,10 @@ public class SettingsHelper {
         editor.commit();
     }
 
-    // EURed Configuration settings (all default to false)
+    // EURed Configuration settings (all default to true - authorize everything by default)
     public static boolean getEuredFirmwareDownload(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_FIRMWARE_DOWNLOAD, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_FIRMWARE_DOWNLOAD, true);
     }
 
     public static void saveEuredFirmwareDownload(Context context, boolean enabled) {
@@ -264,7 +264,7 @@ public class SettingsHelper {
 
     public static boolean getEuredTcpEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_TCP_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_TCP_ENABLE, true);
     }
 
     public static void saveEuredTcpEnable(Context context, boolean enabled) {
@@ -276,7 +276,7 @@ public class SettingsHelper {
 
     public static boolean getEuredLpdEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_LPD_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_LPD_ENABLE, true);
     }
 
     public static void saveEuredLpdEnable(Context context, boolean enabled) {
@@ -288,7 +288,7 @@ public class SettingsHelper {
 
     public static boolean getEuredHttpsEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_HTTPS_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_HTTPS_ENABLE, true);
     }
 
     public static void saveEuredHttpsEnable(Context context, boolean enabled) {
@@ -300,7 +300,7 @@ public class SettingsHelper {
 
     public static boolean getEuredFtpEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_FTP_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_FTP_ENABLE, true);
     }
 
     public static void saveEuredFtpEnable(Context context, boolean enabled) {
@@ -312,7 +312,7 @@ public class SettingsHelper {
 
     public static boolean getEuredSnmpEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_SNMP_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_SNMP_ENABLE, true);
     }
 
     public static void saveEuredSnmpEnable(Context context, boolean enabled) {
@@ -324,7 +324,7 @@ public class SettingsHelper {
 
     public static boolean getEuredWlanEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_WLAN_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_WLAN_ENABLE, true);
     }
 
     public static void saveEuredWlanEnable(Context context, boolean enabled) {
@@ -336,7 +336,7 @@ public class SettingsHelper {
 
     public static boolean getEuredUsbMirrorEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_USB_MIRROR_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_USB_MIRROR_ENABLE, true);
     }
 
     public static void saveEuredUsbMirrorEnable(Context context, boolean enabled) {
@@ -348,7 +348,7 @@ public class SettingsHelper {
 
     public static boolean getEuredZbiEnable(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(Constants.SETTINGS_EURED_ZBI_ENABLE, false);
+        return settings.getBoolean(Constants.SETTINGS_EURED_ZBI_ENABLE, true);
     }
 
     public static void saveEuredZbiEnable(Context context, boolean enabled) {
@@ -407,6 +407,19 @@ public class SettingsHelper {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(Constants.SETTINGS_DEVICE_PROMPTED_NETWORK_RESET_ENABLED, enabled);
+        editor.commit();
+    }
+
+    // Advanced Mode (hidden feature - default false)
+    public static boolean getAdvancedModeEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(Constants.SETTINGS_ADVANCED_MODE_ENABLED, false);
+    }
+
+    public static void saveAdvancedModeEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(Constants.SETTINGS_ADVANCED_MODE_ENABLED, enabled);
         editor.commit();
     }
 }

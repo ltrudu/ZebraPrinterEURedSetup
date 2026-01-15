@@ -1,0 +1,329 @@
+{
+  "snippets": [
+    {
+      "command": "^XA",
+      "name": "Label Start/End",
+      "type": "Snippet",
+      "format": "^XA\n[content]\n^XZ",
+      "description": "Creates a complete ZPL label with opening (^XA) and closing (^XZ) tags. The cursor is positioned on the empty line between them, ready for label content.",
+      "parameters": [],
+      "example": "^XA\n^FO50,50^A0N,30,30^FDHello World^FS\n^XZ"
+    },
+    {
+      "command": "^FO",
+      "name": "Text Field",
+      "type": "Snippet",
+      "format": "^FO[x],[y]^A0N,30,30^FD[data]^FS",
+      "description": "Creates a complete text field with field origin (^FO), scalable font (^A0), field data (^FD), and field separator (^FS). The cursor is positioned at the X coordinate.",
+      "parameters": [
+        {"name": "x", "description": "X-axis position in dots"},
+        {"name": "y", "description": "Y-axis position in dots"},
+        {"name": "data", "description": "Text to print"}
+      ],
+      "example": "^FO100,200^A0N,30,30^FDProduct Label^FS"
+    },
+    {
+      "command": "^FD",
+      "name": "Field Data",
+      "type": "Snippet",
+      "format": "^FD[data]^FS",
+      "description": "Creates a field data block with the field separator. Use after setting position and font.",
+      "parameters": [
+        {"name": "data", "description": "Data to be printed in the field"}
+      ],
+      "example": "^FDSerial: 12345^FS"
+    },
+    {
+      "command": "^BC",
+      "name": "Code 128 Barcode",
+      "type": "Snippet",
+      "format": "^FO50,50^BCN,100,Y,N,N^FD[data]^FS",
+      "description": "Creates a Code 128 barcode with default settings: 100 dots height, human-readable text below, no UCC check digit.",
+      "parameters": [
+        {"name": "data", "description": "Barcode data to encode"}
+      ],
+      "example": "^FO50,50^BCN,100,Y,N,N^FD123456789^FS"
+    },
+    {
+      "command": "^BQ",
+      "name": "QR Code",
+      "type": "Snippet",
+      "format": "^FO50,50^BQN,2,5^FDQA,[data]^FS",
+      "description": "Creates a QR Code with model 2 and magnification factor 5. The 'QA,' prefix enables automatic data mode selection.",
+      "parameters": [
+        {"name": "data", "description": "Data to encode in QR code"}
+      ],
+      "example": "^FO50,50^BQN,2,5^FDQA,https://www.zebra.com^FS"
+    },
+    {
+      "command": "^BX",
+      "name": "Data Matrix",
+      "type": "Snippet",
+      "format": "^FO50,50^BXN,5,200^FD[data]^FS",
+      "description": "Creates a Data Matrix 2D barcode with module height 5 and 200 dots per row.",
+      "parameters": [
+        {"name": "data", "description": "Data to encode in Data Matrix"}
+      ],
+      "example": "^FO50,50^BXN,5,200^FDABC123^FS"
+    },
+    {
+      "command": "^GB",
+      "name": "Graphic Box",
+      "type": "Snippet",
+      "format": "^FO50,50^GB[width],100,3^FS",
+      "description": "Draws a graphic box or line. Can be used for borders, separators, or filled rectangles.",
+      "parameters": [
+        {"name": "width", "description": "Width of the box in dots"},
+        {"name": "height", "description": "Height of the box in dots (100 default)"},
+        {"name": "thickness", "description": "Border thickness in dots (3 default)"}
+      ],
+      "example": "^FO50,50^GB200,100,3^FS"
+    },
+    {
+      "command": "^A0",
+      "name": "Scalable Font",
+      "type": "Snippet",
+      "format": "^A0N,[height],[width]^FD[data]^FS",
+      "description": "Uses the scalable/TrueType font (font 0) with specified height and width. N = normal orientation.",
+      "parameters": [
+        {"name": "height", "description": "Font height in dots"},
+        {"name": "width", "description": "Font width in dots"},
+        {"name": "data", "description": "Text to print"}
+      ],
+      "example": "^A0N,50,50^FDLarge Text^FS"
+    },
+    {
+      "command": "^CF",
+      "name": "Change Default Font",
+      "type": "Snippet",
+      "format": "^CF0,[height],[width]",
+      "description": "Changes the default font for subsequent ^FD commands. Font 0 is the scalable font.",
+      "parameters": [
+        {"name": "height", "description": "Default font height"},
+        {"name": "width", "description": "Default font width"}
+      ],
+      "example": "^CF0,30,30"
+    },
+    {
+      "command": "^PQ",
+      "name": "Print Quantity",
+      "type": "Snippet",
+      "format": "^PQ[qty],0,1,Y",
+      "description": "Sets the print quantity. Parameters: quantity, pause between labels (0=no pause), replicates per serial (1), override pause (Y).",
+      "parameters": [
+        {"name": "qty", "description": "Number of labels to print"}
+      ],
+      "example": "^PQ5,0,1,Y"
+    },
+    {
+      "command": "^LH",
+      "name": "Label Home",
+      "type": "Snippet",
+      "format": "^LH[x],[y]",
+      "description": "Sets the label home position. All subsequent field positions are relative to this point.",
+      "parameters": [
+        {"name": "x", "description": "X-axis home position"},
+        {"name": "y", "description": "Y-axis home position"}
+      ],
+      "example": "^LH50,50"
+    },
+    {
+      "command": "^FB",
+      "name": "Field Block",
+      "type": "Snippet",
+      "format": "^FB[width],3,0,L,0^FD[text]^FS",
+      "description": "Creates a multi-line text block with automatic word wrapping. Default: 3 lines max, left justified.",
+      "parameters": [
+        {"name": "width", "description": "Maximum width of text block"},
+        {"name": "lines", "description": "Maximum number of lines (3 default)"},
+        {"name": "justify", "description": "L=Left, C=Center, R=Right, J=Justified"}
+      ],
+      "example": "^FB400,3,0,L,0^FDThis is a long text that will automatically wrap to multiple lines^FS"
+    },
+    {
+      "command": "getvar",
+      "name": "Get Variable",
+      "type": "Snippet",
+      "format": "! U1 getvar \"[path]\" \"\"",
+      "description": "SGD command to retrieve the value of a printer setting. The second parameter is empty for read operations.",
+      "parameters": [
+        {"name": "path", "description": "SGD path (e.g., device.languages, ip.dhcp.enable)"}
+      ],
+      "example": "! U1 getvar \"device.friendly_name\" \"\""
+    },
+    {
+      "command": "setvar",
+      "name": "Set Variable",
+      "type": "Snippet",
+      "format": "! U1 setvar \"[path]\" \"[value]\"",
+      "description": "SGD command to set a printer configuration value. Requires appropriate access level.",
+      "parameters": [
+        {"name": "path", "description": "SGD path to set"},
+        {"name": "value", "description": "New value to assign"}
+      ],
+      "example": "! U1 setvar \"device.friendly_name\" \"My Printer\""
+    },
+    {
+      "command": "do",
+      "name": "Execute Action",
+      "type": "Snippet",
+      "format": "! U1 do \"[path]\" \"\"",
+      "description": "SGD command to execute a printer action (like clearing logs, calibrating, etc.). The second parameter is usually empty.",
+      "parameters": [
+        {"name": "path", "description": "SGD action path (e.g., rfid.log.clear)"}
+      ],
+      "example": "! U1 do \"device.restore_defaults\" \"\""
+    },
+    {
+      "command": "device.languages",
+      "name": "Get Languages",
+      "type": "Snippet",
+      "format": "! U1 getvar \"device.languages\" \"\"",
+      "description": "Retrieves the list of supported printer languages (ZPL, EPL, etc.).",
+      "parameters": [],
+      "example": "! U1 getvar \"device.languages\" \"\""
+    },
+    {
+      "command": "device.friendly_name",
+      "name": "Get/Set Friendly Name",
+      "type": "Snippet",
+      "format": "! U1 getvar \"device.friendly_name\" \"\"",
+      "description": "Gets or sets the printer's friendly name shown in Bluetooth/network discovery.",
+      "parameters": [],
+      "example": "! U1 setvar \"device.friendly_name\" \"Warehouse Printer 1\""
+    },
+    {
+      "command": "ip.dhcp.enable",
+      "name": "DHCP Enable",
+      "type": "Snippet",
+      "format": "! U1 setvar \"ip.dhcp.enable\" \"[on/off]\"",
+      "description": "Enables or disables DHCP for automatic IP address assignment.",
+      "parameters": [
+        {"name": "value", "description": "on or off"}
+      ],
+      "example": "! U1 setvar \"ip.dhcp.enable\" \"on\""
+    },
+    {
+      "command": "media.type",
+      "name": "Media Type",
+      "type": "Snippet",
+      "format": "! U1 setvar \"media.type\" \"[type]\"",
+      "description": "Sets the media type for proper label detection and calibration.",
+      "parameters": [
+        {"name": "type", "description": "label, continuous, or mark"}
+      ],
+      "example": "! U1 setvar \"media.type\" \"label\""
+    },
+    {
+      "command": "IF",
+      "name": "IF...THEN...END IF",
+      "type": "Snippet",
+      "format": "IF [condition] THEN\n[statements]\nEND IF",
+      "description": "ZBI conditional block. Executes statements if condition is true.",
+      "parameters": [
+        {"name": "condition", "description": "Boolean expression to evaluate"}
+      ],
+      "example": "IF count > 10 THEN\n    PRINT \"High count\"\nEND IF"
+    },
+    {
+      "command": "IFELSE",
+      "name": "IF...THEN...ELSE...END IF",
+      "type": "Snippet",
+      "format": "IF [condition] THEN\n[true-statements]\nELSE\n[false-statements]\nEND IF",
+      "description": "ZBI conditional block with else clause for alternative execution path.",
+      "parameters": [
+        {"name": "condition", "description": "Boolean expression to evaluate"}
+      ],
+      "example": "IF status$ = \"OK\" THEN\n    PRINT \"Success\"\nELSE\n    PRINT \"Error\"\nEND IF"
+    },
+    {
+      "command": "DO",
+      "name": "DO...LOOP WHILE",
+      "type": "Snippet",
+      "format": "DO\n    [statements]\nLOOP WHILE [condition]",
+      "description": "ZBI loop that executes at least once, then continues while condition is true.",
+      "parameters": [
+        {"name": "condition", "description": "Condition to check after each iteration"}
+      ],
+      "example": "DO\n    count = count + 1\nLOOP WHILE count < 10"
+    },
+    {
+      "command": "DOUNTIL",
+      "name": "DO...LOOP UNTIL",
+      "type": "Snippet",
+      "format": "DO\n    [statements]\nLOOP UNTIL [condition]",
+      "description": "ZBI loop that executes until condition becomes true.",
+      "parameters": [
+        {"name": "condition", "description": "Condition that stops the loop when true"}
+      ],
+      "example": "DO\n    SLEEP 1\nLOOP UNTIL ready = 1"
+    },
+    {
+      "command": "FOR",
+      "name": "FOR...TO...NEXT",
+      "type": "Snippet",
+      "format": "FOR [var] = 1 TO 10\n[statements]\nNEXT",
+      "description": "ZBI counted loop. Iterates from start value to end value.",
+      "parameters": [
+        {"name": "var", "description": "Loop counter variable"},
+        {"name": "start", "description": "Starting value (1 default)"},
+        {"name": "end", "description": "Ending value (10 default)"}
+      ],
+      "example": "FOR i = 1 TO 5\n    PRINT i\nNEXT"
+    },
+    {
+      "command": "OPEN",
+      "name": "OPEN...CLOSE",
+      "type": "Snippet",
+      "format": "OPEN #1: NAME \"[channel]\"\n[statements]\nCLOSE #1",
+      "description": "ZBI file/channel operations. Opens a communication channel, performs operations, then closes it.",
+      "parameters": [
+        {"name": "channel", "description": "Channel name (ZPL, SER, USB, etc.)"}
+      ],
+      "example": "OPEN #1: NAME \"ZPL\"\nPRINT #1: \"^XA^FO50,50^A0N,30,30^FDHello^FS^XZ\"\nCLOSE #1"
+    },
+    {
+      "command": "SUB",
+      "name": "SUB...END SUB",
+      "type": "Snippet",
+      "format": "SUB [name]\n[statements]\nEND SUB",
+      "description": "ZBI subroutine definition. Creates a reusable code block that can be called with GOSUB.",
+      "parameters": [
+        {"name": "name", "description": "Subroutine name"}
+      ],
+      "example": "SUB PrintHeader\n    PRINT \"=== Header ===\"\nEND SUB"
+    },
+    {
+      "command": "PRINTCHANNEL",
+      "name": "Print to Channel",
+      "type": "Snippet",
+      "format": "OPEN #1: NAME \"ZPL\"\nPRINT #1: [data]\nCLOSE #1",
+      "description": "ZBI pattern for sending ZPL commands to the printer from a ZBI program.",
+      "parameters": [
+        {"name": "data", "description": "ZPL commands to send"}
+      ],
+      "example": "OPEN #1: NAME \"ZPL\"\nPRINT #1: \"^XA^FO50,50^FDTest^FS^XZ\"\nCLOSE #1"
+    },
+    {
+      "command": "ONERROR",
+      "name": "ON ERROR Handler",
+      "type": "Snippet",
+      "format": "ON ERROR GOTO ErrorHandler\n[main code]\nEND\n\nErrorHandler:\nRESUME NEXT",
+      "description": "ZBI error handling pattern. Catches runtime errors and allows graceful recovery.",
+      "parameters": [],
+      "example": "ON ERROR GOTO ErrHandler\nresult = 10 / x\nEND\n\nErrHandler:\nPRINT \"Division error\"\nRESUME NEXT"
+    },
+    {
+      "command": "DIM",
+      "name": "DIM Array",
+      "type": "Snippet",
+      "format": "DIM [name](10)",
+      "description": "ZBI array declaration. Creates an array with specified number of elements.",
+      "parameters": [
+        {"name": "name", "description": "Array variable name"},
+        {"name": "size", "description": "Number of elements (10 default)"}
+      ],
+      "example": "DIM values(20)\nvalues(1) = 100"
+    }
+  ]
+}

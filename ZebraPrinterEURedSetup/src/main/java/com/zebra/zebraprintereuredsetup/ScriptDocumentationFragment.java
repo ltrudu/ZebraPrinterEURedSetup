@@ -39,6 +39,7 @@ public class ScriptDocumentationFragment extends Fragment {
     private CheckBox checkBoxZpl;
     private CheckBox checkBoxSgd;
     private CheckBox checkBoxZbi;
+    private CheckBox checkBoxSnippets;
     private TextView textViewResultsCount;
     private RecyclerView recyclerViewCommands;
     private CircularProgressIndicator progressIndicator;
@@ -78,6 +79,7 @@ public class ScriptDocumentationFragment extends Fragment {
         checkBoxZpl = view.findViewById(R.id.checkBoxZpl);
         checkBoxSgd = view.findViewById(R.id.checkBoxSgd);
         checkBoxZbi = view.findViewById(R.id.checkBoxZbi);
+        checkBoxSnippets = view.findViewById(R.id.checkBoxSnippets);
         textViewResultsCount = view.findViewById(R.id.textViewResultsCount);
         recyclerViewCommands = view.findViewById(R.id.recyclerViewCommands);
         progressIndicator = view.findViewById(R.id.progressIndicator);
@@ -117,6 +119,7 @@ public class ScriptDocumentationFragment extends Fragment {
         checkBoxZpl.setOnCheckedChangeListener(filterListener);
         checkBoxSgd.setOnCheckedChangeListener(filterListener);
         checkBoxZbi.setOnCheckedChangeListener(filterListener);
+        checkBoxSnippets.setOnCheckedChangeListener(filterListener);
     }
 
     private void debounceSearch(String query) {
@@ -138,7 +141,8 @@ public class ScriptDocumentationFragment extends Fragment {
         adapter.setFilters(
                 checkBoxZpl.isChecked(),
                 checkBoxSgd.isChecked(),
-                checkBoxZbi.isChecked()
+                checkBoxZbi.isChecked(),
+                checkBoxSnippets.isChecked()
         );
         updateResultsCount();
         updateEmptyState();
@@ -202,6 +206,30 @@ public class ScriptDocumentationFragment extends Fragment {
                     for (int i = 0; i < sgdArray.length(); i++) {
                         commands.add(DocumentationCommand.fromJson(sgdArray.getJSONObject(i)));
                     }
+                }
+
+                // Load snippets from separate file
+                try {
+                    InputStream snippetsIs = requireContext().getAssets().open("snippets_documentation.json");
+                    BufferedReader snippetsReader = new BufferedReader(new InputStreamReader(snippetsIs));
+                    StringBuilder snippetsSb = new StringBuilder();
+                    String snippetsLine;
+                    while ((snippetsLine = snippetsReader.readLine()) != null) {
+                        snippetsSb.append(snippetsLine);
+                    }
+                    snippetsReader.close();
+                    snippetsIs.close();
+
+                    JSONObject snippetsRoot = new JSONObject(snippetsSb.toString());
+                    JSONArray snippetsArray = snippetsRoot.optJSONArray("snippets");
+                    if (snippetsArray != null) {
+                        for (int i = 0; i < snippetsArray.length(); i++) {
+                            commands.add(DocumentationCommand.fromJson(snippetsArray.getJSONObject(i)));
+                        }
+                    }
+                } catch (Exception e) {
+                    // Snippets file is optional, continue without it
+                    e.printStackTrace();
                 }
 
                 // Update UI on main thread

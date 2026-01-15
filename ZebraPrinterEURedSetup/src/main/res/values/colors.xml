@@ -13,4 +13,10 @@
     <color name="badge_zpl">#1976D2</color>
     <color name="badge_sgd">#388E3C</color>
     <color name="badge_zbi">#F57C00</color>
+    <color name="badge_snippet">#9C27B0</color>
+
+    <!-- Syntax Highlighting Colors (same as badge colors for consistency) -->
+    <color name="syntax_zpl">#1976D2</color>
+    <color name="syntax_sgd">#388E3C</color>
+    <color name="syntax_zbi">#F57C00</color>
 </resources>

@@ -10,7 +10,7 @@ import java.util.List;
 public class DocumentationCommand {
 
     public enum CommandType {
-        ZPL, ZBI, SGD
+        ZPL, ZBI, SGD, SNIPPET
     }
 
     // Common fields
@@ -32,6 +32,9 @@ public class DocumentationCommand {
     private List<String> supportedActions;
     private List<String> possibleValues;
     private String defaultValue;
+
+    // Snippet specific
+    private String example;
 
     // Parameter inner class for ZPL commands
     public static class Parameter {
@@ -75,6 +78,10 @@ public class DocumentationCommand {
             case "sgd":
                 cmd.type = CommandType.SGD;
                 cmd.parseSgdFields(json);
+                break;
+            case "snippet":
+                cmd.type = CommandType.SNIPPET;
+                cmd.parseSnippetFields(json);
                 break;
             default:
                 cmd.type = CommandType.ZPL;
@@ -125,6 +132,26 @@ public class DocumentationCommand {
         defaultValue = json.optString("default", "NA");
     }
 
+    private void parseSnippetFields(JSONObject json) throws JSONException {
+        example = json.optString("example", "");
+
+        // Snippets can also have parameters like ZPL
+        parameters = new ArrayList<>();
+        JSONArray paramsArray = json.optJSONArray("parameters");
+        if (paramsArray != null) {
+            for (int i = 0; i < paramsArray.length(); i++) {
+                JSONObject paramJson = paramsArray.getJSONObject(i);
+                Parameter param = new Parameter(
+                        paramJson.optString("name", ""),
+                        paramJson.optString("description", ""),
+                        paramJson.optString("values", ""),
+                        paramJson.optString("default", "")
+                );
+                parameters.add(param);
+            }
+        }
+    }
+
     // Getters
     public String getCommand() { return command; }
     public String getName() { return name; }
@@ -138,6 +165,7 @@ public class DocumentationCommand {
     public List<String> getSupportedActions() { return supportedActions; }
     public List<String> getPossibleValues() { return possibleValues; }
     public String getDefaultValue() { return defaultValue; }
+    public String getExample() { return example; }
 
     public String getTypeString() {
         if (type == null) return "ZPL";

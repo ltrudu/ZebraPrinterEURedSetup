@@ -8,15 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 public class AboutFragment extends Fragment {
+
+    private static final int CLICKS_TO_ENABLE_ADVANCED = 5;
+    private int developerClickCount = 0;
 
     @Nullable
     @Override
@@ -35,6 +40,10 @@ public class AboutFragment extends Fragment {
         MaterialTextView textViewVersion = view.findViewById(R.id.textViewVersion);
         String versionName = getVersionName();
         textViewVersion.setText(getString(R.string.about_version, versionName));
+
+        // Developer text - hidden click handler for advanced mode
+        MaterialTextView textViewDeveloper = view.findViewById(R.id.textViewDeveloper);
+        textViewDeveloper.setOnClickListener(v -> onDeveloperClicked());
 
         // GitHub button
         MaterialButton buttonGitHub = view.findViewById(R.id.buttonGitHub);
@@ -56,6 +65,42 @@ public class AboutFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zebra.com/us/en/support-downloads/printer-software/link-os-multiplatform-sdk.html"));
             startActivity(intent);
         });
+    }
+
+    private void onDeveloperClicked() {
+        // Already enabled - do nothing
+        if (SettingsHelper.getAdvancedModeEnabled(requireContext())) {
+            return;
+        }
+
+        developerClickCount++;
+
+        if (developerClickCount >= CLICKS_TO_ENABLE_ADVANCED) {
+            showAdvancedModeWarningDialog();
+            developerClickCount = 0;
+        }
+    }
+
+    private void showAdvancedModeWarningDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.advanced_mode_warning_title)
+                .setMessage(R.string.advanced_mode_warning_message)
+                .setPositiveButton(R.string.button_i_understand, (dialog, which) -> {
+                    enableAdvancedMode();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .setCancelable(true)
+                .show();
+    }
+
+    private void enableAdvancedMode() {
+        SettingsHelper.saveAdvancedModeEnabled(requireContext(), true);
+        Toast.makeText(requireContext(), R.string.advanced_mode_enabled, Toast.LENGTH_SHORT).show();
+
+        // Notify MainActivity to update navigation drawer
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).refreshNavigationDrawer();
+        }
     }
 
     private String getVersionName() {

@@ -24,12 +24,15 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
 
     private final Context context;
     private final List<CommandSuggestion> allSuggestions = new ArrayList<>();
+    private final List<CodeSnippet> allSnippets = new ArrayList<>();
     private final List<CommandSuggestion> filteredSuggestions = new ArrayList<>();
     private OnSuggestionClickListener listener;
-    private static final int MAX_SUGGESTIONS = 8;
+    private static final int MAX_SUGGESTIONS = 10;
 
     public CommandSuggestionAdapter(Context context) {
         this.context = context;
+        // Load all snippets
+        allSnippets.addAll(CodeSnippet.createAllSnippets());
     }
 
     public void setSuggestions(List<CommandSuggestion> suggestions) {
@@ -44,16 +47,216 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
     public void filter(String query) {
         filteredSuggestions.clear();
         Set<String> addedCommands = new HashSet<>();
+        Set<String> addedSgdSegments = new HashSet<>();
+        Set<String> addedSnippets = new HashSet<>();
 
         if (query != null && query.length() >= 1) {
+            String lowerQuery = query.toLowerCase();
+            String upperQuery = query.toUpperCase();
             int count = 0;
+            boolean hasSgdMatches = false;
+
+            // Track which actions are available for matching SGD commands
+            boolean hasSetvar = false;
+            boolean hasGetvar = false;
+            boolean hasDo = false;
+
+            // Collect suggestions by type
+            List<CommandSuggestion> snippetSuggestions = new ArrayList<>();
+            List<CommandSuggestion> sgdSuggestions = new ArrayList<>();
+            List<CommandSuggestion> zplSuggestions = new ArrayList<>();
+            List<CommandSuggestion> otherSuggestions = new ArrayList<>();
+
+            // Check if this is a ZPL command query (starts with ^ or ~)
+            boolean isZplQuery = query.startsWith("^") || query.startsWith("~");
+
+            // First, find matching snippets (highest priority)
+            for (CodeSnippet snippet : allSnippets) {
+                String trigger = snippet.getTrigger();
+                String triggerUpper = trigger.toUpperCase();
+
+                // For ZPL snippets (starting with ^ or ~), match with or without the prefix
+                if ("ZPL".equalsIgnoreCase(snippet.getType())) {
+                    boolean matches = false;
+                    // Match if query starts with ^ or ~ and trigger starts with query
+                    if (isZplQuery && triggerUpper.startsWith(upperQuery)) {
+                        matches = true;
+                    }
+                    // Also match if query is just letters and trigger (without prefix) starts with query
+                    // e.g., query "XA" matches trigger "^XA"
+                    else if (!isZplQuery && trigger.length() > 1) {
+                        String triggerWithoutPrefix = triggerUpper.substring(1);
+                        if (triggerWithoutPrefix.startsWith(upperQuery)) {
+                            matches = true;
+                        }
+                    }
+
+                    if (matches && !addedSnippets.contains(triggerUpper)) {
+                        snippetSuggestions.add(CommandSuggestion.fromSnippet(snippet));
+                        addedSnippets.add(triggerUpper);
+                    }
+                }
+                // For ZBI snippets, show when query matches trigger or name
+                else if ("ZBI".equalsIgnoreCase(snippet.getType())) {
+                    if ((triggerUpper.startsWith(upperQuery) ||
+                         snippet.getName().toUpperCase().contains(upperQuery)) &&
+                        !addedSnippets.contains(triggerUpper)) {
+                        snippetSuggestions.add(CommandSuggestion.fromSnippet(snippet));
+                        addedSnippets.add(triggerUpper);
+                    }
+                }
+                // For SGD snippets
+                else if ("SGD".equalsIgnoreCase(snippet.getType())) {
+                    if (snippet.matchesQuery(query) && !addedSnippets.contains(triggerUpper)) {
+                        snippetSuggestions.add(CommandSuggestion.fromSnippet(snippet));
+                        addedSnippets.add(triggerUpper);
+                    }
+                }
+            }
+
+            // Then find matching commands
             for (CommandSuggestion suggestion : allSuggestions) {
-                String key = suggestion.getCommand();
-                if (suggestion.matchesQuery(query) && !addedCommands.contains(key) && count < MAX_SUGGESTIONS) {
-                    filteredSuggestions.add(suggestion);
-                    addedCommands.add(key);
+                String command = suggestion.getCommand();
+                if (command == null) continue;
+
+                // For SGD commands, use hierarchical filtering
+                if ("SGD".equalsIgnoreCase(suggestion.getType())) {
+                    String lowerCommand = command.toLowerCase();
+                    if (!lowerCommand.startsWith(lowerQuery)) {
+                        continue;
+                    }
+
+                    // Track available actions from matching commands
+                    if (suggestion.supportsAction("setvar")) hasSetvar = true;
+                    if (suggestion.supportsAction("getvar")) hasGetvar = true;
+                    if (suggestion.supportsAction("do")) hasDo = true;
+
+                    String nextSegment = extractNextSegment(lowerCommand, lowerQuery);
+                    if (nextSegment == null || nextSegment.equals(lowerQuery) || addedSgdSegments.contains(nextSegment)) {
+                        continue;
+                    }
+
+                    boolean hasMoreSegments = hasMoreSegmentsAfter(nextSegment);
+                    String segmentToInsert = nextSegment.substring(lowerQuery.length());
+                    if (hasMoreSegments) {
+                        segmentToInsert += ".";
+                    }
+
+                    sgdSuggestions.add(new CommandSuggestion(
+                            nextSegment,
+                            hasMoreSegments ? "..." : suggestion.getName(),
+                            segmentToInsert,
+                            "SGD"
+                    ));
+                    addedSgdSegments.add(nextSegment);
+                    hasSgdMatches = true;
+                } else if ("ZPL".equalsIgnoreCase(suggestion.getType())) {
+                    // For ZPL commands, match by command prefix (case insensitive)
+                    String upperCommand = command.toUpperCase();
+
+                    // Skip if already added as snippet
+                    if (addedSnippets.contains(upperCommand)) continue;
+
+                    // Check if command matches query (with or without ^ prefix)
+                    boolean matches = false;
+                    if (isZplQuery && upperCommand.startsWith(upperQuery)) {
+                        matches = true;
+                    } else if (!isZplQuery && command.length() > 1) {
+                        // Match without prefix: "XA" matches "^XA"
+                        String commandWithoutPrefix = upperCommand.substring(1);
+                        if (commandWithoutPrefix.startsWith(upperQuery)) {
+                            matches = true;
+                        }
+                    }
+
+                    if (matches && !addedCommands.contains(upperCommand)) {
+                        // Get the format for display
+                        String format = suggestion.getFormat();
+                        String displayFormat = (format != null && !format.isEmpty()) ? format : command;
+
+                        zplSuggestions.add(new CommandSuggestion(
+                                command,
+                                suggestion.getName(),
+                                displayFormat,  // Use format as insert text
+                                "ZPL"
+                        ));
+                        addedCommands.add(upperCommand);
+                    }
+                } else {
+                    // For ZBI and other, use regular filtering
+                    String key = command.toUpperCase();
+                    // Skip if already added as snippet
+                    if (addedSnippets.contains(key)) continue;
+
+                    if (suggestion.matchesQuery(query) && !addedCommands.contains(key)) {
+                        otherSuggestions.add(suggestion);
+                        addedCommands.add(key);
+                    }
+                }
+            }
+
+            // Add snippets first (highest priority)
+            for (CommandSuggestion snippet : snippetSuggestions) {
+                if (count >= MAX_SUGGESTIONS) break;
+                filteredSuggestions.add(snippet);
+                count++;
+            }
+
+            // If there are SGD matches, add priority suggestions for available actions
+            if (hasSgdMatches && !sgdSuggestions.isEmpty()) {
+                // Add "! U1 setvar" wrapper if setvar is available
+                if (hasSetvar && count < MAX_SUGGESTIONS) {
+                    filteredSuggestions.add(new CommandSuggestion(
+                            "! U1 setvar \"" + query,
+                            "SGD Set Variable",
+                            "! U1 setvar \"" + query,
+                            "SGD"
+                    ));
                     count++;
                 }
+
+                // Add "! U1 getvar" wrapper if getvar is available
+                if (hasGetvar && count < MAX_SUGGESTIONS) {
+                    filteredSuggestions.add(new CommandSuggestion(
+                            "! U1 getvar \"" + query,
+                            "SGD Get Variable",
+                            "! U1 getvar \"" + query,
+                            "SGD"
+                    ));
+                    count++;
+                }
+
+                // Add "! U1 do" wrapper if do is available
+                if (hasDo && count < MAX_SUGGESTIONS) {
+                    filteredSuggestions.add(new CommandSuggestion(
+                            "! U1 do \"" + query,
+                            "SGD Execute Action",
+                            "! U1 do \"" + query,
+                            "SGD"
+                    ));
+                    count++;
+                }
+            }
+
+            // Add ZPL suggestions
+            for (CommandSuggestion zpl : zplSuggestions) {
+                if (count >= MAX_SUGGESTIONS) break;
+                filteredSuggestions.add(zpl);
+                count++;
+            }
+
+            // Add SGD suggestions
+            for (CommandSuggestion sgd : sgdSuggestions) {
+                if (count >= MAX_SUGGESTIONS) break;
+                filteredSuggestions.add(sgd);
+                count++;
+            }
+
+            // Add other suggestions
+            for (CommandSuggestion other : otherSuggestions) {
+                if (count >= MAX_SUGGESTIONS) break;
+                filteredSuggestions.add(other);
+                count++;
             }
         }
 
@@ -68,24 +271,129 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
 
     public void filterSgdOnly(String query) {
         filteredSuggestions.clear();
-        Set<String> addedCommands = new HashSet<>();
+        Set<String> addedSegments = new HashSet<>();
 
-        if (query != null && query.length() >= 1) {
-            int count = 0;
-            for (CommandSuggestion suggestion : allSuggestions) {
-                String key = suggestion.getCommand();
-                if ("SGD".equalsIgnoreCase(suggestion.getType()) &&
-                    suggestion.matchesQuery(query) &&
-                    !addedCommands.contains(key) &&
-                    count < MAX_SUGGESTIONS) {
-                    filteredSuggestions.add(suggestion);
-                    addedCommands.add(key);
-                    count++;
-                }
+        if (query == null || query.isEmpty()) {
+            notifyDataSetChanged();
+            return;
+        }
+
+        String lowerQuery = query.toLowerCase();
+        int count = 0;
+
+        // Collect all unique next segments
+        for (CommandSuggestion suggestion : allSuggestions) {
+            if (!"SGD".equalsIgnoreCase(suggestion.getType())) {
+                continue;
             }
+
+            String command = suggestion.getCommand();
+            if (command == null || command.isEmpty()) continue;
+
+            String lowerCommand = command.toLowerCase();
+
+            // Check if command starts with the query
+            if (!lowerCommand.startsWith(lowerQuery)) {
+                continue;
+            }
+
+            // Get the next segment to suggest
+            String nextSegment = extractNextSegment(lowerCommand, lowerQuery);
+            if (nextSegment == null || nextSegment.equals(lowerQuery)) {
+                continue;
+            }
+
+            // Skip if already added
+            if (addedSegments.contains(nextSegment)) {
+                continue;
+            }
+
+            if (count >= MAX_SUGGESTIONS) {
+                break;
+            }
+
+            // Check if there are more segments after this one
+            boolean hasMoreSegments = hasMoreSegmentsAfter(nextSegment);
+
+            // Calculate what to insert (only the new part, not what user already typed)
+            String segmentToInsert = nextSegment.substring(lowerQuery.length());
+            if (hasMoreSegments) {
+                segmentToInsert += ".";
+            }
+
+            filteredSuggestions.add(new CommandSuggestion(
+                    nextSegment,  // Display the path up to this segment
+                    hasMoreSegments ? "..." : suggestion.getName(),
+                    segmentToInsert,  // Insert only the new part
+                    "SGD"
+            ));
+            addedSegments.add(nextSegment);
+            count++;
         }
 
         notifyDataSetChanged();
+    }
+
+    /**
+     * Extract the next segment from the command based on the query.
+     * Examples:
+     *   query="wlan", command="wlan.11ac.80mhz_enable" → "wlan.11ac"
+     *   query="wlan.", command="wlan.11ac.80mhz_enable" → "wlan.11ac"
+     *   query="wlan.11", command="wlan.11ac.80mhz_enable" → "wlan.11ac"
+     *   query="wlan.11ac", command="wlan.11ac.80mhz_enable" → "wlan.11ac.80mhz_enable"
+     */
+    private String extractNextSegment(String command, String query) {
+        // Command must be longer than query
+        if (command.length() <= query.length()) {
+            return null;
+        }
+
+        // Split command into segments
+        String[] segments = command.split("\\.");
+
+        // Build up path segment by segment until we exceed the query
+        StringBuilder currentPath = new StringBuilder();
+        for (int i = 0; i < segments.length; i++) {
+            if (currentPath.length() > 0) {
+                currentPath.append(".");
+            }
+            currentPath.append(segments[i]);
+
+            String path = currentPath.toString();
+
+            // If this path is longer than the query and starts with query, return it
+            if (path.length() > query.length() && path.startsWith(query)) {
+                return path;
+            }
+        }
+
+        // If we get here, return the full command if it's longer
+        if (command.length() > query.length() && command.startsWith(query)) {
+            return command;
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if there are more segments after the given path.
+     */
+    private boolean hasMoreSegmentsAfter(String path) {
+        String lowerPath = path.toLowerCase();
+        for (CommandSuggestion suggestion : allSuggestions) {
+            if (!"SGD".equalsIgnoreCase(suggestion.getType())) {
+                continue;
+            }
+            String command = suggestion.getCommand();
+            if (command != null) {
+                String lowerCommand = command.toLowerCase();
+                // Check if any command starts with this path followed by a dot
+                if (lowerCommand.startsWith(lowerPath + ".")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean hasSuggestions() {

@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,6 +50,10 @@ import java.util.regex.Pattern;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.method.LinkMovementMethod;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class CustomScriptFragment extends Fragment {
 
@@ -59,6 +64,7 @@ public class CustomScriptFragment extends Fragment {
     private TextInputLayout textInputLayoutScript;
     private EditText editTextScript;
     private MaterialButton buttonSendScript;
+    private MaterialCheckBox checkBoxShowDocumentation;
     private TextView textViewStatus;
     private boolean isFormattingMacAddress = false;
 
@@ -87,6 +93,15 @@ public class CustomScriptFragment extends Fragment {
     private static final int MIN_CHARS_FOR_SUGGESTION = 2;
     private boolean isInsertingSuggestion = false;
 
+    // Syntax highlighting
+    private ScriptAnalyzer scriptAnalyzer;
+    private ScriptHighlighter scriptHighlighter;
+    private final Handler highlightHandler = new Handler(Looper.getMainLooper());
+    private Runnable highlightRunnable;
+    private static final long HIGHLIGHT_DEBOUNCE_MS = 300; // Faster response time
+    private boolean isHighlightingEnabled = true;
+    private boolean isUpdatingFromHighlight = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,12 +123,15 @@ public class CustomScriptFragment extends Fragment {
         setupBarcodeResultListener();
         setupAutoComplete(view);
         loadSuggestions();
+        setupSyntaxHighlighting();
+        loadDocumentationForHighlighting();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         suggestionHandler.removeCallbacksAndMessages(null);
+        highlightHandler.removeCallbacksAndMessages(null);
     }
 
     private void setupActivityResultLaunchers() {
@@ -153,6 +171,7 @@ public class CustomScriptFragment extends Fragment {
         textInputLayoutScript = view.findViewById(R.id.textInputLayoutScript);
         editTextScript = view.findViewById(R.id.editTextScript);
         buttonSendScript = view.findViewById(R.id.buttonSendScript);
+        checkBoxShowDocumentation = view.findViewById(R.id.checkBoxShowDocumentation);
 
         // Enable vertical scrolling inside the fixed-size EditText
         editTextScript.setMaxLines(Integer.MAX_VALUE);
@@ -502,7 +521,7 @@ public class CustomScriptFragment extends Fragment {
             hideSuggestions();
         });
 
-        // Add text watcher with debounce for suggestions
+        // Add text watcher with debounce for suggestions and highlighting
         editTextScript.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -512,10 +531,14 @@ public class CustomScriptFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (isInsertingSuggestion) return;
+                if (isInsertingSuggestion || isUpdatingFromHighlight) return;
                 debounceSuggestion();
+                debounceHighlighting();
             }
         });
+
+        // Enable clickable spans on EditText
+        editTextScript.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void loadSuggestions() {
@@ -603,7 +626,8 @@ public class CustomScriptFragment extends Fragment {
         int cursorPos = editTextScript.getSelectionStart();
         String text = editTextScript.getText().toString();
 
-        if (cursorPos == 0 || text.isEmpty()) {
+        // Handle invalid cursor position or empty text
+        if (cursorPos <= 0 || text.isEmpty() || cursorPos > text.length()) {
             return "";
         }
 
@@ -613,6 +637,11 @@ public class CustomScriptFragment extends Fragment {
             lineStart--;
         }
         lineStart++;
+
+        // Safety check for bounds
+        if (lineStart < 0 || lineStart > cursorPos || cursorPos > text.length()) {
+            return "";
+        }
 
         return text.substring(lineStart, cursorPos);
     }
@@ -635,7 +664,8 @@ public class CustomScriptFragment extends Fragment {
         int cursorPos = editTextScript.getSelectionStart();
         String text = editTextScript.getText().toString();
 
-        if (cursorPos == 0 || text.isEmpty()) {
+        // Handle invalid cursor position or empty text
+        if (cursorPos <= 0 || text.isEmpty() || cursorPos > text.length()) {
             return "";
         }
 
@@ -650,6 +680,11 @@ public class CustomScriptFragment extends Fragment {
             wordStart--;
         }
         wordStart++;
+
+        // Safety check for bounds
+        if (wordStart < 0 || wordStart > cursorPos || cursorPos > text.length()) {
+            return "";
+        }
 
         // Extract the current word
         if (wordStart < cursorPos) {
@@ -683,19 +718,77 @@ public class CustomScriptFragment extends Fragment {
         // Special case: inserting SGD command inside quotes after getvar/setvar/do
         if (trimmedContext.matches("!\\s*u1\\s+(getvar|setvar|do)\\s+\"[^\"]*$") &&
             "SGD".equalsIgnoreCase(suggestion.getType())) {
-            // Insert just the command name (for SGD path like "device.languages")
-            String sgdCommand = suggestion.getCommand();
-            // Find start of word after the quote
+            // Progressive SGD suggestion - just append the next segment
+            // insertText contains only the new part to add (e.g., ".11ac." or ".enable")
+            String segmentToAdd = insertText;
+
+            // Check if this is the final segment (no more sub-paths)
+            // If name is "..." there are more segments, otherwise it's the final one
+            boolean isFinalSegment = !"...".equals(suggestion.getName());
+
+            String newText;
+            int newCursorPos;
+
+            if (isFinalSegment) {
+                // Final segment - add closing quote
+                newText = text.substring(0, cursorPos) + segmentToAdd + "\"" + text.substring(cursorPos);
+                newCursorPos = cursorPos + segmentToAdd.length() + 1;
+            } else {
+                // More segments to come - don't add closing quote
+                newText = text.substring(0, cursorPos) + segmentToAdd + text.substring(cursorPos);
+                newCursorPos = cursorPos + segmentToAdd.length();
+            }
+
+            editTextScript.setText(newText);
+            editTextScript.setSelection(newCursorPos);
+            isInsertingSuggestion = false;
+
+            // If there are more segments, show suggestions again
+            if (!isFinalSegment) {
+                suggestionHandler.postDelayed(this::updateSuggestions, 50);
+            }
+            return;
+        }
+
+        // For SGD hierarchical suggestions, append at cursor instead of replacing
+        // This applies when:
+        // 1. insertText starts with "." (first level: "wlan" -> ".11n.")
+        // 2. OR insertText doesn't contain spaces and doesn't start with "!" (subsequent levels: "wlan.11n." -> "20mhz_only")
+        if ("SGD".equalsIgnoreCase(suggestion.getType()) &&
+            !insertText.startsWith("!") &&
+            !insertText.contains(" ")) {
+            String newText = text.substring(0, cursorPos) + insertText + text.substring(cursorPos);
+            editTextScript.setText(newText);
+            editTextScript.setSelection(cursorPos + insertText.length());
+            isInsertingSuggestion = false;
+
+            // If there are more segments (insertText ends with "." or name is "..."), show suggestions again
+            if (insertText.endsWith(".") || "...".equals(suggestion.getName())) {
+                // Small delay to let the text update complete
+                suggestionHandler.postDelayed(this::updateSuggestions, 50);
+            }
+            return;
+        }
+
+        // Handle snippets with cursor positioning
+        if (suggestion.isSnippet()) {
+            // Find the start of the current word
             int wordStart = cursorPos - 1;
-            while (wordStart >= 0 && text.charAt(wordStart) != '"') {
+            while (wordStart >= 0) {
+                char c = text.charAt(wordStart);
+                if (Character.isWhitespace(c) || c == '\n' || c == '"') {
+                    break;
+                }
                 wordStart--;
             }
-            wordStart++; // Move past the quote
+            wordStart++;
 
-            // Replace partial text with full command and add closing quote
-            String newText = text.substring(0, wordStart) + sgdCommand + "\"" + text.substring(cursorPos);
+            // Insert snippet and position cursor at the designated position
+            String newText = text.substring(0, wordStart) + insertText + text.substring(cursorPos);
             editTextScript.setText(newText);
-            editTextScript.setSelection(wordStart + sgdCommand.length() + 1);
+            // Position cursor at the snippet's cursor offset
+            int cursorOffset = suggestion.getCursorOffset();
+            editTextScript.setSelection(wordStart + cursorOffset);
             isInsertingSuggestion = false;
             return;
         }
@@ -731,5 +824,120 @@ public class CustomScriptFragment extends Fragment {
         if (cardSuggestions != null) {
             cardSuggestions.setVisibility(View.GONE);
         }
+    }
+
+    // ===== Syntax Highlighting Methods =====
+
+    private void setupSyntaxHighlighting() {
+        scriptAnalyzer = new ScriptAnalyzer();
+        scriptHighlighter = new ScriptHighlighter(requireContext());
+        scriptHighlighter.setScriptAnalyzer(scriptAnalyzer);
+
+        scriptHighlighter.setOnCommandClickListener((foundCommand, documentation) -> {
+            // Only show documentation if checkbox is checked
+            if (checkBoxShowDocumentation == null || !checkBoxShowDocumentation.isChecked()) {
+                return;
+            }
+
+            // Show documentation bottom sheet
+            if (documentation != null) {
+                CommandDocumentationBottomSheet bottomSheet =
+                        CommandDocumentationBottomSheet.newInstance(documentation);
+                bottomSheet.show(getChildFragmentManager(), "command_doc");
+            } else {
+                // Show a basic sheet for commands not in documentation
+                CommandDocumentationBottomSheet bottomSheet =
+                        CommandDocumentationBottomSheet.newInstance(
+                                foundCommand.commandText,
+                                foundCommand.type.name());
+                bottomSheet.show(getChildFragmentManager(), "command_doc");
+            }
+        });
+    }
+
+    private void loadDocumentationForHighlighting() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                InputStream is = requireContext().getAssets().open("zebra_documentation.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                reader.close();
+                is.close();
+
+                // Parse documentation commands
+                java.util.List<DocumentationCommand> commands = new java.util.ArrayList<>();
+                JSONObject jsonObject = new JSONObject(sb.toString());
+
+                // Parse ZPL commands
+                JSONArray zplArray = jsonObject.optJSONArray("zpl_commands");
+                if (zplArray != null) {
+                    for (int i = 0; i < zplArray.length(); i++) {
+                        commands.add(DocumentationCommand.fromJson(zplArray.getJSONObject(i)));
+                    }
+                }
+
+                // Parse ZBI commands
+                JSONArray zbiArray = jsonObject.optJSONArray("zbi_commands");
+                if (zbiArray != null) {
+                    for (int i = 0; i < zbiArray.length(); i++) {
+                        commands.add(DocumentationCommand.fromJson(zbiArray.getJSONObject(i)));
+                    }
+                }
+
+                // Parse SGD commands
+                JSONArray sgdArray = jsonObject.optJSONArray("sgd_commands");
+                if (sgdArray != null) {
+                    for (int i = 0; i < sgdArray.length(); i++) {
+                        commands.add(DocumentationCommand.fromJson(sgdArray.getJSONObject(i)));
+                    }
+                }
+
+                final java.util.List<DocumentationCommand> finalCommands = commands;
+                requireActivity().runOnUiThread(() -> {
+                    scriptAnalyzer.setCommandDatabase(finalCommands);
+                    // Perform initial highlighting if there's text
+                    if (editTextScript.getText().length() > 0) {
+                        performHighlighting();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void debounceHighlighting() {
+        if (!isHighlightingEnabled) return;
+
+        if (highlightRunnable != null) {
+            highlightHandler.removeCallbacks(highlightRunnable);
+        }
+        highlightRunnable = this::performHighlighting;
+        highlightHandler.postDelayed(highlightRunnable, HIGHLIGHT_DEBOUNCE_MS);
+    }
+
+    private void performHighlighting() {
+        if (scriptAnalyzer == null || !scriptAnalyzer.isInitialized()) return;
+
+        String scriptText = editTextScript.getText().toString();
+        if (scriptText.isEmpty()) return;
+
+        // Run analysis in background
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            java.util.List<ScriptAnalyzer.FoundCommand> foundCommands =
+                    scriptAnalyzer.analyzeScript(scriptText);
+
+            requireActivity().runOnUiThread(() -> {
+                isUpdatingFromHighlight = true;
+                scriptHighlighter.applyHighlighting(editTextScript, foundCommands);
+                isUpdatingFromHighlight = false;
+            });
+        });
     }
 }

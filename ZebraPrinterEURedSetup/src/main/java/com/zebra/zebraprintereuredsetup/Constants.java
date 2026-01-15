@@ -65,6 +65,9 @@ public class Constants {
     public static final String SETTINGS_DEVICE_PROMPTED_NETWORK_RESET_ENABLED = "ZEURED_DEVICE_PROMPTED_NETWORK_RESET_ENABLED";
     public static final boolean DEFAULT_DEVICE_PROMPTED_NETWORK_RESET = true;
 
+    // Advanced Mode (hidden feature)
+    public static final String SETTINGS_ADVANCED_MODE_ENABLED = "ZEURED_ADVANCED_MODE_ENABLED";
+
     // EURed Configuration settings
     public static final String SETTINGS_EURED_FIRMWARE_DOWNLOAD = "ZEURED_FIRMWARE_DOWNLOAD";
     public static final String SETTINGS_EURED_TCP_ENABLE = "ZEURED_TCP_ENABLE";

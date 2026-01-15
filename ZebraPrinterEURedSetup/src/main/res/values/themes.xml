@@ -3,4 +3,20 @@
     <style name="Theme.ZebraEURED_SetupPrinter" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:forceDarkAllowed">false</item>
     </style>
+
+    <!-- Bottom Sheet Theme -->
+    <style name="Theme.ZebraPrinterEURedSetup.BottomSheet" parent="Theme.Material3.Dark.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.ZebraPrinterEURedSetup.BottomSheet</item>
+    </style>
+
+    <style name="Widget.ZebraPrinterEURedSetup.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearance">@style/ShapeAppearance.ZebraPrinterEURedSetup.BottomSheet</item>
+    </style>
+
+    <style name="ShapeAppearance.ZebraPrinterEURedSetup.BottomSheet" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
 </resources>

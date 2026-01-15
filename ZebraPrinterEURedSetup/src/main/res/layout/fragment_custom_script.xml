@@ -189,6 +189,15 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- Show Documentation Checkbox -->
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkBoxShowDocumentation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/label_show_documentation"
+                            android:checked="false" />
+
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>

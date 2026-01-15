@@ -98,8 +98,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Setup navigation listener
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Hide/show Advanced menu based on advanced mode setting
+        updateAdvancedMenuVisibility();
+
         // Setup barcode result listener for Settings fragment
         setupSettingsBarcodeResultListener();
+    }
+
+    /**
+     * Update the visibility of the Advanced menu item based on the advanced mode setting.
+     */
+    private void updateAdvancedMenuVisibility() {
+        MenuItem advancedItem = navigationView.getMenu().findItem(R.id.nav_advanced);
+        if (advancedItem != null) {
+            advancedItem.setVisible(SettingsHelper.getAdvancedModeEnabled(this));
+        }
+    }
+
+    /**
+     * Called from AboutFragment when advanced mode is enabled.
+     */
+    public void refreshNavigationDrawer() {
+        updateAdvancedMenuVisibility();
     }
 
     private void loadFragment(Fragment fragment) {
