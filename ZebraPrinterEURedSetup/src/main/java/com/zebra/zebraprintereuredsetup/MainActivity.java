@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private MaterialToolbar toolbar;
     private FrameLayout navHostFragment;
+    private ActionBarDrawerToggle toggle;
 
     private static final String KEY_CURRENT_NAV_ITEM = "current_nav_item";
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         // Setup drawer toggle
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
@@ -130,6 +131,68 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateAdvancedMenuVisibility();
     }
 
+    /**
+     * Sets the toolbar title.
+     * @param title The title to display
+     */
+    public void setToolbarTitle(String title) {
+        toolbar.setTitle(title);
+    }
+
+    /**
+     * Shows or hides the back arrow in the toolbar.
+     * When showing back arrow, hamburger menu is hidden and vice versa.
+     * @param show true to show back arrow, false to show hamburger menu
+     */
+    public void showBackArrow(boolean show) {
+        toggle.setDrawerIndicatorEnabled(!show);
+        if (show) {
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+            toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        } else {
+            toggle.syncState();
+            toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
+    }
+
+    /**
+     * Opens the EURed Settings Fragment directly.
+     * Used to navigate to script settings from other fragments.
+     */
+    public void openEURedSettingsFragment() {
+        EURedSettingsFragment fragment = new EURedSettingsFragment();
+        currentFragment = fragment;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.addToBackStack("eured_settings");
+        transaction.commit();
+    }
+
+    /**
+     * Configures the toolbar based on the fragment type.
+     * If fragment implements ToolbarConfigurable, use its settings.
+     * Otherwise, use default app name and hamburger menu.
+     */
+    private void configureToolbarForFragment(Fragment fragment) {
+        if (fragment instanceof ToolbarConfigurable) {
+            ToolbarConfigurable config = (ToolbarConfigurable) fragment;
+            setToolbarTitle(getString(config.getToolbarTitleResId()));
+            showBackArrow(config.showBackButton());
+        } else {
+            // Default for Home/Settings/About/Advanced - use app name, show hamburger
+            setToolbarTitle(getString(R.string.app_name));
+            showBackArrow(false);
+        }
+    }
+
     private void loadFragment(Fragment fragment) {
         loadFragment(fragment, false);
     }
@@ -140,6 +203,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void loadFragment(Fragment fragment, boolean withAnimation, boolean reverseAnimation) {
         currentFragment = fragment;
+
+        // Configure toolbar based on fragment type
+        configureToolbarForFragment(fragment);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (withAnimation) {
             if (reverseAnimation) {
@@ -295,12 +362,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
 
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 0 && isScanningFromSettings) {
-                // User cancelled, reload settings fragment
-                loadFragment(new SettingsFragment());
-                navigationView.setCheckedItem(R.id.nav_settings);
-                currentNavItemId = R.id.nav_settings;
-                isScanningFromSettings = false;
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                if (isScanningFromSettings) {
+                    // User cancelled scanning, reload settings fragment
+                    loadFragment(new SettingsFragment());
+                    navigationView.setCheckedItem(R.id.nav_settings);
+                    currentNavItemId = R.id.nav_settings;
+                    isScanningFromSettings = false;
+                } else {
+                    // Back stack is empty, update toolbar for current visible fragment
+                    Fragment currentVisibleFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+                    if (currentVisibleFragment != null) {
+                        currentFragment = currentVisibleFragment;
+                        configureToolbarForFragment(currentVisibleFragment);
+                    }
+                }
             }
         });
     }

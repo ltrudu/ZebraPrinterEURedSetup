@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.json.JSONArray;
@@ -34,7 +33,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ScriptDocumentationFragment extends Fragment {
+public class ScriptDocumentationFragment extends Fragment implements ToolbarConfigurable {
 
     private EditText editTextSearch;
     private CheckBox checkBoxZpl;
@@ -76,14 +75,6 @@ public class ScriptDocumentationFragment extends Fragment {
     }
 
     private void setupViews(View view) {
-        // Setup toolbar with back navigation
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbarDocumentation);
-        toolbar.setNavigationOnClickListener(v -> {
-            if (getActivity() != null) {
-                getActivity().onBackPressed();
-            }
-        });
-
         editTextSearch = view.findViewById(R.id.editTextSearch);
         checkBoxZpl = view.findViewById(R.id.checkBoxZpl);
         checkBoxSgd = view.findViewById(R.id.checkBoxSgd);
@@ -267,5 +258,16 @@ public class ScriptDocumentationFragment extends Fragment {
         if (show) {
             layoutEmptyState.setVisibility(View.GONE);
         }
+    }
+
+    // ToolbarConfigurable implementation
+    @Override
+    public int getToolbarTitleResId() {
+        return R.string.nav_script_documentation;
+    }
+
+    @Override
+    public boolean showBackButton() {
+        return true;
     }
 }

@@ -51,6 +51,14 @@ public class PrinterHelper {
 
     private PrinterHelperCallback printerHelperCallback = null;
 
+    /**
+     * Set the context for this PrinterHelper instance.
+     * Required before calling getEURedConfigurationFromSettings().
+     */
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     // Catches intent indicating if the user grants permission to use the USB device
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {

@@ -43,6 +43,12 @@ public class SettingsFragment extends Fragment {
     private AutoCompleteTextView autoCompleteMaxSuggestions;
     private static final String[] MAX_SUGGESTIONS_VALUES = {"5", "10", "15", "20"};
 
+    // EURed Config settings
+    private MaterialCheckBox checkBoxShowEditEuredScriptCard;
+    private MaterialCheckBox checkBoxShowRestorePreEuredCard;
+    private MaterialCheckBox checkBoxShowSendScriptCard;
+    private MaterialButton buttonOpenScriptSettings;
+
     // File operations buttons
     private MaterialButton buttonImportSettings;
     private MaterialButton buttonExportSettings;
@@ -109,6 +115,13 @@ public class SettingsFragment extends Fragment {
         textInputLayoutMaxSuggestions = view.findViewById(R.id.textInputLayoutMaxSuggestions);
         autoCompleteMaxSuggestions = view.findViewById(R.id.autoCompleteMaxSuggestions);
         setupSuggestionsSettings();
+
+        // EURed Config settings
+        checkBoxShowEditEuredScriptCard = view.findViewById(R.id.checkBoxShowEditEuredScriptCard);
+        checkBoxShowRestorePreEuredCard = view.findViewById(R.id.checkBoxShowRestorePreEuredCard);
+        checkBoxShowSendScriptCard = view.findViewById(R.id.checkBoxShowSendScriptCard);
+        buttonOpenScriptSettings = view.findViewById(R.id.buttonOpenScriptSettings);
+        setupEuredConfigSettings();
 
         // File operations buttons
         buttonImportSettings = view.findViewById(R.id.buttonImportSettings);
@@ -223,6 +236,38 @@ public class SettingsFragment extends Fragment {
         });
     }
 
+    private void setupEuredConfigSettings() {
+        // Load saved settings
+        boolean showEditCard = SettingsHelper.getAllowEditEuredScript(requireContext());
+        checkBoxShowEditEuredScriptCard.setChecked(showEditCard);
+
+        boolean showRestoreCard = SettingsHelper.getShowRestorePreEured(requireContext());
+        checkBoxShowRestorePreEuredCard.setChecked(showRestoreCard);
+
+        boolean showSendCard = SettingsHelper.getShowSendScriptCard(requireContext());
+        checkBoxShowSendScriptCard.setChecked(showSendCard);
+
+        // Handle checkbox changes
+        checkBoxShowEditEuredScriptCard.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveAllowEditEuredScript(requireContext(), isChecked);
+        });
+
+        checkBoxShowRestorePreEuredCard.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveShowRestorePreEured(requireContext(), isChecked);
+        });
+
+        checkBoxShowSendScriptCard.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveShowSendScriptCard(requireContext(), isChecked);
+        });
+
+        // Open Script Settings button
+        buttonOpenScriptSettings.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).openEURedSettingsFragment();
+            }
+        });
+    }
+
     private void openImportDialog() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -320,184 +365,25 @@ public class SettingsFragment extends Fragment {
     private JSONObject createSettingsJson() throws Exception {
         JSONObject json = new JSONObject();
 
-        // Passwords
-        json.put("oldAdminPassword", SettingsHelper.getOldAdminpassword(requireContext()));
-        json.put("newAdminPassword", SettingsHelper.getNewAdminpassword(requireContext()));
-        json.put("httpAdminPassword", SettingsHelper.getHttpadminpasswordKey(requireContext()));
-        json.put("authPassword", SettingsHelper.getAuthPassword(requireContext()));
-        json.put("displayPasswordCurrent", SettingsHelper.getDisplayPasswordCurrent(requireContext()));
-
-        // Checkbox states
-        json.put("changePasswordEnabled", SettingsHelper.getChangePasswordEnabled(requireContext()));
-        json.put("httpAdminEnabled", SettingsHelper.getHttpAdminEnabled(requireContext()));
-
         // Language
         json.put("language", SettingsHelper.getLanguage(requireContext()));
-
-        // Connectivity
-        json.put("connectivityType", SettingsHelper.getConnectivityType(requireContext()));
-        json.put("bluetoothAddress", SettingsHelper.getBluetoothAddress(requireContext()));
-
-        // Protected Mode
-        json.put("protectedModeAllowed", SettingsHelper.getProtectedModeAllowed(requireContext()));
-
-        // EURed Configuration
-        json.put("firmwareDownload", SettingsHelper.getEuredFirmwareDownload(requireContext()));
-        json.put("tcpEnable", SettingsHelper.getEuredTcpEnable(requireContext()));
-        json.put("lpdEnable", SettingsHelper.getEuredLpdEnable(requireContext()));
-        json.put("httpsEnable", SettingsHelper.getEuredHttpsEnable(requireContext()));
-        json.put("ftpEnable", SettingsHelper.getEuredFtpEnable(requireContext()));
-        json.put("snmpEnable", SettingsHelper.getEuredSnmpEnable(requireContext()));
-        json.put("wlanEnable", SettingsHelper.getEuredWlanEnable(requireContext()));
-        json.put("usbMirrorEnable", SettingsHelper.getEuredUsbMirrorEnable(requireContext()));
-        json.put("zbiEnable", SettingsHelper.getEuredZbiEnable(requireContext()));
-
-        // Bluetooth Discoverable
-        json.put("bluetoothDiscoverableEnabled", SettingsHelper.getBluetoothDiscoverableEnabled(requireContext()));
-        json.put("bluetoothDiscoverable", SettingsHelper.getBluetoothDiscoverable(requireContext()));
-
-        // Setvar Wlan Enable
-        json.put("setvarWlanEnableEnabled", SettingsHelper.getSetvarWlanEnableEnabled(requireContext()));
-        json.put("setvarWlanEnable", SettingsHelper.getSetvarWlanEnable(requireContext()));
-
-        // Setvar IP HTTP Enable
-        json.put("setvarIpHttpEnableEnabled", SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext()));
-        json.put("setvarIpHttpEnable", SettingsHelper.getSetvarIpHttpEnable(requireContext()));
-
-        // Display Password Level
-        json.put("displayPasswordLevelEnabled", SettingsHelper.getDisplayPasswordLevelEnabled(requireContext()));
-        json.put("displayPasswordLevel", SettingsHelper.getDisplayPasswordLevel(requireContext()));
-
-        // Display Password Current
-        json.put("displayPasswordCurrentEnabled", SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext()));
-
-        // Device Prompted Network Reset
-        json.put("devicePromptedNetworkResetEnabled", SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext()));
-        json.put("devicePromptedNetworkReset", SettingsHelper.getDevicePromptedNetworkReset(requireContext()));
 
         // Suggestions settings
         json.put("suggestionsUnlimited", SettingsHelper.getSuggestionsUnlimited(requireContext()));
         json.put("maxSuggestions", SettingsHelper.getMaxSuggestions(requireContext()));
 
+        // EURed Config
+        json.put("showEditEuredScriptCard", SettingsHelper.getAllowEditEuredScript(requireContext()));
+        json.put("showRestorePreEuredCard", SettingsHelper.getShowRestorePreEured(requireContext()));
+        json.put("showSendScriptCard", SettingsHelper.getShowSendScriptCard(requireContext()));
+
         return json;
     }
 
     private void applySettingsFromJson(JSONObject json) throws Exception {
-        // Passwords
-        if (json.has("oldAdminPassword")) {
-            SettingsHelper.saveOldAdminPassword(requireContext(), json.getString("oldAdminPassword"));
-        }
-        if (json.has("newAdminPassword")) {
-            SettingsHelper.saveNewAdminPassword(requireContext(), json.getString("newAdminPassword"));
-        }
-        if (json.has("httpAdminPassword")) {
-            SettingsHelper.saveHttpadminpasswordKey(requireContext(), json.getString("httpAdminPassword"));
-        }
-        if (json.has("authPassword")) {
-            SettingsHelper.saveAuthPassword(requireContext(), json.getString("authPassword"));
-        }
-        if (json.has("displayPasswordCurrent")) {
-            SettingsHelper.saveDisplayPasswordCurrent(requireContext(), json.getString("displayPasswordCurrent"));
-        }
-
-        // Checkbox states
-        if (json.has("changePasswordEnabled")) {
-            SettingsHelper.saveChangePasswordEnabled(requireContext(), json.getBoolean("changePasswordEnabled"));
-        }
-        if (json.has("httpAdminEnabled")) {
-            SettingsHelper.saveHttpAdminEnabled(requireContext(), json.getBoolean("httpAdminEnabled"));
-        }
-
         // Language
         if (json.has("language")) {
             SettingsHelper.saveLanguage(requireContext(), json.getString("language"));
-        }
-
-        // Connectivity
-        if (json.has("connectivityType")) {
-            SettingsHelper.saveConnectivityType(requireContext(), json.getInt("connectivityType"));
-        }
-        if (json.has("bluetoothAddress")) {
-            SettingsHelper.saveBluetoothAddress(requireContext(), json.getString("bluetoothAddress"));
-        }
-
-        // Protected Mode
-        if (json.has("protectedModeAllowed")) {
-            SettingsHelper.saveProtectedModeAllowed(requireContext(), json.getBoolean("protectedModeAllowed"));
-        }
-
-        // EURed Configuration
-        if (json.has("firmwareDownload")) {
-            SettingsHelper.saveEuredFirmwareDownload(requireContext(), json.getBoolean("firmwareDownload"));
-        }
-        if (json.has("tcpEnable")) {
-            SettingsHelper.saveEuredTcpEnable(requireContext(), json.getBoolean("tcpEnable"));
-        }
-        if (json.has("lpdEnable")) {
-            SettingsHelper.saveEuredLpdEnable(requireContext(), json.getBoolean("lpdEnable"));
-        }
-        if (json.has("httpsEnable")) {
-            SettingsHelper.saveEuredHttpsEnable(requireContext(), json.getBoolean("httpsEnable"));
-        }
-        if (json.has("ftpEnable")) {
-            SettingsHelper.saveEuredFtpEnable(requireContext(), json.getBoolean("ftpEnable"));
-        }
-        if (json.has("snmpEnable")) {
-            SettingsHelper.saveEuredSnmpEnable(requireContext(), json.getBoolean("snmpEnable"));
-        }
-        if (json.has("wlanEnable")) {
-            SettingsHelper.saveEuredWlanEnable(requireContext(), json.getBoolean("wlanEnable"));
-        }
-        if (json.has("usbMirrorEnable")) {
-            SettingsHelper.saveEuredUsbMirrorEnable(requireContext(), json.getBoolean("usbMirrorEnable"));
-        }
-        if (json.has("zbiEnable")) {
-            SettingsHelper.saveEuredZbiEnable(requireContext(), json.getBoolean("zbiEnable"));
-        }
-
-        // Bluetooth Discoverable
-        if (json.has("bluetoothDiscoverableEnabled")) {
-            SettingsHelper.saveBluetoothDiscoverableEnabled(requireContext(), json.getBoolean("bluetoothDiscoverableEnabled"));
-        }
-        if (json.has("bluetoothDiscoverable")) {
-            SettingsHelper.saveBluetoothDiscoverable(requireContext(), json.getBoolean("bluetoothDiscoverable"));
-        }
-
-        // Setvar Wlan Enable
-        if (json.has("setvarWlanEnableEnabled")) {
-            SettingsHelper.saveSetvarWlanEnableEnabled(requireContext(), json.getBoolean("setvarWlanEnableEnabled"));
-        }
-        if (json.has("setvarWlanEnable")) {
-            SettingsHelper.saveSetvarWlanEnable(requireContext(), json.getBoolean("setvarWlanEnable"));
-        }
-
-        // Setvar IP HTTP Enable
-        if (json.has("setvarIpHttpEnableEnabled")) {
-            SettingsHelper.saveSetvarIpHttpEnableEnabled(requireContext(), json.getBoolean("setvarIpHttpEnableEnabled"));
-        }
-        if (json.has("setvarIpHttpEnable")) {
-            SettingsHelper.saveSetvarIpHttpEnable(requireContext(), json.getBoolean("setvarIpHttpEnable"));
-        }
-
-        // Display Password Level
-        if (json.has("displayPasswordLevelEnabled")) {
-            SettingsHelper.saveDisplayPasswordLevelEnabled(requireContext(), json.getBoolean("displayPasswordLevelEnabled"));
-        }
-        if (json.has("displayPasswordLevel")) {
-            SettingsHelper.saveDisplayPasswordLevel(requireContext(), json.getString("displayPasswordLevel"));
-        }
-
-        // Display Password Current
-        if (json.has("displayPasswordCurrentEnabled")) {
-            SettingsHelper.saveDisplayPasswordCurrentEnabled(requireContext(), json.getBoolean("displayPasswordCurrentEnabled"));
-        }
-
-        // Device Prompted Network Reset
-        if (json.has("devicePromptedNetworkResetEnabled")) {
-            SettingsHelper.saveDevicePromptedNetworkResetEnabled(requireContext(), json.getBoolean("devicePromptedNetworkResetEnabled"));
-        }
-        if (json.has("devicePromptedNetworkReset")) {
-            SettingsHelper.saveDevicePromptedNetworkReset(requireContext(), json.getBoolean("devicePromptedNetworkReset"));
         }
 
         // Suggestions settings
@@ -506,6 +392,17 @@ public class SettingsFragment extends Fragment {
         }
         if (json.has("maxSuggestions")) {
             SettingsHelper.saveMaxSuggestions(requireContext(), json.getInt("maxSuggestions"));
+        }
+
+        // EURed Config
+        if (json.has("showEditEuredScriptCard")) {
+            SettingsHelper.saveAllowEditEuredScript(requireContext(), json.getBoolean("showEditEuredScriptCard"));
+        }
+        if (json.has("showRestorePreEuredCard")) {
+            SettingsHelper.saveShowRestorePreEured(requireContext(), json.getBoolean("showRestorePreEuredCard"));
+        }
+        if (json.has("showSendScriptCard")) {
+            SettingsHelper.saveShowSendScriptCard(requireContext(), json.getBoolean("showSendScriptCard"));
         }
     }
 }

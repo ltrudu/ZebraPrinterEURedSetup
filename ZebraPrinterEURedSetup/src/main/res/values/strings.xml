@@ -95,9 +95,9 @@
 
     <!-- Launcher -->
     <string name="launcher_subtitle">Select a feature to get started</string>
-    <string name="launcher_eu_red_setup">EU Red Setup</string>
-    <string name="title_setup">Setup</string>
-    <string name="button_setup_script">Setup Script</string>
+    <string name="launcher_eu_red_setup">EURed Setup</string>
+    <string name="title_setup">Customize Script</string>
+    <string name="button_setup_script">Change Script Parameters</string>
     <string name="launcher_eu_red_description">Configure EU Radio Equipment Directive settings</string>
     <string name="launcher_custom_script_description">Write and send custom ZPL scripts</string>
     <string name="launcher_documentation_description">Search ZPL, SGD, and ZBI commands</string>
@@ -291,8 +291,10 @@
     <!-- Settings File Operations -->
     <string name="button_import_settings">Import Settings</string>
     <string name="button_export_settings">Export Settings</string>
+    <string name="button_export_as_txt">Export As TXT</string>
     <string name="status_settings_imported">Settings imported successfully!</string>
     <string name="status_settings_exported">Settings exported successfully!</string>
+    <string name="status_eured_script_exported">EU Red script exported successfully!</string>
     <string name="error_import_settings_failed">Import settings failed: %1$s</string>
     <string name="error_export_settings_failed">Export settings failed: %1$s</string>
 
@@ -300,6 +302,13 @@
     <string name="title_suggestions">Suggestions</string>
     <string name="label_unlimited_suggestions">Unlimited</string>
     <string name="label_max_suggestions">Max suggestions</string>
+
+    <!-- EURed Config Settings -->
+    <string name="title_eured_config">EURed Config</string>
+    <string name="label_show_edit_eured_script_card">Show Edit EURed Script Card</string>
+    <string name="label_show_restore_pre_eured_card">Show Restore Pre-EURed Card</string>
+    <string name="label_show_send_script_card">Show Send Script Card</string>
+    <string name="button_open_script_settings">Open Script Settings</string>
 
     <!-- Syntax Highlighting -->
     <string name="title_command_documentation">Command Documentation</string>

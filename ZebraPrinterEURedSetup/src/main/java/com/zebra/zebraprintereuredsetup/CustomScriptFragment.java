@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputLayout;
@@ -64,7 +63,7 @@ import com.google.android.material.card.MaterialCardView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class CustomScriptFragment extends Fragment {
+public class CustomScriptFragment extends Fragment implements ToolbarConfigurable {
 
     private static final Pattern MAC_ADDRESS_PATTERN = Pattern.compile("^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$");
 
@@ -117,7 +116,6 @@ public class CustomScriptFragment extends Fragment {
     // Immersive mode
     private MaterialButton buttonToggleImmersive;
     private boolean isImmersiveMode = false;
-    private MaterialToolbar toolbar;
 
     // Card resizing
     private MaterialCardView cardCustomScript;
@@ -195,14 +193,6 @@ public class CustomScriptFragment extends Fragment {
     private void setupViews(View view) {
         fragmentContainer = view.findViewById(R.id.fragment_container);
         mainContent = view.findViewById(R.id.mainContent);
-
-        // Setup toolbar with back navigation
-        toolbar = view.findViewById(R.id.toolbarCustomScript);
-        toolbar.setNavigationOnClickListener(v -> {
-            if (getActivity() != null) {
-                getActivity().onBackPressed();
-            }
-        });
 
         // Setup card resizing
         cardCustomScript = view.findViewById(R.id.cardCustomScript);
@@ -1254,11 +1244,6 @@ public class CustomScriptFragment extends Fragment {
         isImmersiveMode = true;
         buttonToggleImmersive.setIconResource(R.drawable.ic_fullscreen_exit);
 
-        // Hide app toolbar
-        if (toolbar != null) {
-            toolbar.setVisibility(View.GONE);
-        }
-
         // Hide other cards (keep suggestions card visible)
         if (cardConnectivity != null) cardConnectivity.setVisibility(View.GONE);
         if (cardStatus != null) cardStatus.setVisibility(View.GONE);
@@ -1296,11 +1281,6 @@ public class CustomScriptFragment extends Fragment {
 
         isImmersiveMode = false;
         buttonToggleImmersive.setIconResource(R.drawable.ic_fullscreen);
-
-        // Show app toolbar
-        if (toolbar != null) {
-            toolbar.setVisibility(View.VISIBLE);
-        }
 
         // Show other cards
         if (cardConnectivity != null) cardConnectivity.setVisibility(View.VISIBLE);
@@ -1388,5 +1368,16 @@ public class CustomScriptFragment extends Fragment {
             }
             return false;
         });
+    }
+
+    // ToolbarConfigurable implementation
+    @Override
+    public int getToolbarTitleResId() {
+        return R.string.nav_custom_script;
+    }
+
+    @Override
+    public boolean showBackButton() {
+        return true;
     }
 }

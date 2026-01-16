@@ -8,15 +8,6 @@
     android:orientation="vertical"
     tools:context=".ScriptDocumentationFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarDocumentation"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorSurface"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/nav_script_documentation"
-        app:titleCentered="true" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

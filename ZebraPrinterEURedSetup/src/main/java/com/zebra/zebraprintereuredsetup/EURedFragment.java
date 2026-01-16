@@ -24,13 +24,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
 
-public class EURedFragment extends Fragment {
+public class EURedFragment extends Fragment implements ToolbarConfigurable {
 
     private static final int MIN_NEW_PASSWORD_LENGTH = 14;
     private static final int MIN_HTTP_ADMIN_PASSWORD_LENGTH = 20;
@@ -52,6 +51,9 @@ public class EURedFragment extends Fragment {
     private FragmentContainerView fragmentContainer;
     private View mainContent;
     private MaterialButton buttonSetupScript;
+    private View cardSetupScript;
+    private View cardRestorePreEured;
+    private View cardSetup;
 
     private PrinterHelper printerHelper;
 
@@ -70,17 +72,31 @@ public class EURedFragment extends Fragment {
         setupBarcodeResultListener();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Update visibility when returning from settings
+        updateCardsVisibility();
+    }
+
+    private void updateCardsVisibility() {
+        if (cardSetupScript != null) {
+            boolean showEditCard = SettingsHelper.getAllowEditEuredScript(requireContext());
+            cardSetupScript.setVisibility(showEditCard ? View.VISIBLE : View.GONE);
+        }
+        if (cardRestorePreEured != null) {
+            boolean showRestoreCard = SettingsHelper.getShowRestorePreEured(requireContext());
+            cardRestorePreEured.setVisibility(showRestoreCard ? View.VISIBLE : View.GONE);
+        }
+        if (cardSetup != null) {
+            boolean showSendCard = SettingsHelper.getShowSendScriptCard(requireContext());
+            cardSetup.setVisibility(showSendCard ? View.VISIBLE : View.GONE);
+        }
+    }
+
     private void setupViews(View view) {
         fragmentContainer = view.findViewById(R.id.fragment_container);
         mainContent = view.findViewById(R.id.mainContent);
-
-        // Setup toolbar with back navigation
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbarEured);
-        toolbar.setNavigationOnClickListener(v -> {
-            if (getActivity() != null) {
-                getActivity().onBackPressed();
-            }
-        });
 
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
@@ -94,9 +110,15 @@ public class EURedFragment extends Fragment {
         bleFieldsContainer = view.findViewById(R.id.bleFieldsContainer);
         cardTest = view.findViewById(R.id.cardTest);
         buttonSetupScript = view.findViewById(R.id.buttonSetupScript);
+        cardSetupScript = view.findViewById(R.id.cardSetupScript);
+        cardRestorePreEured = view.findViewById(R.id.cardRestorePreEured);
+        cardSetup = view.findViewById(R.id.cardSetup);
 
         // Setup Script button click listener - opens EURedSettingsFragment
         buttonSetupScript.setOnClickListener(v -> openEURedSettings());
+
+        // Update card visibility based on settings
+        updateCardsVisibility();
 
         // Setup connectivity type spinner
         String[] connectivityOptions = {
@@ -289,23 +311,28 @@ public class EURedFragment extends Fragment {
         }
 
         int redColor = requireContext().getColor(android.R.color.holo_red_dark);
+        int greenColor = requireContext().getColor(R.color.zebra_pantone_361);
+        int strokeWidthDp = (int) (1 * getResources().getDisplayMetrics().density);
+        int errorStrokeWidthDp = (int) (2 * getResources().getDisplayMetrics().density);
 
         // Setup button - depends on MAC validity for BLE, always enabled for USB
         buttonSetupPasswordBluetooth.setEnabled(isFormValid);
         if (isFormValid) {
-            buttonSetupPasswordBluetooth.setStrokeWidth(0);
+            buttonSetupPasswordBluetooth.setStrokeColor(ColorStateList.valueOf(greenColor));
+            buttonSetupPasswordBluetooth.setStrokeWidth(strokeWidthDp);
         } else {
             buttonSetupPasswordBluetooth.setStrokeColor(ColorStateList.valueOf(redColor));
-            buttonSetupPasswordBluetooth.setStrokeWidth(4);
+            buttonSetupPasswordBluetooth.setStrokeWidth(errorStrokeWidthDp);
         }
 
         // Test Label button - only depends on MAC address validity for BLE
         buttonTestLabel.setEnabled(isFormValid);
         if (isFormValid) {
-            buttonTestLabel.setStrokeWidth(0);
+            buttonTestLabel.setStrokeColor(ColorStateList.valueOf(greenColor));
+            buttonTestLabel.setStrokeWidth(strokeWidthDp);
         } else {
             buttonTestLabel.setStrokeColor(ColorStateList.valueOf(redColor));
-            buttonTestLabel.setStrokeWidth(4);
+            buttonTestLabel.setStrokeWidth(errorStrokeWidthDp);
         }
     }
 
@@ -584,13 +611,35 @@ public class EURedFragment extends Fragment {
                 .replace(R.id.fragment_container, settingsFragment)
                 .addToBackStack("eured_settings")
                 .commit();
+
+        // Update MainActivity toolbar for the child fragment
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setToolbarTitle(getString(settingsFragment.getToolbarTitleResId()));
+        }
     }
 
     public boolean handleBackPress() {
         if (getChildFragmentManager().getBackStackEntryCount() > 0) {
             getChildFragmentManager().popBackStack();
+            // Restore this fragment's toolbar title
+            if (getActivity() instanceof MainActivity) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setToolbarTitle(getString(getToolbarTitleResId()));
+            }
             return true;
         }
         return false;
+    }
+
+    // ToolbarConfigurable implementation
+    @Override
+    public int getToolbarTitleResId() {
+        return R.string.launcher_eu_red_setup;
+    }
+
+    @Override
+    public boolean showBackButton() {
+        return true;
     }
 }

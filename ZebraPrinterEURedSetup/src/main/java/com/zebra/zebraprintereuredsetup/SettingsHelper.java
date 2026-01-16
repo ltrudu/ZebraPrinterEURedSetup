@@ -493,4 +493,49 @@ public class SettingsHelper {
         editor.putInt(KEY_MAX_SUGGESTIONS, max);
         editor.commit();
     }
+
+    // Allow Edit EURed Script setting
+    private static final String KEY_ALLOW_EDIT_EURED_SCRIPT = "allow_edit_eured_script";
+
+    public static boolean getAllowEditEuredScript(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_ALLOW_EDIT_EURED_SCRIPT, false); // disabled by default
+    }
+
+    public static void saveAllowEditEuredScript(Context context, boolean allow) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_ALLOW_EDIT_EURED_SCRIPT, allow);
+        editor.commit();
+    }
+
+    // Show Restore Pre-EURed setting
+    private static final String KEY_SHOW_RESTORE_PRE_EURED = "show_restore_pre_eured";
+
+    public static boolean getShowRestorePreEured(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_SHOW_RESTORE_PRE_EURED, false); // hidden by default
+    }
+
+    public static void saveShowRestorePreEured(Context context, boolean show) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_SHOW_RESTORE_PRE_EURED, show);
+        editor.commit();
+    }
+
+    // Show Send Script Card setting
+    private static final String KEY_SHOW_SEND_SCRIPT_CARD = "show_send_script_card";
+
+    public static boolean getShowSendScriptCard(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_SHOW_SEND_SCRIPT_CARD, true); // shown by default
+    }
+
+    public static void saveShowSendScriptCard(Context context, boolean show) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_SHOW_SEND_SCRIPT_CARD, show);
+        editor.commit();
+    }
 }

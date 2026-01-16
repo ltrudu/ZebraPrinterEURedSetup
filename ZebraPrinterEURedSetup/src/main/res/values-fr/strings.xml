@@ -160,9 +160,9 @@
     <string name="error_export_settings_failed">Échec de l\'exportation des paramètres : %1$s</string>
     <string name="nav_advanced">Avancé</string>
     <string name="launcher_subtitle">Sélectionnez une fonctionnalité pour commencer</string>
-    <string name="launcher_eu_red_setup">Configuration rouge UE</string>
-    <string name="title_setup">Configuration</string>
-    <string name="button_setup_script">Script de configuration</string>
+    <string name="launcher_eu_red_setup">Configuration REDUE</string>
+    <string name="title_setup">Customisation du script</string>
+    <string name="button_setup_script">Configurer le script</string>
     <string name="launcher_eu_red_description">Configurer les paramètres de la directive européenne sur les équipements radio</string>
     <string name="launcher_custom_script_description">Écrivez et envoyez des scripts ZPL personnalisés</string>
     <string name="launcher_documentation_description">Rechercher les commandes ZPL, SGD et ZBI</string>

@@ -1,8 +1,11 @@
 package com.zebra.zebraprintereuredsetup;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.DocumentsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,18 +19,31 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.zebra.zebraprintereuredsetup.Constants.SETTINGS_DEFAULT_NEW_PASSWORD;
 import static com.zebra.zebraprintereuredsetup.Constants.DEFAULT_PASSWORD_HTTP;
 
-public class EURedSettingsFragment extends Fragment {
+public class EURedSettingsFragment extends Fragment implements ToolbarConfigurable {
 
     private static final int MIN_NEW_PASSWORD_LENGTH = 14;
     private static final int MIN_HTTP_ADMIN_PASSWORD_LENGTH = 20;
@@ -100,8 +116,24 @@ public class EURedSettingsFragment extends Fragment {
     private Button buttonClearAuthPassword;
     private Button buttonClearPasswordCurrent;
 
+    // File operations buttons
+    private MaterialButton buttonImportEuredSettings;
+    private MaterialButton buttonExportEuredSettings;
+    private MaterialButton buttonExportEuredAsTxt;
+
+    // Activity result launchers for file operations
+    private ActivityResultLauncher<Intent> importSettingsLauncher;
+    private ActivityResultLauncher<Intent> exportSettingsLauncher;
+    private ActivityResultLauncher<Intent> exportTxtLauncher;
+
     private final Handler saveHandler = new Handler(Looper.getMainLooper());
     private final Runnable saveRunnable = this::saveValuesWithStatus;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setupActivityResultLaunchers();
+    }
 
     @Nullable
     @Override
@@ -115,15 +147,48 @@ public class EURedSettingsFragment extends Fragment {
         setupViews(view);
     }
 
-    private void setupViews(View view) {
-        // Setup toolbar with back button
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbarEuredSettings);
-        toolbar.setNavigationOnClickListener(v -> {
-            if (getParentFragment() != null) {
-                getParentFragmentManager().popBackStack();
+    private void setupActivityResultLaunchers() {
+        // Import settings launcher
+        importSettingsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Uri uri = result.getData().getData();
+                    if (uri != null) {
+                        importSettingsFromUri(uri);
+                    }
+                }
             }
-        });
+        );
 
+        // Export settings launcher (JSON)
+        exportSettingsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Uri uri = result.getData().getData();
+                    if (uri != null) {
+                        exportSettingsToUri(uri);
+                    }
+                }
+            }
+        );
+
+        // Export TXT launcher
+        exportTxtLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Uri uri = result.getData().getData();
+                    if (uri != null) {
+                        exportScriptToUri(uri);
+                    }
+                }
+            }
+        );
+    }
+
+    private void setupViews(View view) {
         // Password input layouts and fields
         textInputLayoutNewPassword = view.findViewById(R.id.textInputLayoutNewPassword);
         textInputLayoutHttpAdminPassword = view.findViewById(R.id.textInputLayoutHttpAdminPassword);
@@ -534,6 +599,15 @@ public class EURedSettingsFragment extends Fragment {
 
         validatePasswords();
 
+        // Setup file operations buttons
+        buttonImportEuredSettings = view.findViewById(R.id.buttonImportEuredSettings);
+        buttonExportEuredSettings = view.findViewById(R.id.buttonExportEuredSettings);
+        buttonExportEuredAsTxt = view.findViewById(R.id.buttonExportEuredAsTxt);
+
+        buttonImportEuredSettings.setOnClickListener(v -> openImportDialog());
+        buttonExportEuredSettings.setOnClickListener(v -> openExportDialog());
+        buttonExportEuredAsTxt.setOnClickListener(v -> openExportTxtDialog());
+
         // Setup barcode result listener
         setupBarcodeResultListener();
     }
@@ -667,5 +741,317 @@ public class EURedSettingsFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    // File Operations methods
+
+    private String generateTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
+        return sdf.format(new Date());
+    }
+
+    private void openImportDialog() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/json");
+        importSettingsLauncher.launch(intent);
+    }
+
+    private void openExportDialog() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/json");
+        intent.putExtra(Intent.EXTRA_TITLE, "EUREDConfig_" + generateTimestamp() + ".json");
+        exportSettingsLauncher.launch(intent);
+    }
+
+    private void openExportTxtDialog() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TITLE, "EUREDConfig_" + generateTimestamp() + ".txt");
+        exportTxtLauncher.launch(intent);
+    }
+
+    private void importSettingsFromUri(Uri uri) {
+        try (InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+
+            JSONObject json = new JSONObject(jsonBuilder.toString());
+
+            // Import all settings from JSON
+            if (json.has("changePasswordEnabled")) {
+                boolean value = json.getBoolean("changePasswordEnabled");
+                SettingsHelper.saveChangePasswordEnabled(requireContext(), value);
+                checkboxChangePasswordEnabled.setChecked(value);
+                contentChangePassword.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("httpAdminEnabled")) {
+                boolean value = json.getBoolean("httpAdminEnabled");
+                SettingsHelper.saveHttpAdminEnabled(requireContext(), value);
+                checkboxHttpAdminEnabled.setChecked(value);
+                contentHttpAdminPassword.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("oldPassword")) {
+                String value = json.getString("oldPassword");
+                SettingsHelper.saveOldAdminPassword(requireContext(), value);
+                editTextOldPassword.setText(value);
+            }
+            if (json.has("newPassword")) {
+                String value = json.getString("newPassword");
+                SettingsHelper.saveNewAdminPassword(requireContext(), value);
+                editTextNewPassword.setText(value);
+            }
+            if (json.has("httpAdminPassword")) {
+                String value = json.getString("httpAdminPassword");
+                SettingsHelper.saveHttpadminpasswordKey(requireContext(), value);
+                editTextHttpAdminPassword.setText(value);
+            }
+            if (json.has("authPassword")) {
+                String value = json.getString("authPassword");
+                SettingsHelper.saveAuthPassword(requireContext(), value);
+                editTextAuthPassword.setText(value);
+            }
+            if (json.has("protectedModeAllowed")) {
+                boolean value = json.getBoolean("protectedModeAllowed");
+                SettingsHelper.saveProtectedModeAllowed(requireContext(), value);
+                checkboxProtectedModeAllowed.setChecked(value);
+            }
+
+            // EURed Configuration
+            if (json.has("firmwareDownload")) {
+                boolean value = json.getBoolean("firmwareDownload");
+                SettingsHelper.saveEuredFirmwareDownload(requireContext(), value);
+                checkboxFirmwareDownload.setChecked(value);
+            }
+            if (json.has("tcpEnable")) {
+                boolean value = json.getBoolean("tcpEnable");
+                SettingsHelper.saveEuredTcpEnable(requireContext(), value);
+                checkboxTcpEnable.setChecked(value);
+            }
+            if (json.has("lpdEnable")) {
+                boolean value = json.getBoolean("lpdEnable");
+                SettingsHelper.saveEuredLpdEnable(requireContext(), value);
+                checkboxLpdEnable.setChecked(value);
+            }
+            if (json.has("httpsEnable")) {
+                boolean value = json.getBoolean("httpsEnable");
+                SettingsHelper.saveEuredHttpsEnable(requireContext(), value);
+                checkboxHttpsEnable.setChecked(value);
+            }
+            if (json.has("ftpEnable")) {
+                boolean value = json.getBoolean("ftpEnable");
+                SettingsHelper.saveEuredFtpEnable(requireContext(), value);
+                checkboxFtpEnable.setChecked(value);
+            }
+            if (json.has("snmpEnable")) {
+                boolean value = json.getBoolean("snmpEnable");
+                SettingsHelper.saveEuredSnmpEnable(requireContext(), value);
+                checkboxSnmpEnable.setChecked(value);
+            }
+            if (json.has("wlanEnable")) {
+                boolean value = json.getBoolean("wlanEnable");
+                SettingsHelper.saveEuredWlanEnable(requireContext(), value);
+                checkboxWlanEnable.setChecked(value);
+            }
+            if (json.has("usbMirrorEnable")) {
+                boolean value = json.getBoolean("usbMirrorEnable");
+                SettingsHelper.saveEuredUsbMirrorEnable(requireContext(), value);
+                checkboxUsbMirrorEnable.setChecked(value);
+            }
+            if (json.has("zbiEnable")) {
+                boolean value = json.getBoolean("zbiEnable");
+                SettingsHelper.saveEuredZbiEnable(requireContext(), value);
+                checkboxZbiEnable.setChecked(value);
+            }
+
+            // Bluetooth Discoverable
+            if (json.has("bluetoothDiscoverableEnabled")) {
+                boolean value = json.getBoolean("bluetoothDiscoverableEnabled");
+                SettingsHelper.saveBluetoothDiscoverableEnabled(requireContext(), value);
+                checkboxBluetoothDiscoverableEnabled.setChecked(value);
+                contentBluetoothDiscoverable.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("bluetoothDiscoverable")) {
+                boolean value = json.getBoolean("bluetoothDiscoverable");
+                SettingsHelper.saveBluetoothDiscoverable(requireContext(), value);
+                spinnerBluetoothDiscoverable.setSelection(value ? 0 : 1);
+            }
+
+            // Setvar Wlan Enable
+            if (json.has("setvarWlanEnableEnabled")) {
+                boolean value = json.getBoolean("setvarWlanEnableEnabled");
+                SettingsHelper.saveSetvarWlanEnableEnabled(requireContext(), value);
+                checkboxSetvarWlanEnableEnabled.setChecked(value);
+                contentSetvarWlanEnable.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("setvarWlanEnable")) {
+                boolean value = json.getBoolean("setvarWlanEnable");
+                SettingsHelper.saveSetvarWlanEnable(requireContext(), value);
+                spinnerSetvarWlanEnable.setSelection(value ? 0 : 1);
+            }
+
+            // Setvar IP HTTP Enable
+            if (json.has("setvarIpHttpEnableEnabled")) {
+                boolean value = json.getBoolean("setvarIpHttpEnableEnabled");
+                SettingsHelper.saveSetvarIpHttpEnableEnabled(requireContext(), value);
+                checkboxSetvarIpHttpEnableEnabled.setChecked(value);
+                contentSetvarIpHttpEnable.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("setvarIpHttpEnable")) {
+                boolean value = json.getBoolean("setvarIpHttpEnable");
+                SettingsHelper.saveSetvarIpHttpEnable(requireContext(), value);
+                spinnerSetvarIpHttpEnable.setSelection(value ? 0 : 1);
+            }
+
+            // Display Password Level
+            if (json.has("displayPasswordLevelEnabled")) {
+                boolean value = json.getBoolean("displayPasswordLevelEnabled");
+                SettingsHelper.saveDisplayPasswordLevelEnabled(requireContext(), value);
+                checkboxDisplayPasswordLevelEnabled.setChecked(value);
+                contentDisplayPasswordLevel.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("displayPasswordLevel")) {
+                String value = json.getString("displayPasswordLevel");
+                SettingsHelper.saveDisplayPasswordLevel(requireContext(), value);
+                int index = 1; // Default to None
+                if (value.equals("All")) index = 0;
+                else if (value.equals("None")) index = 1;
+                else if (value.equals("Selected")) index = 2;
+                spinnerDisplayPasswordLevel.setSelection(index);
+            }
+
+            // Display Password Current
+            if (json.has("displayPasswordCurrentEnabled")) {
+                boolean value = json.getBoolean("displayPasswordCurrentEnabled");
+                SettingsHelper.saveDisplayPasswordCurrentEnabled(requireContext(), value);
+                checkboxDisplayPasswordCurrentEnabled.setChecked(value);
+                contentDisplayPasswordCurrent.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("displayPasswordCurrent")) {
+                String value = json.getString("displayPasswordCurrent");
+                SettingsHelper.saveDisplayPasswordCurrent(requireContext(), value);
+                editTextPasswordCurrent.setText(value);
+            }
+
+            // Device Prompted Network Reset
+            if (json.has("devicePromptedNetworkResetEnabled")) {
+                boolean value = json.getBoolean("devicePromptedNetworkResetEnabled");
+                SettingsHelper.saveDevicePromptedNetworkResetEnabled(requireContext(), value);
+                checkboxDevicePromptedNetworkResetEnabled.setChecked(value);
+                contentDevicePromptedNetworkReset.setVisibility(value ? View.VISIBLE : View.GONE);
+            }
+            if (json.has("devicePromptedNetworkReset")) {
+                boolean value = json.getBoolean("devicePromptedNetworkReset");
+                SettingsHelper.saveDevicePromptedNetworkReset(requireContext(), value);
+                spinnerDevicePromptedNetworkReset.setSelection(value ? 0 : 1);
+            }
+
+            validatePasswords();
+            updateClearButtonsVisibility();
+            setStatus(getString(R.string.status_settings_imported), requireContext().getColor(android.R.color.holo_green_dark));
+
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), getString(R.string.error_import_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void exportSettingsToUri(Uri uri) {
+        try {
+            JSONObject json = new JSONObject();
+
+            // Save all settings to JSON
+            json.put("changePasswordEnabled", SettingsHelper.getChangePasswordEnabled(requireContext()));
+            json.put("httpAdminEnabled", SettingsHelper.getHttpAdminEnabled(requireContext()));
+            json.put("oldPassword", SettingsHelper.getOldAdminpassword(requireContext()));
+            json.put("newPassword", SettingsHelper.getNewAdminpassword(requireContext()));
+            json.put("httpAdminPassword", SettingsHelper.getHttpadminpasswordKey(requireContext()));
+            json.put("authPassword", SettingsHelper.getAuthPassword(requireContext()));
+            json.put("protectedModeAllowed", SettingsHelper.getProtectedModeAllowed(requireContext()));
+
+            // EURed Configuration
+            json.put("firmwareDownload", SettingsHelper.getEuredFirmwareDownload(requireContext()));
+            json.put("tcpEnable", SettingsHelper.getEuredTcpEnable(requireContext()));
+            json.put("lpdEnable", SettingsHelper.getEuredLpdEnable(requireContext()));
+            json.put("httpsEnable", SettingsHelper.getEuredHttpsEnable(requireContext()));
+            json.put("ftpEnable", SettingsHelper.getEuredFtpEnable(requireContext()));
+            json.put("snmpEnable", SettingsHelper.getEuredSnmpEnable(requireContext()));
+            json.put("wlanEnable", SettingsHelper.getEuredWlanEnable(requireContext()));
+            json.put("usbMirrorEnable", SettingsHelper.getEuredUsbMirrorEnable(requireContext()));
+            json.put("zbiEnable", SettingsHelper.getEuredZbiEnable(requireContext()));
+
+            // Bluetooth Discoverable
+            json.put("bluetoothDiscoverableEnabled", SettingsHelper.getBluetoothDiscoverableEnabled(requireContext()));
+            json.put("bluetoothDiscoverable", SettingsHelper.getBluetoothDiscoverable(requireContext()));
+
+            // Setvar Wlan Enable
+            json.put("setvarWlanEnableEnabled", SettingsHelper.getSetvarWlanEnableEnabled(requireContext()));
+            json.put("setvarWlanEnable", SettingsHelper.getSetvarWlanEnable(requireContext()));
+
+            // Setvar IP HTTP Enable
+            json.put("setvarIpHttpEnableEnabled", SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext()));
+            json.put("setvarIpHttpEnable", SettingsHelper.getSetvarIpHttpEnable(requireContext()));
+
+            // Display Password Level
+            json.put("displayPasswordLevelEnabled", SettingsHelper.getDisplayPasswordLevelEnabled(requireContext()));
+            json.put("displayPasswordLevel", SettingsHelper.getDisplayPasswordLevel(requireContext()));
+
+            // Display Password Current
+            json.put("displayPasswordCurrentEnabled", SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext()));
+            json.put("displayPasswordCurrent", SettingsHelper.getDisplayPasswordCurrent(requireContext()));
+
+            // Device Prompted Network Reset
+            json.put("devicePromptedNetworkResetEnabled", SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext()));
+            json.put("devicePromptedNetworkReset", SettingsHelper.getDevicePromptedNetworkReset(requireContext()));
+
+            try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
+                if (outputStream != null) {
+                    outputStream.write(json.toString(2).getBytes());
+                    setStatus(getString(R.string.status_settings_exported), requireContext().getColor(android.R.color.holo_green_dark));
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void exportScriptToUri(Uri uri) {
+        try {
+            // Force save current values first
+            saveValues();
+
+            // Get the EURed configuration script from PrinterHelper
+            PrinterHelper printerHelper = new PrinterHelper();
+            printerHelper.setContext(requireContext());
+            String script = printerHelper.getEURedConfigurationFromSettings();
+
+            try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
+                if (outputStream != null) {
+                    outputStream.write(script.getBytes());
+                    setStatus(getString(R.string.status_eured_script_exported), requireContext().getColor(android.R.color.holo_green_dark));
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // ToolbarConfigurable implementation
+    @Override
+    public int getToolbarTitleResId() {
+        return R.string.button_setup_script;
+    }
+
+    @Override
+    public boolean showBackButton() {
+        return true;
     }
 }

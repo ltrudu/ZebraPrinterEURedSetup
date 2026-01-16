@@ -80,10 +80,24 @@ public class AdvancedFragment extends Fragment {
                 .replace(R.id.fragment_container, factoryResetFragment)
                 .addToBackStack("factory_reset")
                 .commit();
+
+        // Update MainActivity toolbar for the child fragment
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setToolbarTitle(getString(factoryResetFragment.getToolbarTitleResId()));
+            mainActivity.showBackArrow(true);
+        }
     }
 
     private void showMainContent() {
         mainContent.setVisibility(View.VISIBLE);
+
+        // Restore MainActivity toolbar to app name with hamburger menu
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setToolbarTitle(getString(R.string.app_name));
+            mainActivity.showBackArrow(false);
+        }
 
         // Animate mainContent back in from the left
         Animation slideIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_left);

@@ -13,15 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarFactoryReset"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorSurface"
-            app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@string/title_factory_reset"
-            app:titleCentered="true" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
