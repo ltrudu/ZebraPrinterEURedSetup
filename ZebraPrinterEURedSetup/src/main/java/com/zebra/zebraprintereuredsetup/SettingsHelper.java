@@ -17,6 +17,9 @@ package com.zebra.zebraprintereuredsetup;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SettingsHelper {
 
     private static final String PREFS_NAME = "ZEURED";
@@ -537,5 +540,253 @@ public class SettingsHelper {
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(KEY_SHOW_SEND_SCRIPT_CARD, show);
         editor.commit();
+    }
+
+    // Embed EURED Script setting
+    private static final String KEY_EMBED_EURED_SCRIPT = "embed_eured_script";
+
+    public static boolean getEmbedEuredScript(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_EMBED_EURED_SCRIPT, false); // not embedded by default
+    }
+
+    public static void saveEmbedEuredScript(Context context, boolean embed) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_EMBED_EURED_SCRIPT, embed);
+        editor.commit();
+    }
+
+    // ==================== JSON Export/Import Methods ====================
+
+    /**
+     * Get EURED script configuration as JSON.
+     * Contains all settings related to EURED script configuration.
+     */
+    public static JSONObject getEUREDJson(Context context) throws JSONException {
+        JSONObject json = new JSONObject();
+
+        // Password settings
+        json.put("changePasswordEnabled", getChangePasswordEnabled(context));
+        json.put("httpAdminEnabled", getHttpAdminEnabled(context));
+        json.put("oldPassword", getOldAdminpassword(context));
+        json.put("newPassword", getNewAdminpassword(context));
+        json.put("httpAdminPassword", getHttpadminpasswordKey(context));
+        json.put("authPassword", getAuthPassword(context));
+        json.put("protectedModeAllowed", getProtectedModeAllowed(context));
+
+        // EURed Configuration
+        json.put("firmwareDownload", getEuredFirmwareDownload(context));
+        json.put("tcpEnable", getEuredTcpEnable(context));
+        json.put("lpdEnable", getEuredLpdEnable(context));
+        json.put("httpsEnable", getEuredHttpsEnable(context));
+        json.put("ftpEnable", getEuredFtpEnable(context));
+        json.put("snmpEnable", getEuredSnmpEnable(context));
+        json.put("wlanEnable", getEuredWlanEnable(context));
+        json.put("usbMirrorEnable", getEuredUsbMirrorEnable(context));
+        json.put("zbiEnable", getEuredZbiEnable(context));
+
+        // Bluetooth Discoverable
+        json.put("bluetoothDiscoverableEnabled", getBluetoothDiscoverableEnabled(context));
+        json.put("bluetoothDiscoverable", getBluetoothDiscoverable(context));
+
+        // Setvar Wlan Enable
+        json.put("setvarWlanEnableEnabled", getSetvarWlanEnableEnabled(context));
+        json.put("setvarWlanEnable", getSetvarWlanEnable(context));
+
+        // Setvar IP HTTP Enable
+        json.put("setvarIpHttpEnableEnabled", getSetvarIpHttpEnableEnabled(context));
+        json.put("setvarIpHttpEnable", getSetvarIpHttpEnable(context));
+
+        // Display Password Level
+        json.put("displayPasswordLevelEnabled", getDisplayPasswordLevelEnabled(context));
+        json.put("displayPasswordLevel", getDisplayPasswordLevel(context));
+
+        // Display Password Current
+        json.put("displayPasswordCurrentEnabled", getDisplayPasswordCurrentEnabled(context));
+        json.put("displayPasswordCurrent", getDisplayPasswordCurrent(context));
+
+        // Device Prompted Network Reset
+        json.put("devicePromptedNetworkResetEnabled", getDevicePromptedNetworkResetEnabled(context));
+        json.put("devicePromptedNetworkReset", getDevicePromptedNetworkReset(context));
+
+        return json;
+    }
+
+    /**
+     * Apply EURED settings from JSON.
+     * Saves all EURED script configuration settings from the provided JSON.
+     */
+    public static void applyEUREDJson(Context context, JSONObject json) throws JSONException {
+        // Password settings
+        if (json.has("changePasswordEnabled")) {
+            saveChangePasswordEnabled(context, json.getBoolean("changePasswordEnabled"));
+        }
+        if (json.has("httpAdminEnabled")) {
+            saveHttpAdminEnabled(context, json.getBoolean("httpAdminEnabled"));
+        }
+        if (json.has("oldPassword")) {
+            saveOldAdminPassword(context, json.getString("oldPassword"));
+        }
+        if (json.has("newPassword")) {
+            saveNewAdminPassword(context, json.getString("newPassword"));
+        }
+        if (json.has("httpAdminPassword")) {
+            saveHttpadminpasswordKey(context, json.getString("httpAdminPassword"));
+        }
+        if (json.has("authPassword")) {
+            saveAuthPassword(context, json.getString("authPassword"));
+        }
+        if (json.has("protectedModeAllowed")) {
+            saveProtectedModeAllowed(context, json.getBoolean("protectedModeAllowed"));
+        }
+
+        // EURed Configuration
+        if (json.has("firmwareDownload")) {
+            saveEuredFirmwareDownload(context, json.getBoolean("firmwareDownload"));
+        }
+        if (json.has("tcpEnable")) {
+            saveEuredTcpEnable(context, json.getBoolean("tcpEnable"));
+        }
+        if (json.has("lpdEnable")) {
+            saveEuredLpdEnable(context, json.getBoolean("lpdEnable"));
+        }
+        if (json.has("httpsEnable")) {
+            saveEuredHttpsEnable(context, json.getBoolean("httpsEnable"));
+        }
+        if (json.has("ftpEnable")) {
+            saveEuredFtpEnable(context, json.getBoolean("ftpEnable"));
+        }
+        if (json.has("snmpEnable")) {
+            saveEuredSnmpEnable(context, json.getBoolean("snmpEnable"));
+        }
+        if (json.has("wlanEnable")) {
+            saveEuredWlanEnable(context, json.getBoolean("wlanEnable"));
+        }
+        if (json.has("usbMirrorEnable")) {
+            saveEuredUsbMirrorEnable(context, json.getBoolean("usbMirrorEnable"));
+        }
+        if (json.has("zbiEnable")) {
+            saveEuredZbiEnable(context, json.getBoolean("zbiEnable"));
+        }
+
+        // Bluetooth Discoverable
+        if (json.has("bluetoothDiscoverableEnabled")) {
+            saveBluetoothDiscoverableEnabled(context, json.getBoolean("bluetoothDiscoverableEnabled"));
+        }
+        if (json.has("bluetoothDiscoverable")) {
+            saveBluetoothDiscoverable(context, json.getBoolean("bluetoothDiscoverable"));
+        }
+
+        // Setvar Wlan Enable
+        if (json.has("setvarWlanEnableEnabled")) {
+            saveSetvarWlanEnableEnabled(context, json.getBoolean("setvarWlanEnableEnabled"));
+        }
+        if (json.has("setvarWlanEnable")) {
+            saveSetvarWlanEnable(context, json.getBoolean("setvarWlanEnable"));
+        }
+
+        // Setvar IP HTTP Enable
+        if (json.has("setvarIpHttpEnableEnabled")) {
+            saveSetvarIpHttpEnableEnabled(context, json.getBoolean("setvarIpHttpEnableEnabled"));
+        }
+        if (json.has("setvarIpHttpEnable")) {
+            saveSetvarIpHttpEnable(context, json.getBoolean("setvarIpHttpEnable"));
+        }
+
+        // Display Password Level
+        if (json.has("displayPasswordLevelEnabled")) {
+            saveDisplayPasswordLevelEnabled(context, json.getBoolean("displayPasswordLevelEnabled"));
+        }
+        if (json.has("displayPasswordLevel")) {
+            saveDisplayPasswordLevel(context, json.getString("displayPasswordLevel"));
+        }
+
+        // Display Password Current
+        if (json.has("displayPasswordCurrentEnabled")) {
+            saveDisplayPasswordCurrentEnabled(context, json.getBoolean("displayPasswordCurrentEnabled"));
+        }
+        if (json.has("displayPasswordCurrent")) {
+            saveDisplayPasswordCurrent(context, json.getString("displayPasswordCurrent"));
+        }
+
+        // Device Prompted Network Reset
+        if (json.has("devicePromptedNetworkResetEnabled")) {
+            saveDevicePromptedNetworkResetEnabled(context, json.getBoolean("devicePromptedNetworkResetEnabled"));
+        }
+        if (json.has("devicePromptedNetworkReset")) {
+            saveDevicePromptedNetworkReset(context, json.getBoolean("devicePromptedNetworkReset"));
+        }
+    }
+
+    /**
+     * Get app settings as JSON.
+     * @param context Android context
+     * @param embedEURED If true, includes EURED configuration in the JSON
+     */
+    public static JSONObject getSettingsJSON(Context context, boolean embedEURED) throws JSONException {
+        JSONObject json = new JSONObject();
+
+        // Language
+        json.put("language", getLanguage(context));
+
+        // Suggestions settings
+        json.put("suggestionsUnlimited", getSuggestionsUnlimited(context));
+        json.put("maxSuggestions", getMaxSuggestions(context));
+
+        // Card visibility settings
+        json.put("showEditEuredScriptCard", getAllowEditEuredScript(context));
+        json.put("showRestorePreEuredCard", getShowRestorePreEured(context));
+        json.put("showSendScriptCard", getShowSendScriptCard(context));
+
+        // Embed setting
+        json.put("embedEuredScript", getEmbedEuredScript(context));
+
+        // Optionally embed EURED config
+        if (embedEURED) {
+            json.put("euredConfig", getEUREDJson(context));
+        }
+
+        return json;
+    }
+
+    /**
+     * Apply app settings from JSON.
+     * If the JSON contains embedded EURED config, it will also be applied.
+     */
+    public static void applySettingsJSON(Context context, JSONObject json) throws JSONException {
+        // Language
+        if (json.has("language")) {
+            saveLanguage(context, json.getString("language"));
+        }
+
+        // Suggestions settings
+        if (json.has("suggestionsUnlimited")) {
+            saveSuggestionsUnlimited(context, json.getBoolean("suggestionsUnlimited"));
+        }
+        if (json.has("maxSuggestions")) {
+            saveMaxSuggestions(context, json.getInt("maxSuggestions"));
+        }
+
+        // Card visibility settings
+        if (json.has("showEditEuredScriptCard")) {
+            saveAllowEditEuredScript(context, json.getBoolean("showEditEuredScriptCard"));
+        }
+        if (json.has("showRestorePreEuredCard")) {
+            saveShowRestorePreEured(context, json.getBoolean("showRestorePreEuredCard"));
+        }
+        if (json.has("showSendScriptCard")) {
+            saveShowSendScriptCard(context, json.getBoolean("showSendScriptCard"));
+        }
+
+        // Embed setting
+        if (json.has("embedEuredScript")) {
+            saveEmbedEuredScript(context, json.getBoolean("embedEuredScript"));
+        }
+
+        // Apply embedded EURED config if present
+        if (json.has("euredConfig")) {
+            applyEUREDJson(context, json.getJSONObject("euredConfig"));
+        }
     }
 }

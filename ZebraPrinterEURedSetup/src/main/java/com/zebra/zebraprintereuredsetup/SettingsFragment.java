@@ -49,7 +49,8 @@ public class SettingsFragment extends Fragment {
     private MaterialCheckBox checkBoxShowSendScriptCard;
     private MaterialButton buttonOpenScriptSettings;
 
-    // File operations buttons
+    // File operations
+    private MaterialCheckBox checkBoxEmbedEuredScript;
     private MaterialButton buttonImportSettings;
     private MaterialButton buttonExportSettings;
 
@@ -123,9 +124,22 @@ public class SettingsFragment extends Fragment {
         buttonOpenScriptSettings = view.findViewById(R.id.buttonOpenScriptSettings);
         setupEuredConfigSettings();
 
-        // File operations buttons
+        // File operations
+        checkBoxEmbedEuredScript = view.findViewById(R.id.checkBoxEmbedEuredScript);
         buttonImportSettings = view.findViewById(R.id.buttonImportSettings);
         buttonExportSettings = view.findViewById(R.id.buttonExportSettings);
+        setupFileOperations();
+    }
+
+    private void setupFileOperations() {
+        // Load saved embed setting
+        boolean embedEured = SettingsHelper.getEmbedEuredScript(requireContext());
+        checkBoxEmbedEuredScript.setChecked(embedEured);
+
+        // Handle checkbox changes
+        checkBoxEmbedEuredScript.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveEmbedEuredScript(requireContext(), isChecked);
+        });
 
         buttonImportSettings.setOnClickListener(v -> openImportDialog());
         buttonExportSettings.setOnClickListener(v -> openExportDialog());
@@ -325,7 +339,7 @@ public class SettingsFragment extends Fragment {
                 inputStream.close();
 
                 JSONObject json = new JSONObject(stringBuilder.toString());
-                applySettingsFromJson(json);
+                SettingsHelper.applySettingsJSON(requireContext(), json);
                 Toast.makeText(requireContext(), R.string.status_settings_imported, Toast.LENGTH_SHORT).show();
                 setStatus(getString(R.string.status_settings_imported), requireContext().getColor(android.R.color.holo_green_dark));
 
@@ -345,7 +359,8 @@ public class SettingsFragment extends Fragment {
 
     private void exportSettingsToUri(Uri uri) {
         try {
-            JSONObject json = createSettingsJson();
+            boolean embedEured = SettingsHelper.getEmbedEuredScript(requireContext());
+            JSONObject json = SettingsHelper.getSettingsJSON(requireContext(), embedEured);
             OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri);
             if (outputStream != null) {
                 outputStream.write(json.toString(2).getBytes());
@@ -359,50 +374,6 @@ public class SettingsFragment extends Fragment {
         } catch (Exception e) {
             Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
             setStatus(getString(R.string.error_export_settings_failed, e.getMessage()), requireContext().getColor(android.R.color.holo_red_dark));
-        }
-    }
-
-    private JSONObject createSettingsJson() throws Exception {
-        JSONObject json = new JSONObject();
-
-        // Language
-        json.put("language", SettingsHelper.getLanguage(requireContext()));
-
-        // Suggestions settings
-        json.put("suggestionsUnlimited", SettingsHelper.getSuggestionsUnlimited(requireContext()));
-        json.put("maxSuggestions", SettingsHelper.getMaxSuggestions(requireContext()));
-
-        // EURed Config
-        json.put("showEditEuredScriptCard", SettingsHelper.getAllowEditEuredScript(requireContext()));
-        json.put("showRestorePreEuredCard", SettingsHelper.getShowRestorePreEured(requireContext()));
-        json.put("showSendScriptCard", SettingsHelper.getShowSendScriptCard(requireContext()));
-
-        return json;
-    }
-
-    private void applySettingsFromJson(JSONObject json) throws Exception {
-        // Language
-        if (json.has("language")) {
-            SettingsHelper.saveLanguage(requireContext(), json.getString("language"));
-        }
-
-        // Suggestions settings
-        if (json.has("suggestionsUnlimited")) {
-            SettingsHelper.saveSuggestionsUnlimited(requireContext(), json.getBoolean("suggestionsUnlimited"));
-        }
-        if (json.has("maxSuggestions")) {
-            SettingsHelper.saveMaxSuggestions(requireContext(), json.getInt("maxSuggestions"));
-        }
-
-        // EURed Config
-        if (json.has("showEditEuredScriptCard")) {
-            SettingsHelper.saveAllowEditEuredScript(requireContext(), json.getBoolean("showEditEuredScriptCard"));
-        }
-        if (json.has("showRestorePreEuredCard")) {
-            SettingsHelper.saveShowRestorePreEured(requireContext(), json.getBoolean("showRestorePreEuredCard"));
-        }
-        if (json.has("showSendScriptCard")) {
-            SettingsHelper.saveShowSendScriptCard(requireContext(), json.getBoolean("showSendScriptCard"));
         }
     }
 }

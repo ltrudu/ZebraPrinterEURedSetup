@@ -309,6 +309,7 @@
     <string name="label_show_restore_pre_eured_card">Show Restore Pre-EURed Card</string>
     <string name="label_show_send_script_card">Show Send Script Card</string>
     <string name="button_open_script_settings">Open Script Settings</string>
+    <string name="label_embed_eured_script">Embed EURed Script</string>
 
     <!-- Syntax Highlighting -->
     <string name="title_command_documentation">Command Documentation</string>

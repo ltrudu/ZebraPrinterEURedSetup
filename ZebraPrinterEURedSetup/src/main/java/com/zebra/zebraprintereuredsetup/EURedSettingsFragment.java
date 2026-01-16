@@ -785,173 +785,11 @@ public class EURedSettingsFragment extends Fragment implements ToolbarConfigurab
 
             JSONObject json = new JSONObject(jsonBuilder.toString());
 
-            // Import all settings from JSON
-            if (json.has("changePasswordEnabled")) {
-                boolean value = json.getBoolean("changePasswordEnabled");
-                SettingsHelper.saveChangePasswordEnabled(requireContext(), value);
-                checkboxChangePasswordEnabled.setChecked(value);
-                contentChangePassword.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("httpAdminEnabled")) {
-                boolean value = json.getBoolean("httpAdminEnabled");
-                SettingsHelper.saveHttpAdminEnabled(requireContext(), value);
-                checkboxHttpAdminEnabled.setChecked(value);
-                contentHttpAdminPassword.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("oldPassword")) {
-                String value = json.getString("oldPassword");
-                SettingsHelper.saveOldAdminPassword(requireContext(), value);
-                editTextOldPassword.setText(value);
-            }
-            if (json.has("newPassword")) {
-                String value = json.getString("newPassword");
-                SettingsHelper.saveNewAdminPassword(requireContext(), value);
-                editTextNewPassword.setText(value);
-            }
-            if (json.has("httpAdminPassword")) {
-                String value = json.getString("httpAdminPassword");
-                SettingsHelper.saveHttpadminpasswordKey(requireContext(), value);
-                editTextHttpAdminPassword.setText(value);
-            }
-            if (json.has("authPassword")) {
-                String value = json.getString("authPassword");
-                SettingsHelper.saveAuthPassword(requireContext(), value);
-                editTextAuthPassword.setText(value);
-            }
-            if (json.has("protectedModeAllowed")) {
-                boolean value = json.getBoolean("protectedModeAllowed");
-                SettingsHelper.saveProtectedModeAllowed(requireContext(), value);
-                checkboxProtectedModeAllowed.setChecked(value);
-            }
+            // Apply all settings using centralized method
+            SettingsHelper.applyEUREDJson(requireContext(), json);
 
-            // EURed Configuration
-            if (json.has("firmwareDownload")) {
-                boolean value = json.getBoolean("firmwareDownload");
-                SettingsHelper.saveEuredFirmwareDownload(requireContext(), value);
-                checkboxFirmwareDownload.setChecked(value);
-            }
-            if (json.has("tcpEnable")) {
-                boolean value = json.getBoolean("tcpEnable");
-                SettingsHelper.saveEuredTcpEnable(requireContext(), value);
-                checkboxTcpEnable.setChecked(value);
-            }
-            if (json.has("lpdEnable")) {
-                boolean value = json.getBoolean("lpdEnable");
-                SettingsHelper.saveEuredLpdEnable(requireContext(), value);
-                checkboxLpdEnable.setChecked(value);
-            }
-            if (json.has("httpsEnable")) {
-                boolean value = json.getBoolean("httpsEnable");
-                SettingsHelper.saveEuredHttpsEnable(requireContext(), value);
-                checkboxHttpsEnable.setChecked(value);
-            }
-            if (json.has("ftpEnable")) {
-                boolean value = json.getBoolean("ftpEnable");
-                SettingsHelper.saveEuredFtpEnable(requireContext(), value);
-                checkboxFtpEnable.setChecked(value);
-            }
-            if (json.has("snmpEnable")) {
-                boolean value = json.getBoolean("snmpEnable");
-                SettingsHelper.saveEuredSnmpEnable(requireContext(), value);
-                checkboxSnmpEnable.setChecked(value);
-            }
-            if (json.has("wlanEnable")) {
-                boolean value = json.getBoolean("wlanEnable");
-                SettingsHelper.saveEuredWlanEnable(requireContext(), value);
-                checkboxWlanEnable.setChecked(value);
-            }
-            if (json.has("usbMirrorEnable")) {
-                boolean value = json.getBoolean("usbMirrorEnable");
-                SettingsHelper.saveEuredUsbMirrorEnable(requireContext(), value);
-                checkboxUsbMirrorEnable.setChecked(value);
-            }
-            if (json.has("zbiEnable")) {
-                boolean value = json.getBoolean("zbiEnable");
-                SettingsHelper.saveEuredZbiEnable(requireContext(), value);
-                checkboxZbiEnable.setChecked(value);
-            }
-
-            // Bluetooth Discoverable
-            if (json.has("bluetoothDiscoverableEnabled")) {
-                boolean value = json.getBoolean("bluetoothDiscoverableEnabled");
-                SettingsHelper.saveBluetoothDiscoverableEnabled(requireContext(), value);
-                checkboxBluetoothDiscoverableEnabled.setChecked(value);
-                contentBluetoothDiscoverable.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("bluetoothDiscoverable")) {
-                boolean value = json.getBoolean("bluetoothDiscoverable");
-                SettingsHelper.saveBluetoothDiscoverable(requireContext(), value);
-                spinnerBluetoothDiscoverable.setSelection(value ? 0 : 1);
-            }
-
-            // Setvar Wlan Enable
-            if (json.has("setvarWlanEnableEnabled")) {
-                boolean value = json.getBoolean("setvarWlanEnableEnabled");
-                SettingsHelper.saveSetvarWlanEnableEnabled(requireContext(), value);
-                checkboxSetvarWlanEnableEnabled.setChecked(value);
-                contentSetvarWlanEnable.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("setvarWlanEnable")) {
-                boolean value = json.getBoolean("setvarWlanEnable");
-                SettingsHelper.saveSetvarWlanEnable(requireContext(), value);
-                spinnerSetvarWlanEnable.setSelection(value ? 0 : 1);
-            }
-
-            // Setvar IP HTTP Enable
-            if (json.has("setvarIpHttpEnableEnabled")) {
-                boolean value = json.getBoolean("setvarIpHttpEnableEnabled");
-                SettingsHelper.saveSetvarIpHttpEnableEnabled(requireContext(), value);
-                checkboxSetvarIpHttpEnableEnabled.setChecked(value);
-                contentSetvarIpHttpEnable.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("setvarIpHttpEnable")) {
-                boolean value = json.getBoolean("setvarIpHttpEnable");
-                SettingsHelper.saveSetvarIpHttpEnable(requireContext(), value);
-                spinnerSetvarIpHttpEnable.setSelection(value ? 0 : 1);
-            }
-
-            // Display Password Level
-            if (json.has("displayPasswordLevelEnabled")) {
-                boolean value = json.getBoolean("displayPasswordLevelEnabled");
-                SettingsHelper.saveDisplayPasswordLevelEnabled(requireContext(), value);
-                checkboxDisplayPasswordLevelEnabled.setChecked(value);
-                contentDisplayPasswordLevel.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("displayPasswordLevel")) {
-                String value = json.getString("displayPasswordLevel");
-                SettingsHelper.saveDisplayPasswordLevel(requireContext(), value);
-                int index = 1; // Default to None
-                if (value.equals("All")) index = 0;
-                else if (value.equals("None")) index = 1;
-                else if (value.equals("Selected")) index = 2;
-                spinnerDisplayPasswordLevel.setSelection(index);
-            }
-
-            // Display Password Current
-            if (json.has("displayPasswordCurrentEnabled")) {
-                boolean value = json.getBoolean("displayPasswordCurrentEnabled");
-                SettingsHelper.saveDisplayPasswordCurrentEnabled(requireContext(), value);
-                checkboxDisplayPasswordCurrentEnabled.setChecked(value);
-                contentDisplayPasswordCurrent.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("displayPasswordCurrent")) {
-                String value = json.getString("displayPasswordCurrent");
-                SettingsHelper.saveDisplayPasswordCurrent(requireContext(), value);
-                editTextPasswordCurrent.setText(value);
-            }
-
-            // Device Prompted Network Reset
-            if (json.has("devicePromptedNetworkResetEnabled")) {
-                boolean value = json.getBoolean("devicePromptedNetworkResetEnabled");
-                SettingsHelper.saveDevicePromptedNetworkResetEnabled(requireContext(), value);
-                checkboxDevicePromptedNetworkResetEnabled.setChecked(value);
-                contentDevicePromptedNetworkReset.setVisibility(value ? View.VISIBLE : View.GONE);
-            }
-            if (json.has("devicePromptedNetworkReset")) {
-                boolean value = json.getBoolean("devicePromptedNetworkReset");
-                SettingsHelper.saveDevicePromptedNetworkReset(requireContext(), value);
-                spinnerDevicePromptedNetworkReset.setSelection(value ? 0 : 1);
-            }
+            // Update UI from saved settings
+            updateUIFromSettings();
 
             validatePasswords();
             updateClearButtonsVisibility();
@@ -962,53 +800,82 @@ public class EURedSettingsFragment extends Fragment implements ToolbarConfigurab
         }
     }
 
+    private void updateUIFromSettings() {
+        // Change Password section
+        boolean changePasswordEnabled = SettingsHelper.getChangePasswordEnabled(requireContext());
+        checkboxChangePasswordEnabled.setChecked(changePasswordEnabled);
+        contentChangePassword.setVisibility(changePasswordEnabled ? View.VISIBLE : View.GONE);
+
+        // HTTP Admin section
+        boolean httpAdminEnabled = SettingsHelper.getHttpAdminEnabled(requireContext());
+        checkboxHttpAdminEnabled.setChecked(httpAdminEnabled);
+        contentHttpAdminPassword.setVisibility(httpAdminEnabled ? View.VISIBLE : View.GONE);
+
+        // Password fields
+        editTextOldPassword.setText(SettingsHelper.getOldAdminpassword(requireContext()));
+        editTextNewPassword.setText(SettingsHelper.getNewAdminpassword(requireContext()));
+        editTextHttpAdminPassword.setText(SettingsHelper.getHttpadminpasswordKey(requireContext()));
+        editTextAuthPassword.setText(SettingsHelper.getAuthPassword(requireContext()));
+
+        // Protected Mode
+        checkboxProtectedModeAllowed.setChecked(SettingsHelper.getProtectedModeAllowed(requireContext()));
+
+        // EURed Configuration checkboxes
+        checkboxFirmwareDownload.setChecked(SettingsHelper.getEuredFirmwareDownload(requireContext()));
+        checkboxTcpEnable.setChecked(SettingsHelper.getEuredTcpEnable(requireContext()));
+        checkboxLpdEnable.setChecked(SettingsHelper.getEuredLpdEnable(requireContext()));
+        checkboxHttpsEnable.setChecked(SettingsHelper.getEuredHttpsEnable(requireContext()));
+        checkboxFtpEnable.setChecked(SettingsHelper.getEuredFtpEnable(requireContext()));
+        checkboxSnmpEnable.setChecked(SettingsHelper.getEuredSnmpEnable(requireContext()));
+        checkboxWlanEnable.setChecked(SettingsHelper.getEuredWlanEnable(requireContext()));
+        checkboxUsbMirrorEnable.setChecked(SettingsHelper.getEuredUsbMirrorEnable(requireContext()));
+        checkboxZbiEnable.setChecked(SettingsHelper.getEuredZbiEnable(requireContext()));
+
+        // Bluetooth Discoverable
+        boolean bluetoothDiscoverableEnabled = SettingsHelper.getBluetoothDiscoverableEnabled(requireContext());
+        checkboxBluetoothDiscoverableEnabled.setChecked(bluetoothDiscoverableEnabled);
+        contentBluetoothDiscoverable.setVisibility(bluetoothDiscoverableEnabled ? View.VISIBLE : View.GONE);
+        spinnerBluetoothDiscoverable.setSelection(SettingsHelper.getBluetoothDiscoverable(requireContext()) ? 0 : 1);
+
+        // Setvar Wlan Enable
+        boolean setvarWlanEnableEnabled = SettingsHelper.getSetvarWlanEnableEnabled(requireContext());
+        checkboxSetvarWlanEnableEnabled.setChecked(setvarWlanEnableEnabled);
+        contentSetvarWlanEnable.setVisibility(setvarWlanEnableEnabled ? View.VISIBLE : View.GONE);
+        spinnerSetvarWlanEnable.setSelection(SettingsHelper.getSetvarWlanEnable(requireContext()) ? 0 : 1);
+
+        // Setvar IP HTTP Enable
+        boolean setvarIpHttpEnableEnabled = SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext());
+        checkboxSetvarIpHttpEnableEnabled.setChecked(setvarIpHttpEnableEnabled);
+        contentSetvarIpHttpEnable.setVisibility(setvarIpHttpEnableEnabled ? View.VISIBLE : View.GONE);
+        spinnerSetvarIpHttpEnable.setSelection(SettingsHelper.getSetvarIpHttpEnable(requireContext()) ? 0 : 1);
+
+        // Display Password Level
+        boolean displayPasswordLevelEnabled = SettingsHelper.getDisplayPasswordLevelEnabled(requireContext());
+        checkboxDisplayPasswordLevelEnabled.setChecked(displayPasswordLevelEnabled);
+        contentDisplayPasswordLevel.setVisibility(displayPasswordLevelEnabled ? View.VISIBLE : View.GONE);
+        String passwordLevel = SettingsHelper.getDisplayPasswordLevel(requireContext());
+        int passwordLevelIndex = 1; // Default to None
+        if (passwordLevel.equals("All")) passwordLevelIndex = 0;
+        else if (passwordLevel.equals("None")) passwordLevelIndex = 1;
+        else if (passwordLevel.equals("Selected")) passwordLevelIndex = 2;
+        spinnerDisplayPasswordLevel.setSelection(passwordLevelIndex);
+
+        // Display Password Current
+        boolean displayPasswordCurrentEnabled = SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext());
+        checkboxDisplayPasswordCurrentEnabled.setChecked(displayPasswordCurrentEnabled);
+        contentDisplayPasswordCurrent.setVisibility(displayPasswordCurrentEnabled ? View.VISIBLE : View.GONE);
+        editTextPasswordCurrent.setText(SettingsHelper.getDisplayPasswordCurrent(requireContext()));
+
+        // Device Prompted Network Reset
+        boolean devicePromptedNetworkResetEnabled = SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext());
+        checkboxDevicePromptedNetworkResetEnabled.setChecked(devicePromptedNetworkResetEnabled);
+        contentDevicePromptedNetworkReset.setVisibility(devicePromptedNetworkResetEnabled ? View.VISIBLE : View.GONE);
+        spinnerDevicePromptedNetworkReset.setSelection(SettingsHelper.getDevicePromptedNetworkReset(requireContext()) ? 0 : 1);
+    }
+
     private void exportSettingsToUri(Uri uri) {
         try {
-            JSONObject json = new JSONObject();
-
-            // Save all settings to JSON
-            json.put("changePasswordEnabled", SettingsHelper.getChangePasswordEnabled(requireContext()));
-            json.put("httpAdminEnabled", SettingsHelper.getHttpAdminEnabled(requireContext()));
-            json.put("oldPassword", SettingsHelper.getOldAdminpassword(requireContext()));
-            json.put("newPassword", SettingsHelper.getNewAdminpassword(requireContext()));
-            json.put("httpAdminPassword", SettingsHelper.getHttpadminpasswordKey(requireContext()));
-            json.put("authPassword", SettingsHelper.getAuthPassword(requireContext()));
-            json.put("protectedModeAllowed", SettingsHelper.getProtectedModeAllowed(requireContext()));
-
-            // EURed Configuration
-            json.put("firmwareDownload", SettingsHelper.getEuredFirmwareDownload(requireContext()));
-            json.put("tcpEnable", SettingsHelper.getEuredTcpEnable(requireContext()));
-            json.put("lpdEnable", SettingsHelper.getEuredLpdEnable(requireContext()));
-            json.put("httpsEnable", SettingsHelper.getEuredHttpsEnable(requireContext()));
-            json.put("ftpEnable", SettingsHelper.getEuredFtpEnable(requireContext()));
-            json.put("snmpEnable", SettingsHelper.getEuredSnmpEnable(requireContext()));
-            json.put("wlanEnable", SettingsHelper.getEuredWlanEnable(requireContext()));
-            json.put("usbMirrorEnable", SettingsHelper.getEuredUsbMirrorEnable(requireContext()));
-            json.put("zbiEnable", SettingsHelper.getEuredZbiEnable(requireContext()));
-
-            // Bluetooth Discoverable
-            json.put("bluetoothDiscoverableEnabled", SettingsHelper.getBluetoothDiscoverableEnabled(requireContext()));
-            json.put("bluetoothDiscoverable", SettingsHelper.getBluetoothDiscoverable(requireContext()));
-
-            // Setvar Wlan Enable
-            json.put("setvarWlanEnableEnabled", SettingsHelper.getSetvarWlanEnableEnabled(requireContext()));
-            json.put("setvarWlanEnable", SettingsHelper.getSetvarWlanEnable(requireContext()));
-
-            // Setvar IP HTTP Enable
-            json.put("setvarIpHttpEnableEnabled", SettingsHelper.getSetvarIpHttpEnableEnabled(requireContext()));
-            json.put("setvarIpHttpEnable", SettingsHelper.getSetvarIpHttpEnable(requireContext()));
-
-            // Display Password Level
-            json.put("displayPasswordLevelEnabled", SettingsHelper.getDisplayPasswordLevelEnabled(requireContext()));
-            json.put("displayPasswordLevel", SettingsHelper.getDisplayPasswordLevel(requireContext()));
-
-            // Display Password Current
-            json.put("displayPasswordCurrentEnabled", SettingsHelper.getDisplayPasswordCurrentEnabled(requireContext()));
-            json.put("displayPasswordCurrent", SettingsHelper.getDisplayPasswordCurrent(requireContext()));
-
-            // Device Prompted Network Reset
-            json.put("devicePromptedNetworkResetEnabled", SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext()));
-            json.put("devicePromptedNetworkReset", SettingsHelper.getDevicePromptedNetworkReset(requireContext()));
+            JSONObject json = SettingsHelper.getEUREDJson(requireContext());
 
             try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
                 if (outputStream != null) {
