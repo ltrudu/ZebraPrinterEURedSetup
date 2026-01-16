@@ -1,11 +1,17 @@
 package com.zebra.zebraprintereuredsetup;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowInsetsController;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -58,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        setLightStatusBar(this);
 
         setupViews();
         checkAndRequestPermissions();
@@ -360,5 +368,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initializeApplication() {
         // Application is ready - all permissions granted
+    }
+
+    public static void setLightStatusBar(Activity activity) {
+        if (activity == null) return;
+
+        Window window = activity.getWindow();
+
+        // 1. Set the Status Bar background color to White
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.WHITE);
+
+        // 2. Set the Status Bar Text/Icons to Black
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Modern Way (Android 11+)
+            WindowInsetsController controller = window.getInsetsController();
+            if (controller != null) {
+                controller.setSystemBarsAppearance(
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                );
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Legacy Way (Android 6.0 to 10.0)
+            View decorView = window.getDecorView();
+            int flags = decorView.getSystemUiVisibility();
+            flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decorView.setSystemUiVisibility(flags);
+        }
     }
 }
