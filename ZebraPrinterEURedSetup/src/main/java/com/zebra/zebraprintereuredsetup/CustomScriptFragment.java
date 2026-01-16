@@ -1,5 +1,6 @@
 package com.zebra.zebraprintereuredsetup;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
@@ -49,9 +50,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.method.LinkMovementMethod;
+import android.view.MotionEvent;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
+import android.widget.ImageView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,6 +110,27 @@ public class CustomScriptFragment extends Fragment {
     private static final long HIGHLIGHT_DEBOUNCE_MS = 300; // Faster response time
     private boolean isHighlightingEnabled = true;
     private boolean isUpdatingFromHighlight = false;
+
+    // Documentation lookup for possible values
+    private java.util.Map<String, DocumentationCommand> sgdDocumentationMap = new java.util.HashMap<>();
+
+    // Immersive mode
+    private MaterialButton buttonToggleImmersive;
+    private boolean isImmersiveMode = false;
+    private MaterialToolbar toolbar;
+
+    // Card resizing
+    private MaterialCardView cardCustomScript;
+    private ImageView dragHandle;
+    private int minCardHeight;
+    private float dragStartY;
+    private int dragStartHeight;
+
+    // Cards to hide in immersive mode
+    private View cardConnectivity;
+    private View cardStatus;
+    private View cardSendData;
+    private View cardFileOperations;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,12 +197,23 @@ public class CustomScriptFragment extends Fragment {
         mainContent = view.findViewById(R.id.mainContent);
 
         // Setup toolbar with back navigation
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbarCustomScript);
+        toolbar = view.findViewById(R.id.toolbarCustomScript);
         toolbar.setNavigationOnClickListener(v -> {
             if (getActivity() != null) {
                 getActivity().onBackPressed();
             }
         });
+
+        // Setup card resizing
+        cardCustomScript = view.findViewById(R.id.cardCustomScript);
+        dragHandle = view.findViewById(R.id.dragHandle);
+        setupDragHandle();
+
+        // Cards to hide in immersive mode
+        cardConnectivity = view.findViewById(R.id.cardConnectivity);
+        cardStatus = view.findViewById(R.id.cardStatus);
+        cardSendData = view.findViewById(R.id.cardSendData);
+        cardFileOperations = view.findViewById(R.id.cardFileOperations);
 
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
@@ -195,7 +235,12 @@ public class CustomScriptFragment extends Fragment {
             }
             return false;
         });
+
         textViewStatus = view.findViewById(R.id.textViewStatus);
+
+        // Immersive mode toggle button
+        buttonToggleImmersive = view.findViewById(R.id.buttonToggleImmersive);
+        buttonToggleImmersive.setOnClickListener(v -> toggleImmersiveMode());
 
         // Connectivity type spinner
         spinnerConnectivityType = view.findViewById(R.id.spinnerConnectivityType);
@@ -541,13 +586,23 @@ public class CustomScriptFragment extends Fragment {
         recyclerViewSuggestions = view.findViewById(R.id.recyclerViewSuggestions);
 
         suggestionAdapter = new CommandSuggestionAdapter(requireContext());
+
+        // Apply suggestions limit from settings
+        boolean isUnlimited = SettingsHelper.getSuggestionsUnlimited(requireContext());
+        if (isUnlimited) {
+            suggestionAdapter.setMaxSuggestions(-1); // unlimited
+        } else {
+            suggestionAdapter.setMaxSuggestions(SettingsHelper.getMaxSuggestions(requireContext()));
+        }
+
         recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewSuggestions.setAdapter(suggestionAdapter);
 
         // Handle suggestion click
         suggestionAdapter.setOnSuggestionClickListener(suggestion -> {
             insertSuggestion(suggestion);
-            hideSuggestions();
+            // Don't hide suggestions here - let insertSuggestion/updateSuggestions handle it
+            // This allows continuous SGD path completion
         });
 
         // Add text watcher with debounce for suggestions and highlighting
@@ -624,16 +679,41 @@ public class CustomScriptFragment extends Fragment {
             return;
         }
 
+        // Check if we're after a completed setvar command - suggest possible values
+        // Pattern: ! U1 setvar "command.path" <cursor>
+        java.util.regex.Pattern setvarValuePattern = java.util.regex.Pattern.compile(
+                "!\\s*u1\\s+setvar\\s+\"([^\"]+)\"\\s*$", java.util.regex.Pattern.CASE_INSENSITIVE);
+        java.util.regex.Matcher setvarMatcher = setvarValuePattern.matcher(trimmedContext);
+        if (setvarMatcher.find()) {
+            String sgdCommand = setvarMatcher.group(1);
+            List<CommandSuggestion> valueSuggestions = createValueSuggestions(sgdCommand);
+            if (!valueSuggestions.isEmpty()) {
+                suggestionAdapter.setSpecialSuggestions(valueSuggestions);
+                showSuggestions();
+                return;
+            }
+        }
+
         // Check if we're inside quotes after getvar/setvar/do - suggest SGD commands
-        if (trimmedContext.matches("!\\s*u1\\s+(getvar|setvar|do)\\s+\"[^\"]*$")) {
-            // Filter SGD commands only
-            if (currentWord.length() >= MIN_CHARS_FOR_SUGGESTION) {
-                suggestionAdapter.filterSgdOnly(currentWord);
+        java.util.regex.Pattern sgdInsideQuotesPattern = java.util.regex.Pattern.compile(
+                "!\\s*u1\\s+(getvar|setvar|do)\\s+\"([^\"]*)$", java.util.regex.Pattern.CASE_INSENSITIVE);
+        java.util.regex.Matcher sgdInsideMatcher = sgdInsideQuotesPattern.matcher(trimmedContext);
+        if (sgdInsideMatcher.find()) {
+            // Extract the SGD path typed so far (everything after the opening quote)
+            String sgdPath = sgdInsideMatcher.group(2).trim();
+
+            // Filter SGD commands only - use lower threshold (1 char) for SGD context
+            if (sgdPath.length() >= 1) {
+                suggestionAdapter.filterSgdOnly(sgdPath);
                 if (suggestionAdapter.hasSuggestions()) {
                     showSuggestions();
                 } else {
                     hideSuggestions();
                 }
+                return;
+            } else {
+                // Empty path - hide suggestions until user starts typing
+                hideSuggestions();
                 return;
             }
         }
@@ -689,6 +769,118 @@ public class CustomScriptFragment extends Fragment {
         return suggestions;
     }
 
+    private java.util.List<CommandSuggestion> createValueSuggestions(String sgdCommand) {
+        java.util.List<CommandSuggestion> suggestions = new java.util.ArrayList<>();
+        java.util.Set<String> addedValues = new java.util.HashSet<>();
+
+        // Look up the command in documentation
+        DocumentationCommand docCmd = sgdDocumentationMap.get(sgdCommand.toLowerCase());
+        if (docCmd == null) {
+            return suggestions;
+        }
+
+        // Check default value length first
+        String defaultValue = docCmd.getDefaultValue();
+        boolean defaultIsTooLong = defaultValue != null && !defaultValue.isEmpty()
+                && !defaultValue.equalsIgnoreCase("NA") && defaultValue.length() > 10;
+
+        // Check if any possible value is too long
+        java.util.List<String> possibleValues = docCmd.getPossibleValues();
+        boolean hasLongValues = defaultIsTooLong;
+
+        if (possibleValues != null) {
+            for (String value : possibleValues) {
+                java.util.List<String> simpleValues = extractSimpleValues(value);
+                if (simpleValues.isEmpty() && value.length() > 10) {
+                    hasLongValues = true;
+                    break;
+                }
+            }
+        }
+
+        // If any value is too long, only show "See documentation"
+        if (hasLongValues) {
+            // Store the SGD command for documentation lookup
+            suggestions.add(new CommandSuggestion(
+                    "See documentation",
+                    sgdCommand,  // Store command name for lookup
+                    sgdCommand,  // Also in format for lookup
+                    "HINT"
+            ));
+            return suggestions;
+        }
+
+        // Add default value first if available and short enough
+        if (defaultValue != null && !defaultValue.isEmpty() && !defaultValue.equalsIgnoreCase("NA")) {
+            String insertText = " \"" + defaultValue + "\"";
+            suggestions.add(new CommandSuggestion(
+                    defaultValue,
+                    "Default value",
+                    insertText,
+                    "VALUE"
+            ));
+            addedValues.add(defaultValue.toLowerCase());
+        }
+
+        if (possibleValues == null || possibleValues.isEmpty()) {
+            return suggestions;
+        }
+
+        for (String value : possibleValues) {
+            // Parse and extract simple values from the string
+            java.util.List<String> simpleValues = extractSimpleValues(value);
+
+            if (!simpleValues.isEmpty()) {
+                for (String simpleValue : simpleValues) {
+                    if (!addedValues.contains(simpleValue.toLowerCase())) {
+                        String insertText = " \"" + simpleValue + "\"";
+                        suggestions.add(new CommandSuggestion(
+                                simpleValue,
+                                "Possible value",
+                                insertText,
+                                "VALUE"
+                        ));
+                        addedValues.add(simpleValue.toLowerCase());
+                    }
+                }
+            } else if (value.length() <= 10 && !addedValues.contains(value.toLowerCase())) {
+                String insertText = " \"" + value + "\"";
+                suggestions.add(new CommandSuggestion(
+                        value,
+                        "Possible value",
+                        insertText,
+                        "VALUE"
+                ));
+                addedValues.add(value.toLowerCase());
+            }
+        }
+
+        return suggestions;
+    }
+
+    private java.util.List<String> extractSimpleValues(String valueString) {
+        java.util.List<String> simpleValues = new java.util.ArrayList<>();
+
+        // Pattern to match simple values: on, off, true, false, yes, no, numeric, or short values like "40-bit"
+        java.util.regex.Pattern simpleValuePattern = java.util.regex.Pattern.compile(
+                "\\b(on|off|true|false|yes|no|enabled|disabled|none|all|\\d+(?:-bit)?|\\d+(?:\\.\\d+)?)\\b",
+                java.util.regex.Pattern.CASE_INSENSITIVE
+        );
+
+        java.util.regex.Matcher matcher = simpleValuePattern.matcher(valueString);
+        java.util.Set<String> seen = new java.util.HashSet<>();
+
+        while (matcher.find()) {
+            String value = matcher.group(1).toLowerCase();
+            if (!seen.contains(value)) {
+                simpleValues.add(value);
+                seen.add(value);
+            }
+        }
+
+        return simpleValues;
+    }
+
     private String getCurrentWord() {
         int cursorPos = editTextScript.getSelectionStart();
         String text = editTextScript.getText().toString();
@@ -730,6 +922,34 @@ public class CustomScriptFragment extends Fragment {
         String insertText = suggestion.getInsertText();
         String lineContext = getCurrentLineContext();
 
+        // Special case: VALUE type - just append the value at cursor
+        if ("VALUE".equalsIgnoreCase(suggestion.getType())) {
+            String newText = text.substring(0, cursorPos) + insertText + text.substring(cursorPos);
+            editTextScript.setText(newText);
+            editTextScript.setSelection(cursorPos + insertText.length());
+            isInsertingSuggestion = false;
+            debounceHighlighting();
+            hideSuggestions();
+            return;
+        }
+
+        // Special case: HINT type - don't insert anything, show documentation
+        if ("HINT".equalsIgnoreCase(suggestion.getType())) {
+            isInsertingSuggestion = false;
+            // Show documentation bottom sheet for the SGD command
+            String sgdCommand = suggestion.getFormat(); // SGD command name stored in format
+            if (sgdCommand != null && !sgdCommand.isEmpty()) {
+                DocumentationCommand docCmd = sgdDocumentationMap.get(sgdCommand.toLowerCase());
+                if (docCmd != null) {
+                    CommandDocumentationBottomSheet bottomSheet =
+                            CommandDocumentationBottomSheet.newInstance(docCmd);
+                    bottomSheet.show(getChildFragmentManager(), "command_doc");
+                }
+            }
+            hideSuggestions();
+            return;
+        }
+
         // Special case: inserting SGD action (setvar/getvar/do) after "! U1"
         String trimmedContext = lineContext.trim().toLowerCase();
         if ((suggestion.getCommand().equals("setvar") ||
@@ -741,15 +961,30 @@ public class CustomScriptFragment extends Fragment {
             editTextScript.setText(newText);
             editTextScript.setSelection(cursorPos + insertText.length());
             isInsertingSuggestion = false;
+
+            // Trigger syntax highlighting and continue suggestions
+            debounceHighlighting();
+            suggestionHandler.postDelayed(this::updateSuggestions, 50);
             return;
         }
 
         // Special case: inserting SGD command inside quotes after getvar/setvar/do
-        if (trimmedContext.matches("!\\s*u1\\s+(getvar|setvar|do)\\s+\"[^\"]*$") &&
-            "SGD".equalsIgnoreCase(suggestion.getType())) {
+        java.util.regex.Pattern sgdQuotePattern = java.util.regex.Pattern.compile(
+                "!\\s*u1\\s+(getvar|setvar|do)\\s+\"([^\"]*)$", java.util.regex.Pattern.CASE_INSENSITIVE);
+        java.util.regex.Matcher sgdQuoteMatcher = sgdQuotePattern.matcher(trimmedContext);
+        if (sgdQuoteMatcher.find() && "SGD".equalsIgnoreCase(suggestion.getType())) {
             // Progressive SGD suggestion - just append the next segment
             // insertText contains only the new part to add (e.g., ".11ac." or ".enable")
             String segmentToAdd = insertText;
+
+            // Handle trailing whitespace inside quotes - find the quote position
+            // and calculate insertion point after the trimmed SGD path
+            String sgdPathInQuotes = sgdQuoteMatcher.group(2);
+            String trimmedSgdPath = sgdPathInQuotes.trim();
+            int trailingWhitespaceCount = sgdPathInQuotes.length() - trimmedSgdPath.length();
+
+            // Adjust cursor position to be right after the trimmed SGD path
+            int adjustedCursorPos = cursorPos - trailingWhitespaceCount;
 
             // Check if this is the final segment (no more sub-paths)
             // If name is "..." there are more segments, otherwise it's the final one
@@ -759,23 +994,26 @@ public class CustomScriptFragment extends Fragment {
             int newCursorPos;
 
             if (isFinalSegment) {
-                // Final segment - add closing quote
-                newText = text.substring(0, cursorPos) + segmentToAdd + "\"" + text.substring(cursorPos);
-                newCursorPos = cursorPos + segmentToAdd.length() + 1;
+                // Final segment - add closing quote and space for the value argument
+                // Remove trailing whitespace and insert segment + quote + space
+                newText = text.substring(0, adjustedCursorPos) + segmentToAdd + "\" " + text.substring(cursorPos);
+                newCursorPos = adjustedCursorPos + segmentToAdd.length() + 2; // +2 for quote and space
             } else {
                 // More segments to come - don't add closing quote
-                newText = text.substring(0, cursorPos) + segmentToAdd + text.substring(cursorPos);
-                newCursorPos = cursorPos + segmentToAdd.length();
+                // Remove trailing whitespace and insert segment
+                newText = text.substring(0, adjustedCursorPos) + segmentToAdd + text.substring(cursorPos);
+                newCursorPos = adjustedCursorPos + segmentToAdd.length();
             }
 
             editTextScript.setText(newText);
             editTextScript.setSelection(newCursorPos);
             isInsertingSuggestion = false;
 
-            // If there are more segments, show suggestions again
-            if (!isFinalSegment) {
-                suggestionHandler.postDelayed(this::updateSuggestions, 50);
-            }
+            // Trigger syntax highlighting
+            debounceHighlighting();
+
+            // Always try to update suggestions (let updateSuggestions decide if there are more)
+            suggestionHandler.postDelayed(this::updateSuggestions, 50);
             return;
         }
 
@@ -791,11 +1029,11 @@ public class CustomScriptFragment extends Fragment {
             editTextScript.setSelection(cursorPos + insertText.length());
             isInsertingSuggestion = false;
 
-            // If there are more segments (insertText ends with "." or name is "..."), show suggestions again
-            if (insertText.endsWith(".") || "...".equals(suggestion.getName())) {
-                // Small delay to let the text update complete
-                suggestionHandler.postDelayed(this::updateSuggestions, 50);
-            }
+            // Trigger syntax highlighting
+            debounceHighlighting();
+
+            // Always try to continue suggestions for SGD paths
+            suggestionHandler.postDelayed(this::updateSuggestions, 50);
             return;
         }
 
@@ -819,6 +1057,10 @@ public class CustomScriptFragment extends Fragment {
             int cursorOffset = suggestion.getCursorOffset();
             editTextScript.setSelection(wordStart + cursorOffset);
             isInsertingSuggestion = false;
+
+            // Trigger syntax highlighting and hide suggestions
+            debounceHighlighting();
+            hideSuggestions();
             return;
         }
 
@@ -833,14 +1075,35 @@ public class CustomScriptFragment extends Fragment {
         }
         wordStart++;
 
+        // Add space after ZBI commands and completed SGD commands (with closing quote)
+        String type = suggestion.getType();
+        String finalInsertText = insertText;
+        if ("ZBI".equalsIgnoreCase(type)) {
+            finalInsertText = insertText + " ";
+        } else if ("SGD".equalsIgnoreCase(type) && insertText.endsWith("\"")) {
+            // Only add space after SGD if the path is complete (ends with closing quote)
+            finalInsertText = insertText + " ";
+        }
+
         // Replace the current word with the suggestion
-        String newText = text.substring(0, wordStart) + insertText + text.substring(cursorPos);
+        String newText = text.substring(0, wordStart) + finalInsertText + text.substring(cursorPos);
         editTextScript.setText(newText);
 
         // Move cursor to end of inserted text
-        editTextScript.setSelection(wordStart + insertText.length());
+        editTextScript.setSelection(wordStart + finalInsertText.length());
 
         isInsertingSuggestion = false;
+
+        // Trigger syntax highlighting
+        debounceHighlighting();
+
+        // For incomplete SGD commands (no closing quote), continue showing suggestions
+        // Otherwise hide suggestions
+        if ("SGD".equalsIgnoreCase(type) && !insertText.endsWith("\"")) {
+            suggestionHandler.postDelayed(this::updateSuggestions, 50);
+        } else {
+            hideSuggestions();
+        }
     }
 
     private void showSuggestions() {
@@ -922,7 +1185,12 @@ public class CustomScriptFragment extends Fragment {
                 JSONArray sgdArray = jsonObject.optJSONArray("sgd_commands");
                 if (sgdArray != null) {
                     for (int i = 0; i < sgdArray.length(); i++) {
-                        commands.add(DocumentationCommand.fromJson(sgdArray.getJSONObject(i)));
+                        DocumentationCommand sgdCmd = DocumentationCommand.fromJson(sgdArray.getJSONObject(i));
+                        commands.add(sgdCmd);
+                        // Also add to map for value lookup
+                        if (sgdCmd.getCommand() != null) {
+                            sgdDocumentationMap.put(sgdCmd.getCommand().toLowerCase(), sgdCmd);
+                        }
                     }
                 }
 
@@ -967,6 +1235,158 @@ public class CustomScriptFragment extends Fragment {
                 scriptHighlighter.applyHighlighting(editTextScript, foundCommands);
                 isUpdatingFromHighlight = false;
             });
+        });
+    }
+
+    // ===== Immersive Mode Methods =====
+
+    private void toggleImmersiveMode() {
+        if (isImmersiveMode) {
+            exitImmersiveMode();
+        } else {
+            enterImmersiveMode();
+        }
+    }
+
+    private void enterImmersiveMode() {
+        if (getActivity() == null || getActivity().getWindow() == null) return;
+
+        isImmersiveMode = true;
+        buttonToggleImmersive.setIconResource(R.drawable.ic_fullscreen_exit);
+
+        // Hide app toolbar
+        if (toolbar != null) {
+            toolbar.setVisibility(View.GONE);
+        }
+
+        // Hide other cards (keep suggestions card visible)
+        if (cardConnectivity != null) cardConnectivity.setVisibility(View.GONE);
+        if (cardStatus != null) cardStatus.setVisibility(View.GONE);
+        if (cardSendData != null) cardSendData.setVisibility(View.GONE);
+        if (cardFileOperations != null) cardFileOperations.setVisibility(View.GONE);
+
+        // Hide MainActivity's action bar if present
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity.getSupportActionBar() != null) {
+                mainActivity.getSupportActionBar().hide();
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsController controller = getActivity().getWindow().getInsetsController();
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
+                controller.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            }
+        } else {
+            // Legacy immersive mode for older Android versions
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+    }
+
+    private void exitImmersiveMode() {
+        if (getActivity() == null || getActivity().getWindow() == null) return;
+
+        isImmersiveMode = false;
+        buttonToggleImmersive.setIconResource(R.drawable.ic_fullscreen);
+
+        // Show app toolbar
+        if (toolbar != null) {
+            toolbar.setVisibility(View.VISIBLE);
+        }
+
+        // Show other cards
+        if (cardConnectivity != null) cardConnectivity.setVisibility(View.VISIBLE);
+        if (cardStatus != null) cardStatus.setVisibility(View.VISIBLE);
+        if (cardSendData != null) cardSendData.setVisibility(View.VISIBLE);
+        if (cardFileOperations != null) cardFileOperations.setVisibility(View.VISIBLE);
+
+        // Show MainActivity's action bar if present
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity.getSupportActionBar() != null) {
+                mainActivity.getSupportActionBar().show();
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsController controller = getActivity().getWindow().getInsetsController();
+            if (controller != null) {
+                controller.show(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
+            }
+        } else {
+            // Legacy mode for older Android versions
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Exit immersive mode when leaving fragment
+        if (isImmersiveMode) {
+            exitImmersiveMode();
+        }
+    }
+
+    // ===== Card Resizing Methods =====
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupDragHandle() {
+        // Calculate minimum height (280dp in pixels)
+        minCardHeight = (int) (280 * getResources().getDisplayMetrics().density);
+
+        // Use post to ensure the view is laid out before we measure/modify it
+        cardCustomScript.post(() -> {
+            // Restore saved height or use default
+            int savedHeight = SettingsHelper.getCustomScriptCardHeight(requireContext());
+            if (savedHeight > 0 && savedHeight >= minCardHeight) {
+                ViewGroup.LayoutParams params = cardCustomScript.getLayoutParams();
+                params.height = savedHeight;
+                cardCustomScript.setLayoutParams(params);
+                cardCustomScript.requestLayout();
+            }
+        });
+
+        dragHandle.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    dragStartY = event.getRawY();
+                    dragStartHeight = cardCustomScript.getHeight();
+                    // Prevent parent from intercepting touch events
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return true;
+
+                case MotionEvent.ACTION_MOVE:
+                    float deltaY = event.getRawY() - dragStartY;
+                    int newHeight = (int) (dragStartHeight + deltaY);
+
+                    // Enforce minimum height only (no maximum)
+                    if (newHeight < minCardHeight) {
+                        newHeight = minCardHeight;
+                    }
+
+                    ViewGroup.LayoutParams params = cardCustomScript.getLayoutParams();
+                    params.height = newHeight;
+                    cardCustomScript.setLayoutParams(params);
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    // Save the new height
+                    int finalHeight = cardCustomScript.getHeight();
+                    SettingsHelper.saveCustomScriptCardHeight(requireContext(), finalHeight);
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    return true;
+            }
+            return false;
         });
     }
 }

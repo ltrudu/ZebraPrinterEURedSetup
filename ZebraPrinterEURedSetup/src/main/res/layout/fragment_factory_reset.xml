@@ -89,7 +89,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/buttonScanSerialNumber"
-                                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                                style="@style/Widget.Zebra.Button.Icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -173,7 +173,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonPerformFactoryReset"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_perform_factory_reset" />

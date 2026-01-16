@@ -19,4 +19,204 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
+    <!-- ============================================ -->
+    <!-- MODERN THEME (Green/Black) - Zebra Branding -->
+    <!-- ============================================ -->
+    <style name="Base.Theme.ZebraPrinterEURedSetup.Modern" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/zebra_pantone_361</item>
+        <item name="android:colorPrimary">@color/zebra_pantone_361</item>
+        <item name="colorPrimaryContainer">@color/zebra_pantone_5747</item>
+        <item name="colorOnPrimaryContainer">@color/zebra_pantone_375</item>
+        <item name="colorSecondary">@color/zebra_pantone_375</item>
+        <item name="colorSecondaryContainer">@color/zebra_pantone_5747</item>
+        <item name="colorTertiary">@color/zebra_pantone_375</item>
+        <!-- Status bar - Light with black text -->
+        <item name="android:statusBarColor">@color/zebra_pantone_361</item>
+        <item name="android:navigationBarColor">@color/zebra_black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <!-- Accent colors -->
+        <item name="colorAccent">@color/zebra_pantone_361</item>
+        <item name="colorControlActivated">@color/zebra_pantone_361</item>
+        <item name="android:colorControlActivated">@color/zebra_pantone_361</item>
+        <!-- Dark background colors -->
+        <item name="android:colorBackground">@color/zebra_black</item>
+        <item name="colorSurface">@color/zebra_dark_gray</item>
+        <item name="colorSurfaceVariant">@color/zebra_medium_gray</item>
+        <item name="colorOnSurface">@color/text_light</item>
+        <item name="colorOnSurfaceVariant">@color/text_muted</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/text_light</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+        <!-- Outline colors for cards and buttons -->
+        <item name="colorOutline">@color/zebra_pantone_361</item>
+        <item name="colorOutlineVariant">@color/zebra_pantone_375</item>
+        <!-- Button styles -->
+        <item name="materialButtonStyle">@style/Widget.Zebra.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Zebra.Button.Outlined</item>
+        <item name="borderlessButtonStyle">@style/Widget.Zebra.Button.TextButton</item>
+        <!-- Card style -->
+        <item name="materialCardViewStyle">@style/Widget.Zebra.CardView</item>
+        <!-- Checkbox style -->
+        <item name="checkboxStyle">@style/Widget.Zebra.CheckBox</item>
+    </style>
+
+    <style name="Base.Theme.ZebraPrinterEURedSetup_ActionBar.Modern" parent="Theme.Material3.Dark">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/MyToolbarStyle.Modern</item>
+        <item name="colorPrimary">@color/zebra_pantone_361</item>
+        <item name="android:colorPrimary">@color/zebra_pantone_361</item>
+        <item name="colorPrimaryContainer">@color/zebra_pantone_5747</item>
+        <item name="colorSecondary">@color/zebra_pantone_375</item>
+        <item name="colorTertiary">@color/zebra_pantone_375</item>
+        <item name="colorAccent">@color/zebra_pantone_361</item>
+        <item name="colorControlActivated">@color/zebra_pantone_361</item>
+        <item name="android:colorControlActivated">@color/zebra_pantone_361</item>
+        <item name="colorControlNormal">@color/zebra_pantone_375</item>
+        <item name="android:statusBarColor">@color/zebra_pantone_361</item>
+        <item name="android:navigationBarColor">@color/zebra_black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:colorBackground">@color/zebra_black</item>
+        <item name="colorSurface">@color/zebra_dark_gray</item>
+        <item name="colorOnSurface">@color/text_light</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOutline">@color/zebra_pantone_361</item>
+        <item name="android:textColorPrimary">@color/text_light</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+        <item name="materialButtonStyle">@style/Widget.Zebra.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Zebra.Button.Outlined</item>
+        <item name="materialCardViewStyle">@style/Widget.Zebra.CardView</item>
+    </style>
+
+    <style name="MyActionBarStyle.Modern" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@color/zebra_pantone_361</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText.Modern</item>
+    </style>
+
+    <style name="MyToolbarStyle.Modern" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/zebra_pantone_5747</item>
+        <item name="background">@color/zebra_pantone_361</item>
+        <item name="navigationIconTint">@color/black</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Zebra.Toolbar.Title</item>
+    </style>
+
+    <!-- ============================================ -->
+    <!-- ZEBRA BUTTON STYLES -->
+    <!-- ============================================ -->
+
+    <!-- Default filled button with green background -->
+    <style name="Widget.Zebra.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/zebra_pantone_361</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="iconTint">@color/black</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+    </style>
+
+    <!-- Outlined button with green border -->
+    <style name="Widget.Zebra.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/zebra_pantone_361</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textColor">@color/zebra_pantone_375</item>
+        <item name="iconTint">@color/zebra_pantone_375</item>
+        <item name="rippleColor">@color/zebra_pantone_5747</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+    </style>
+
+    <!-- Tonal button (for most app buttons) -->
+    <style name="Widget.Zebra.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/zebra_pantone_5747</item>
+        <item name="android:textColor">@color/zebra_pantone_375</item>
+        <item name="iconTint">@color/zebra_pantone_375</item>
+        <item name="strokeColor">@color/zebra_pantone_361</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="rippleColor">@color/zebra_pantone_361</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+    </style>
+
+    <!-- Text button -->
+    <style name="Widget.Zebra.Button.TextButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/zebra_pantone_375</item>
+        <item name="iconTint">@color/zebra_pantone_375</item>
+        <item name="rippleColor">@color/zebra_pantone_5747</item>
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+    </style>
+
+    <!-- Icon button -->
+    <style name="Widget.Zebra.Button.Icon" parent="Widget.Material3.Button.IconButton.Filled.Tonal">
+        <item name="backgroundTint">@color/zebra_pantone_5747</item>
+        <item name="iconTint">@color/zebra_pantone_375</item>
+        <item name="rippleColor">@color/zebra_pantone_361</item>
+    </style>
+
+    <!-- ============================================ -->
+    <!-- ZEBRA CARD STYLE -->
+    <!-- ============================================ -->
+    <style name="Widget.Zebra.CardView" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/zebra_dark_gray</item>
+        <item name="strokeColor">@color/zebra_pantone_5747</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <!-- ============================================ -->
+    <!-- ZEBRA CHECKBOX STYLE -->
+    <!-- ============================================ -->
+    <style name="Widget.Zebra.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/zebra_pantone_361</item>
+        <item name="android:textColor">@color/text_light</item>
+    </style>
+
+    <!-- ============================================ -->
+    <!-- ZEBRA TEXT APPEARANCES -->
+    <!-- ============================================ -->
+    <style name="TextAppearance.Zebra.Toolbar.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Zebra.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+        <item name="android:textColor">@color/text_light</item>
+    </style>
+
+    <style name="TextAppearance.Zebra.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+        <item name="android:textColor">@color/zebra_pantone_375</item>
+    </style>
+
+    <style name="TextAppearance.Zebra.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+        <item name="android:textColor">@color/zebra_pantone_361</item>
+    </style>
+
+    <!-- ============================================ -->
+    <!-- Default Theme Aliases (Modern by default) -->
+    <!-- ============================================ -->
+    <style name="Base.Theme.ZebraPrinterEURedSetup" parent="Base.Theme.ZebraPrinterEURedSetup.Modern" />
+    <style name="Theme.ZebraPrinterEURedSetup" parent="Base.Theme.ZebraPrinterEURedSetup.Modern" />
+    <style name="Base.Theme.ZebraPrinterEURedSetup_ActionBar" parent="Base.Theme.ZebraPrinterEURedSetup.Modern" />
+    <style name="Theme.ZebraPrinterEURedSetup_AB" parent="Base.Theme.ZebraPrinterEURedSetup.Modern" />
+
+    <!-- Common Styles -->
+    <style name="MyActionBarTitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MyActionBarTitleText.Modern" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/zebra_sans_regular</item>
+    </style>
+
 </resources>

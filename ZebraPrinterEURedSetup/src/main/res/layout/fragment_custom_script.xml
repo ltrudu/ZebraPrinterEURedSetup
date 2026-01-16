@@ -134,7 +134,7 @@
 
                                     <com.google.android.material.button.MaterialButton
                                         android:id="@+id/buttonScanBarcode"
-                                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                                        style="@style/Widget.Zebra.Button.Icon"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
@@ -155,14 +155,14 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCustomScript"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="280dp"
                     android:layout_marginTop="8dp"
                     app:cardElevation="4dp"
                     app:cardCornerRadius="12dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="16dp">
 
@@ -179,13 +179,14 @@
                             android:id="@+id/textInputLayoutScript"
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:hint="@string/hint_custom_script">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editTextScript"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="match_parent"
                                 android:inputType="textMultiLine|textNoSuggestions"
                                 android:gravity="top|start"
                                 android:scrollbars="vertical"
@@ -196,14 +197,41 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <!-- Show Documentation Checkbox -->
-                        <com.google.android.material.checkbox.MaterialCheckBox
-                            android:id="@+id/checkBoxShowDocumentation"
-                            android:layout_width="wrap_content"
+                        <!-- Bottom Row: Show Documentation, Immersive Mode, and Drag Handle -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="@string/label_show_documentation"
-                            android:checked="false" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.checkbox.MaterialCheckBox
+                                android:id="@+id/checkBoxShowDocumentation"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/label_show_documentation"
+                                android:checked="false" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonToggleImmersive"
+                                style="@style/Widget.Zebra.Button.Icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/content_description_toggle_immersive"
+                                app:icon="@drawable/ic_fullscreen" />
+
+                            <ImageView
+                                android:id="@+id/dragHandle"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_marginStart="8dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_drag_handle"
+                                android:contentDescription="@string/content_description_drag_resize"
+                                android:background="?attr/selectableItemBackgroundBorderless" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -310,7 +338,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonSendScript"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_send_script_to_printer" />
@@ -350,7 +378,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/buttonImportScript"
-                                style="@style/Widget.Material3.Button.TonalButton"
+                                style="@style/Widget.Zebra.Button.Tonal"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -359,7 +387,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/buttonExportScript"
-                                style="@style/Widget.Material3.Button.TonalButton"
+                                style="@style/Widget.Zebra.Button.Tonal"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"

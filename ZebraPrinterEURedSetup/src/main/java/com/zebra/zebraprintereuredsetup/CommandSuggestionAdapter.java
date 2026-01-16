@@ -27,7 +27,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
     private final List<CodeSnippet> allSnippets = new ArrayList<>();
     private final List<CommandSuggestion> filteredSuggestions = new ArrayList<>();
     private OnSuggestionClickListener listener;
-    private static final int MAX_SUGGESTIONS = 10;
+    private int maxSuggestions = -1; // -1 means unlimited
 
     public CommandSuggestionAdapter(Context context) {
         this.context = context;
@@ -42,6 +42,22 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
 
     public void setOnSuggestionClickListener(OnSuggestionClickListener listener) {
         this.listener = listener;
+    }
+
+    /**
+     * Set maximum number of suggestions to display.
+     * @param max Maximum suggestions, or -1 for unlimited
+     */
+    public void setMaxSuggestions(int max) {
+        this.maxSuggestions = max;
+    }
+
+    public int getMaxSuggestions() {
+        return maxSuggestions;
+    }
+
+    private boolean hasReachedLimit(int count) {
+        return maxSuggestions > 0 && count >= maxSuggestions;
     }
 
     public void filter(String query) {
@@ -208,7 +224,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
 
             // Add snippets first (highest priority)
             for (CommandSuggestion snippet : snippetSuggestions) {
-                if (count >= MAX_SUGGESTIONS) break;
+                if (hasReachedLimit(count)) break;
                 filteredSuggestions.add(snippet);
                 count++;
             }
@@ -216,7 +232,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
             // If there are SGD matches, add priority suggestions for available actions
             if (hasSgdMatches && !sgdSuggestions.isEmpty()) {
                 // Add "! U1 setvar" wrapper if setvar is available
-                if (hasSetvar && count < MAX_SUGGESTIONS) {
+                if (hasSetvar && !hasReachedLimit(count)) {
                     filteredSuggestions.add(new CommandSuggestion(
                             "! U1 setvar \"" + query,
                             "SGD Set Variable",
@@ -227,7 +243,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                 }
 
                 // Add "! U1 getvar" wrapper if getvar is available
-                if (hasGetvar && count < MAX_SUGGESTIONS) {
+                if (hasGetvar && !hasReachedLimit(count)) {
                     filteredSuggestions.add(new CommandSuggestion(
                             "! U1 getvar \"" + query,
                             "SGD Get Variable",
@@ -238,7 +254,7 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                 }
 
                 // Add "! U1 do" wrapper if do is available
-                if (hasDo && count < MAX_SUGGESTIONS) {
+                if (hasDo && !hasReachedLimit(count)) {
                     filteredSuggestions.add(new CommandSuggestion(
                             "! U1 do \"" + query,
                             "SGD Execute Action",
@@ -251,21 +267,21 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
 
             // Add ZPL suggestions
             for (CommandSuggestion zpl : zplSuggestions) {
-                if (count >= MAX_SUGGESTIONS) break;
+                if (hasReachedLimit(count)) break;
                 filteredSuggestions.add(zpl);
                 count++;
             }
 
             // Add SGD suggestions
             for (CommandSuggestion sgd : sgdSuggestions) {
-                if (count >= MAX_SUGGESTIONS) break;
+                if (hasReachedLimit(count)) break;
                 filteredSuggestions.add(sgd);
                 count++;
             }
 
             // Add other suggestions
             for (CommandSuggestion other : otherSuggestions) {
-                if (count >= MAX_SUGGESTIONS) break;
+                if (hasReachedLimit(count)) break;
                 filteredSuggestions.add(other);
                 count++;
             }
@@ -319,7 +335,8 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                 continue;
             }
 
-            if (count >= MAX_SUGGESTIONS) {
+            // Check if limit reached
+            if (hasReachedLimit(count)) {
                 break;
             }
 
@@ -478,6 +495,12 @@ public class CommandSuggestionAdapter extends RecyclerView.Adapter<CommandSugges
                     break;
                 case "ZBI":
                     colorRes = R.color.badge_zbi;
+                    break;
+                case "VALUE":
+                    colorRes = R.color.badge_value;
+                    break;
+                case "HINT":
+                    colorRes = R.color.badge_hint;
                     break;
                 default:
                     colorRes = R.color.badge_default;

@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
@@ -34,6 +36,12 @@ public class SettingsFragment extends Fragment {
 
     private TextView textViewStatus;
     private AutoCompleteTextView autoCompleteLanguage;
+
+    // Suggestions settings
+    private MaterialCheckBox checkBoxUnlimitedSuggestions;
+    private TextInputLayout textInputLayoutMaxSuggestions;
+    private AutoCompleteTextView autoCompleteMaxSuggestions;
+    private static final String[] MAX_SUGGESTIONS_VALUES = {"5", "10", "15", "20"};
 
     // File operations buttons
     private MaterialButton buttonImportSettings;
@@ -96,6 +104,12 @@ public class SettingsFragment extends Fragment {
         // Setup language dropdown
         setupLanguageDropdown();
 
+        // Suggestions settings
+        checkBoxUnlimitedSuggestions = view.findViewById(R.id.checkBoxUnlimitedSuggestions);
+        textInputLayoutMaxSuggestions = view.findViewById(R.id.textInputLayoutMaxSuggestions);
+        autoCompleteMaxSuggestions = view.findViewById(R.id.autoCompleteMaxSuggestions);
+        setupSuggestionsSettings();
+
         // File operations buttons
         buttonImportSettings = view.findViewById(R.id.buttonImportSettings);
         buttonExportSettings = view.findViewById(R.id.buttonExportSettings);
@@ -155,6 +169,57 @@ public class SettingsFragment extends Fragment {
             if (getActivity() != null) {
                 getActivity().recreate();
             }
+        });
+    }
+
+    private void setupSuggestionsSettings() {
+        // Setup dropdown adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                MAX_SUGGESTIONS_VALUES
+        ) {
+            @Override
+            public android.widget.Filter getFilter() {
+                return new android.widget.Filter() {
+                    @Override
+                    protected FilterResults performFiltering(CharSequence constraint) {
+                        FilterResults results = new FilterResults();
+                        results.values = MAX_SUGGESTIONS_VALUES;
+                        results.count = MAX_SUGGESTIONS_VALUES.length;
+                        return results;
+                    }
+
+                    @Override
+                    protected void publishResults(CharSequence constraint, FilterResults results) {
+                        notifyDataSetChanged();
+                    }
+                };
+            }
+        };
+        autoCompleteMaxSuggestions.setAdapter(adapter);
+
+        // Load saved settings
+        boolean isUnlimited = SettingsHelper.getSuggestionsUnlimited(requireContext());
+        int maxSuggestions = SettingsHelper.getMaxSuggestions(requireContext());
+
+        checkBoxUnlimitedSuggestions.setChecked(isUnlimited);
+        textInputLayoutMaxSuggestions.setVisibility(isUnlimited ? View.GONE : View.VISIBLE);
+
+        // Set current dropdown selection
+        String currentValue = String.valueOf(maxSuggestions);
+        autoCompleteMaxSuggestions.setText(currentValue, false);
+
+        // Handle checkbox changes
+        checkBoxUnlimitedSuggestions.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveSuggestionsUnlimited(requireContext(), isChecked);
+            textInputLayoutMaxSuggestions.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+        });
+
+        // Handle dropdown selection
+        autoCompleteMaxSuggestions.setOnItemClickListener((parent, view, position, id) -> {
+            int selectedValue = Integer.parseInt(MAX_SUGGESTIONS_VALUES[position]);
+            SettingsHelper.saveMaxSuggestions(requireContext(), selectedValue);
         });
     }
 
@@ -310,6 +375,10 @@ public class SettingsFragment extends Fragment {
         json.put("devicePromptedNetworkResetEnabled", SettingsHelper.getDevicePromptedNetworkResetEnabled(requireContext()));
         json.put("devicePromptedNetworkReset", SettingsHelper.getDevicePromptedNetworkReset(requireContext()));
 
+        // Suggestions settings
+        json.put("suggestionsUnlimited", SettingsHelper.getSuggestionsUnlimited(requireContext()));
+        json.put("maxSuggestions", SettingsHelper.getMaxSuggestions(requireContext()));
+
         return json;
     }
 
@@ -429,6 +498,14 @@ public class SettingsFragment extends Fragment {
         }
         if (json.has("devicePromptedNetworkReset")) {
             SettingsHelper.saveDevicePromptedNetworkReset(requireContext(), json.getBoolean("devicePromptedNetworkReset"));
+        }
+
+        // Suggestions settings
+        if (json.has("suggestionsUnlimited")) {
+            SettingsHelper.saveSuggestionsUnlimited(requireContext(), json.getBoolean("suggestionsUnlimited"));
+        }
+        if (json.has("maxSuggestions")) {
+            SettingsHelper.saveMaxSuggestions(requireContext(), json.getInt("maxSuggestions"));
         }
     }
 }

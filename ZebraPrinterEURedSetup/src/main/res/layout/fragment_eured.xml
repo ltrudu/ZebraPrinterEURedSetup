@@ -142,7 +142,7 @@
 
                                     <com.google.android.material.button.MaterialButton
                                         android:id="@+id/buttonScanBarcode"
-                                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                                        style="@style/Widget.Zebra.Button.Icon"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
@@ -221,7 +221,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonSetupScript"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_setup_script" />
@@ -256,7 +256,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonSetupPasswordBluetooth"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_send_script_to_printer" />
@@ -291,7 +291,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonResetPrinterSettings"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_reset_printer_settings" />
@@ -326,7 +326,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonTestLabel"
-                            style="@style/Widget.Material3.Button.TonalButton"
+                            style="@style/Widget.Zebra.Button.Tonal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/button_test_label" />

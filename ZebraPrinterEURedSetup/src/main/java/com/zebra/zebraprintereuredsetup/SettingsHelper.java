@@ -450,4 +450,47 @@ public class SettingsHelper {
         editor.putString(KEY_LAST_EXPORT_FOLDER_URI, uri);
         editor.commit();
     }
+
+    // Custom Script Card Height (in pixels, -1 means use default)
+    private static final String KEY_CUSTOM_SCRIPT_CARD_HEIGHT = "custom_script_card_height";
+
+    public static int getCustomScriptCardHeight(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getInt(KEY_CUSTOM_SCRIPT_CARD_HEIGHT, -1);
+    }
+
+    public static void saveCustomScriptCardHeight(Context context, int height) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(KEY_CUSTOM_SCRIPT_CARD_HEIGHT, height);
+        editor.commit();
+    }
+
+    // Suggestions settings
+    private static final String KEY_SUGGESTIONS_UNLIMITED = "suggestions_unlimited";
+    private static final String KEY_MAX_SUGGESTIONS = "max_suggestions";
+
+    public static boolean getSuggestionsUnlimited(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_SUGGESTIONS_UNLIMITED, true); // unlimited by default
+    }
+
+    public static void saveSuggestionsUnlimited(Context context, boolean unlimited) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_SUGGESTIONS_UNLIMITED, unlimited);
+        editor.commit();
+    }
+
+    public static int getMaxSuggestions(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getInt(KEY_MAX_SUGGESTIONS, 10); // default 10 when not unlimited
+    }
+
+    public static void saveMaxSuggestions(Context context, int max) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(KEY_MAX_SUGGESTIONS, max);
+        editor.commit();
+    }
 }

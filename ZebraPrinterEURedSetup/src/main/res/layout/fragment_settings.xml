@@ -55,9 +55,9 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Status Card -->
+        <!-- Suggestions Card -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardStatus"
+            android:id="@+id/cardSuggestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -71,21 +71,37 @@
                 android:padding="16dp">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/titleStatus"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="@string/title_status"
+                    android:text="@string/title_suggestions"
                     android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textViewStatus"
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkBoxUnlimitedSuggestions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/status_ready"
-                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+                    android:text="@string/label_unlimited_suggestions"
+                    android:checked="true" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutMaxSuggestions"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/label_max_suggestions"
+                    android:visibility="gone">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteMaxSuggestions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:cursorVisible="false"
+                        android:focusable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -122,7 +138,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonImportSettings"
-                        style="@style/Widget.Material3.Button.TonalButton"
+                        style="@style/Widget.Zebra.Button.Tonal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -131,13 +147,49 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonExportSettings"
-                        style="@style/Widget.Material3.Button.TonalButton"
+                        style="@style/Widget.Zebra.Button.Tonal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/button_export_settings" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Status Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/titleStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text="@string/title_status"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textViewStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/status_ready"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             </LinearLayout>
 

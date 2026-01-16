@@ -14,9 +14,31 @@
     <color name="badge_sgd">#388E3C</color>
     <color name="badge_zbi">#F57C00</color>
     <color name="badge_snippet">#9C27B0</color>
+    <color name="badge_value">#E91E63</color>
+    <color name="badge_hint">#607D8B</color>
 
     <!-- Syntax Highlighting Colors (same as badge colors for consistency) -->
     <color name="syntax_zpl">#1976D2</color>
     <color name="syntax_sgd">#388E3C</color>
     <color name="syntax_zbi">#F57C00</color>
+
+    <!-- Legacy Theme Colors (Blue) -->
+    <color name="zebra_pantone_285">#1C91FF</color>
+    <color name="zebra_pantone_2728">#0A4FFF</color>
+    <color name="zebra_pantone_2756">#000AB5</color>
+    <color name="pastelbluelight">#FFB6D8F4</color>
+
+    <!-- Modern Theme Colors (Green/Black) -->
+    <!--color name="zebra_green">#00C851</color-->
+    <color name="zebra_pantone_375">#96FF38</color>
+    <color name="zebra_pantone_5747">#243500</color>
+    <color name="zebra_pantone_361">#4FFF00</color>
+    <color name="zebra_black">#000000</color>
+    <color name="zebra_dark_gray">#1a1a1a</color>
+    <color name="zebra_medium_gray">#2d2d2d</color>
+    <color name="zebra_border">#404040</color>
+    <color name="zebra_border_light">#555555</color>
+    <color name="text_light">#FFFFFF</color>
+    <color name="text_muted">#B0B0B0</color>
+    <color name="text_dark">#E0E0E0</color>
 </resources>

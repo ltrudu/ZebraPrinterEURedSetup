@@ -108,7 +108,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonClearOldPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonScanOldPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -169,7 +169,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonPrefillNewPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -178,7 +178,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonScanNewPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -248,7 +248,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonClearAuthPassword"
-                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                        style="@style/Widget.Zebra.Button.Icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -257,7 +257,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonScanAuthPassword"
-                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                        style="@style/Widget.Zebra.Button.Icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -479,7 +479,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonPrefillHttpAdminPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -488,7 +488,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonScanHttpAdminPassword"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -583,7 +583,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonClearPasswordCurrent"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -592,7 +592,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonScanPasswordCurrent"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            style="@style/Widget.Zebra.Button.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"

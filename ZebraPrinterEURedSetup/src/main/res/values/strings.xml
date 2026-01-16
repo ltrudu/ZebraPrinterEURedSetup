@@ -79,6 +79,8 @@
     <string name="content_description_clear_password_current">Clear password current</string>
     <string name="content_description_scan_password_current">Scan password current</string>
     <string name="content_description_toggle_flash">Toggle flash</string>
+    <string name="content_description_toggle_immersive">Toggle immersive mode</string>
+    <string name="content_description_drag_resize">Drag to resize</string>
 
     <!-- Scanner -->
     <string name="scanner_hint">Point camera at barcode</string>
@@ -293,6 +295,11 @@
     <string name="status_settings_exported">Settings exported successfully!</string>
     <string name="error_import_settings_failed">Import settings failed: %1$s</string>
     <string name="error_export_settings_failed">Export settings failed: %1$s</string>
+
+    <!-- Suggestions Settings -->
+    <string name="title_suggestions">Suggestions</string>
+    <string name="label_unlimited_suggestions">Unlimited</string>
+    <string name="label_max_suggestions">Max suggestions</string>
 
     <!-- Syntax Highlighting -->
     <string name="title_command_documentation">Command Documentation</string>
