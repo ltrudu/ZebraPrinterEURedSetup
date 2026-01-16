@@ -223,8 +223,15 @@
                     android:id="@+id/checkBoxEmbedEuredScript"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="@string/label_embed_eured_script"
+                    android:checked="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkBoxEmbedCustomActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/label_embed_custom_actions"
                     android:checked="false" />
 
                 <LinearLayout

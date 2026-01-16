@@ -300,6 +300,10 @@
     <string name="button_export_as_txt">Export As TXT</string>
     <string name="status_settings_imported">Settings imported successfully!</string>
     <string name="status_settings_exported">Settings exported successfully!</string>
+    <string name="dialog_import_config_title">Import Configuration</string>
+    <string name="dialog_import_config_message">Do you want to import the configuration from this file?\n\nThis will apply all settings including custom actions and their order.</string>
+    <string name="button_import">Import</string>
+    <string name="status_config_imported">Configuration imported and applied!</string>
     <string name="status_eured_script_exported">EU Red script exported successfully!</string>
     <string name="error_import_settings_failed">Import settings failed: %1$s</string>
     <string name="error_export_settings_failed">Export settings failed: %1$s</string>
@@ -316,6 +320,7 @@
     <string name="label_show_send_script_card">Show Send Script Card</string>
     <string name="button_open_script_settings">Open Script Settings</string>
     <string name="label_embed_eured_script">Embed EURed Script</string>
+    <string name="label_embed_custom_actions">Embed Custom Actions &amp; Order</string>
 
     <!-- Edit Mode -->
     <string name="title_edit_mode">Edit Mode</string>

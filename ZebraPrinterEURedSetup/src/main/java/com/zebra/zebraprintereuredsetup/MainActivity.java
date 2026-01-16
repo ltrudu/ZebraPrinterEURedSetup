@@ -3,8 +3,10 @@ package com.zebra.zebraprintereuredsetup;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +17,17 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.zebra.zebraprintereuredsetup.data.AppDatabase;
+import com.zebra.zebraprintereuredsetup.data.entity.HomeEntry;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.concurrent.Executors;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -82,6 +95,107 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Always load the appropriate fragment
         loadFragmentForNavItem(currentNavItemId);
         navigationView.setCheckedItem(currentNavItemId);
+
+        // Check if app was opened with a .zbc configuration file
+        handleIncomingIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIncomingIntent(intent);
+    }
+
+    /**
+     * Handles incoming intents for .zbc configuration files.
+     */
+    private void handleIncomingIntent(Intent intent) {
+        if (intent == null) return;
+
+        String action = intent.getAction();
+        Uri uri = intent.getData();
+
+        if (Intent.ACTION_VIEW.equals(action) && uri != null) {
+            // Clear the intent data immediately to prevent re-processing after recreate()
+            intent.setData(null);
+            intent.setAction(null);
+            setIntent(new Intent());
+
+            // Check if it's a .zbc file by path or accept any file opened via intent
+            String path = uri.getPath();
+            if (path != null && path.toLowerCase().endsWith(".zbc") ||
+                uri.getScheme() != null && uri.getScheme().equals("content")) {
+                showImportConfirmationDialog(uri);
+            }
+        }
+    }
+
+    /**
+     * Shows a confirmation dialog before importing configuration.
+     */
+    private void showImportConfirmationDialog(Uri uri) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_import_config_title)
+                .setMessage(R.string.dialog_import_config_message)
+                .setPositiveButton(R.string.button_import, (dialog, which) -> {
+                    importConfigurationFromUri(uri);
+                })
+                .setNegativeButton(R.string.button_cancel, null)
+                .show();
+    }
+
+    /**
+     * Imports configuration from a .zbc file URI.
+     */
+    private void importConfigurationFromUri(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                reader.close();
+                inputStream.close();
+
+                JSONObject json = new JSONObject(stringBuilder.toString());
+                java.util.List<HomeEntry> homeEntries = SettingsHelper.applySettingsJSON(this, json);
+
+                // If home entries were imported, update the database
+                if (homeEntries != null && !homeEntries.isEmpty()) {
+                    applyImportedHomeEntries(homeEntries);
+                }
+
+                Toast.makeText(this, R.string.status_config_imported, Toast.LENGTH_SHORT).show();
+
+                // Recreate activity to apply all imported settings (for language changes)
+                recreate();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, getString(R.string.error_import_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Apply imported home entries to the database.
+     */
+    private void applyImportedHomeEntries(java.util.List<HomeEntry> homeEntries) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase database = AppDatabase.getInstance(this);
+            for (HomeEntry entry : homeEntries) {
+                // Check if entry exists
+                HomeEntry existingEntry = database.homeEntryDao().getEntryById(entry.getId());
+                if (existingEntry != null) {
+                    // Update existing entry
+                    database.homeEntryDao().update(entry);
+                } else {
+                    // Insert new entry
+                    database.homeEntryDao().insert(entry);
+                }
+            }
+        });
     }
 
     @Override

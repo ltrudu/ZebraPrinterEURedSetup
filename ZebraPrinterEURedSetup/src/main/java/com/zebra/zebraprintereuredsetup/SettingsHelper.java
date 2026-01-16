@@ -17,8 +17,14 @@ package com.zebra.zebraprintereuredsetup;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.zebra.zebraprintereuredsetup.data.entity.HomeEntry;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsHelper {
 
@@ -557,6 +563,21 @@ public class SettingsHelper {
         editor.commit();
     }
 
+    // Embed Custom Actions & Order setting
+    private static final String KEY_EMBED_CUSTOM_ACTIONS = "embed_custom_actions";
+
+    public static boolean getEmbedCustomActions(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(KEY_EMBED_CUSTOM_ACTIONS, false); // not embedded by default
+    }
+
+    public static void saveEmbedCustomActions(Context context, boolean embed) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_EMBED_CUSTOM_ACTIONS, embed);
+        editor.commit();
+    }
+
     // ==================== JSON Export/Import Methods ====================
 
     /**
@@ -725,6 +746,18 @@ public class SettingsHelper {
      * @param embedEURED If true, includes EURED configuration in the JSON
      */
     public static JSONObject getSettingsJSON(Context context, boolean embedEURED) throws JSONException {
+        return getSettingsJSON(context, embedEURED, false, null);
+    }
+
+    /**
+     * Get app settings as JSON with home entries support.
+     * @param context Android context
+     * @param embedEURED If true, includes EURED configuration in the JSON
+     * @param embedCustomActions If true, includes home entries in the JSON
+     * @param homeEntries List of home entries to include (required if embedCustomActions is true)
+     */
+    public static JSONObject getSettingsJSON(Context context, boolean embedEURED,
+                                              boolean embedCustomActions, List<HomeEntry> homeEntries) throws JSONException {
         JSONObject json = new JSONObject();
 
         // Language
@@ -739,12 +772,21 @@ public class SettingsHelper {
         json.put("showRestorePreEuredCard", getShowRestorePreEured(context));
         json.put("showSendScriptCard", getShowSendScriptCard(context));
 
-        // Embed setting
+        // Embed settings
         json.put("embedEuredScript", getEmbedEuredScript(context));
+        json.put("embedCustomActions", getEmbedCustomActions(context));
+
+        // Edit mode setting
+        json.put("editModeEnabled", getEditModeEnabled(context));
 
         // Optionally embed EURED config
         if (embedEURED) {
             json.put("euredConfig", getEUREDJson(context));
+        }
+
+        // Optionally embed custom actions & order
+        if (embedCustomActions && homeEntries != null) {
+            json.put("homeEntries", homeEntriesToJson(homeEntries));
         }
 
         return json;
@@ -753,8 +795,9 @@ public class SettingsHelper {
     /**
      * Apply app settings from JSON.
      * If the JSON contains embedded EURED config, it will also be applied.
+     * @return List of HomeEntry objects if present in JSON, null otherwise
      */
-    public static void applySettingsJSON(Context context, JSONObject json) throws JSONException {
+    public static List<HomeEntry> applySettingsJSON(Context context, JSONObject json) throws JSONException {
         // Language
         if (json.has("language")) {
             saveLanguage(context, json.getString("language"));
@@ -779,15 +822,89 @@ public class SettingsHelper {
             saveShowSendScriptCard(context, json.getBoolean("showSendScriptCard"));
         }
 
-        // Embed setting
+        // Embed settings
         if (json.has("embedEuredScript")) {
             saveEmbedEuredScript(context, json.getBoolean("embedEuredScript"));
+        }
+        if (json.has("embedCustomActions")) {
+            saveEmbedCustomActions(context, json.getBoolean("embedCustomActions"));
+        }
+
+        // Edit mode setting
+        if (json.has("editModeEnabled")) {
+            saveEditModeEnabled(context, json.getBoolean("editModeEnabled"));
         }
 
         // Apply embedded EURED config if present
         if (json.has("euredConfig")) {
             applyEUREDJson(context, json.getJSONObject("euredConfig"));
         }
+
+        // Return home entries if present
+        if (json.has("homeEntries")) {
+            return jsonToHomeEntries(json.getJSONArray("homeEntries"));
+        }
+
+        return null;
+    }
+
+    // ==================== Home Entries JSON Serialization ====================
+
+    /**
+     * Serialize a list of home entries to JSON array.
+     */
+    public static JSONArray homeEntriesToJson(List<HomeEntry> entries) throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (HomeEntry entry : entries) {
+            JSONObject entryJson = new JSONObject();
+            entryJson.put("id", entry.getId());
+            entryJson.put("titleResName", entry.getTitleResName());
+            entryJson.put("titleCustom", entry.getTitleCustom());
+            entryJson.put("descriptionResName", entry.getDescriptionResName());
+            entryJson.put("descriptionCustom", entry.getDescriptionCustom());
+            entryJson.put("iconResName", entry.getIconResName());
+            entryJson.put("navigationTarget", entry.getNavigationTarget());
+            entryJson.put("entryType", entry.getEntryType());
+            entryJson.put("isVisible", entry.isVisible());
+            entryJson.put("orderPosition", entry.getOrderPosition());
+            entryJson.put("requiresAdvancedMode", entry.isRequiresAdvancedMode());
+            entryJson.put("customScriptContent", entry.getCustomScriptContent());
+            entryJson.put("createdAt", entry.getCreatedAt());
+            entryJson.put("updatedAt", entry.getUpdatedAt());
+            jsonArray.put(entryJson);
+        }
+        return jsonArray;
+    }
+
+    /**
+     * Deserialize JSON array to list of home entries.
+     */
+    public static List<HomeEntry> jsonToHomeEntries(JSONArray jsonArray) throws JSONException {
+        List<HomeEntry> entries = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject entryJson = jsonArray.getJSONObject(i);
+
+            HomeEntry entry = new HomeEntry(
+                    entryJson.getString("id"),
+                    entryJson.optString("titleResName", ""),
+                    entryJson.optString("descriptionResName", ""),
+                    entryJson.optString("iconResName", "ic_custom_script"),
+                    entryJson.optString("navigationTarget", null),
+                    entryJson.optInt("entryType", HomeEntry.TYPE_CUSTOM),
+                    entryJson.optBoolean("isVisible", true),
+                    entryJson.optInt("orderPosition", i),
+                    entryJson.optBoolean("requiresAdvancedMode", false)
+            );
+
+            entry.setTitleCustom(entryJson.optString("titleCustom", null));
+            entry.setDescriptionCustom(entryJson.optString("descriptionCustom", null));
+            entry.setCustomScriptContent(entryJson.optString("customScriptContent", null));
+            entry.setCreatedAt(entryJson.optLong("createdAt", System.currentTimeMillis()));
+            entry.setUpdatedAt(entryJson.optLong("updatedAt", System.currentTimeMillis()));
+
+            entries.add(entry);
+        }
+        return entries;
     }
 
     // Edit Mode setting

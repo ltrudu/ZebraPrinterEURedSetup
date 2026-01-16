@@ -30,7 +30,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+
+import com.zebra.zebraprintereuredsetup.data.AppDatabase;
+import com.zebra.zebraprintereuredsetup.data.entity.HomeEntry;
+import com.zebra.zebraprintereuredsetup.data.repository.HomeEntryRepository;
 
 public class SettingsFragment extends Fragment {
 
@@ -54,8 +60,12 @@ public class SettingsFragment extends Fragment {
 
     // File operations
     private MaterialCheckBox checkBoxEmbedEuredScript;
+    private MaterialCheckBox checkBoxEmbedCustomActions;
     private MaterialButton buttonImportSettings;
     private MaterialButton buttonExportSettings;
+
+    // Repository for home entries
+    private HomeEntryRepository homeEntryRepository;
 
     // Activity result launchers
     private ActivityResultLauncher<Intent> importSettingsLauncher;
@@ -133,19 +143,31 @@ public class SettingsFragment extends Fragment {
 
         // File operations
         checkBoxEmbedEuredScript = view.findViewById(R.id.checkBoxEmbedEuredScript);
+        checkBoxEmbedCustomActions = view.findViewById(R.id.checkBoxEmbedCustomActions);
         buttonImportSettings = view.findViewById(R.id.buttonImportSettings);
         buttonExportSettings = view.findViewById(R.id.buttonExportSettings);
+
+        // Initialize repository
+        homeEntryRepository = new HomeEntryRepository(requireContext());
+
         setupFileOperations();
     }
 
     private void setupFileOperations() {
-        // Load saved embed setting
+        // Load saved embed settings
         boolean embedEured = SettingsHelper.getEmbedEuredScript(requireContext());
         checkBoxEmbedEuredScript.setChecked(embedEured);
+
+        boolean embedCustomActions = SettingsHelper.getEmbedCustomActions(requireContext());
+        checkBoxEmbedCustomActions.setChecked(embedCustomActions);
 
         // Handle checkbox changes
         checkBoxEmbedEuredScript.setOnCheckedChangeListener((buttonView, isChecked) -> {
             SettingsHelper.saveEmbedEuredScript(requireContext(), isChecked);
+        });
+
+        checkBoxEmbedCustomActions.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveEmbedCustomActions(requireContext(), isChecked);
         });
 
         buttonImportSettings.setOnClickListener(v -> openImportDialog());
@@ -304,7 +326,7 @@ public class SettingsFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
-        String[] mimeTypes = {"application/json", "text/plain", "text/*"};
+        String[] mimeTypes = {"application/json", "application/octet-stream", "text/plain", "text/*"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
 
         // Use last folder or default to Documents
@@ -323,11 +345,11 @@ public class SettingsFragment extends Fragment {
     private void openExportDialog() {
         // Generate filename with timestamp
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String filename = "ZEURED_" + timestamp + ".json";
+        String filename = "ZEURED_" + timestamp + ".zbc";
 
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/json");
+        intent.setType("application/octet-stream");
         intent.putExtra(Intent.EXTRA_TITLE, filename);
 
         // Use last folder or default to Documents
@@ -357,7 +379,12 @@ public class SettingsFragment extends Fragment {
                 inputStream.close();
 
                 JSONObject json = new JSONObject(stringBuilder.toString());
-                SettingsHelper.applySettingsJSON(requireContext(), json);
+                List<HomeEntry> homeEntries = SettingsHelper.applySettingsJSON(requireContext(), json);
+
+                // If home entries were imported, update the database
+                if (homeEntries != null && !homeEntries.isEmpty()) {
+                    applyImportedHomeEntries(homeEntries);
+                }
 
                 // Update UI from saved settings
                 updateUIFromSettings();
@@ -377,6 +404,27 @@ public class SettingsFragment extends Fragment {
             Toast.makeText(requireContext(), getString(R.string.error_import_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
             setStatus(getString(R.string.error_import_settings_failed, e.getMessage()), requireContext().getColor(android.R.color.holo_red_dark));
         }
+    }
+
+    /**
+     * Apply imported home entries to the database.
+     * Updates existing entries and inserts new ones.
+     */
+    private void applyImportedHomeEntries(List<HomeEntry> homeEntries) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase database = AppDatabase.getInstance(requireContext());
+            for (HomeEntry entry : homeEntries) {
+                // Check if entry exists
+                HomeEntry existingEntry = database.homeEntryDao().getEntryById(entry.getId());
+                if (existingEntry != null) {
+                    // Update existing entry
+                    database.homeEntryDao().update(entry);
+                } else {
+                    // Insert new entry
+                    database.homeEntryDao().insert(entry);
+                }
+            }
+        });
     }
 
     private void updateUIFromSettings() {
@@ -401,14 +449,48 @@ public class SettingsFragment extends Fragment {
         checkBoxShowRestorePreEuredCard.setChecked(SettingsHelper.getShowRestorePreEured(requireContext()));
         checkBoxShowSendScriptCard.setChecked(SettingsHelper.getShowSendScriptCard(requireContext()));
 
-        // Embed EURED Script setting
+        // Embed settings
         checkBoxEmbedEuredScript.setChecked(SettingsHelper.getEmbedEuredScript(requireContext()));
+        checkBoxEmbedCustomActions.setChecked(SettingsHelper.getEmbedCustomActions(requireContext()));
     }
 
     private void exportSettingsToUri(Uri uri) {
+        boolean embedEured = SettingsHelper.getEmbedEuredScript(requireContext());
+        boolean embedCustomActions = SettingsHelper.getEmbedCustomActions(requireContext());
+
+        if (embedCustomActions) {
+            // Need to fetch home entries on background thread
+            Executors.newSingleThreadExecutor().execute(() -> {
+                try {
+                    List<HomeEntry> homeEntries = AppDatabase.getInstance(requireContext())
+                            .homeEntryDao().getAllEntries();
+
+                    JSONObject json = SettingsHelper.getSettingsJSON(requireContext(), embedEured,
+                            embedCustomActions, homeEntries);
+
+                    // Write to file on main thread
+                    requireActivity().runOnUiThread(() -> writeJsonToUri(uri, json));
+                } catch (Exception e) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                        setStatus(getString(R.string.error_export_settings_failed, e.getMessage()), requireContext().getColor(android.R.color.holo_red_dark));
+                    });
+                }
+            });
+        } else {
+            // No home entries needed, export directly
+            try {
+                JSONObject json = SettingsHelper.getSettingsJSON(requireContext(), embedEured);
+                writeJsonToUri(uri, json);
+            } catch (Exception e) {
+                Toast.makeText(requireContext(), getString(R.string.error_export_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                setStatus(getString(R.string.error_export_settings_failed, e.getMessage()), requireContext().getColor(android.R.color.holo_red_dark));
+            }
+        }
+    }
+
+    private void writeJsonToUri(Uri uri, JSONObject json) {
         try {
-            boolean embedEured = SettingsHelper.getEmbedEuredScript(requireContext());
-            JSONObject json = SettingsHelper.getSettingsJSON(requireContext(), embedEured);
             OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri);
             if (outputStream != null) {
                 outputStream.write(json.toString(2).getBytes());
