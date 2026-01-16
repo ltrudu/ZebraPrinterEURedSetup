@@ -65,6 +65,13 @@ public class AboutFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zebra.com/us/en/support-downloads/printer-software/link-os-multiplatform-sdk.html"));
             startActivity(intent);
         });
+
+        // Room button
+        MaterialButton buttonRoom = view.findViewById(R.id.buttonRoom);
+        buttonRoom.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com/jetpack/androidx/releases/room"));
+            startActivity(intent);
+        });
     }
 
     private void onDeveloperClicked() {

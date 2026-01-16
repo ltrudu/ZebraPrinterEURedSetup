@@ -789,4 +789,19 @@ public class SettingsHelper {
             applyEUREDJson(context, json.getJSONObject("euredConfig"));
         }
     }
+
+    // Edit Mode setting
+    private static final String EDIT_MODE_ENABLED_KEY = "EDIT_MODE_ENABLED";
+
+    public static boolean getEditModeEnabled(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(EDIT_MODE_ENABLED_KEY, false);
+    }
+
+    public static void saveEditModeEnabled(Context context, boolean enabled) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(EDIT_MODE_ENABLED_KEY, enabled);
+        editor.commit();
+    }
 }

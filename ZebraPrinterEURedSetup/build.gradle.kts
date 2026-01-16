@@ -12,8 +12,8 @@ android {
         applicationId = "com.zebra.zebraprintereuredsetup.dev"
         minSdk = 29
         targetSdk = 36
-        versionCode = 12
-        versionName = "1.8.0"
+        versionCode = 14
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -83,6 +83,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // Room Database
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
 
     // ZXing barcode scanner
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")

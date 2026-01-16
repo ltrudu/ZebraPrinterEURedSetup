@@ -13,12 +13,13 @@ import android.view.Window;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -42,8 +43,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private MaterialToolbar toolbar;
+    private ImageButton toolbarButtonMenu;
+    private ImageButton toolbarButtonBack;
+    private TextView toolbarTitle;
     private FrameLayout navHostFragment;
-    private ActionBarDrawerToggle toggle;
 
     private static final String KEY_CURRENT_NAV_ITEM = "current_nav_item";
 
@@ -91,18 +94,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        toolbarButtonMenu = findViewById(R.id.toolbarButtonMenu);
+        toolbarButtonBack = findViewById(R.id.toolbarButtonBack);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
         navHostFragment = findViewById(R.id.nav_host_fragment);
 
         // Setup toolbar
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
-        // Setup drawer toggle
-        toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        // Setup menu button click listener to open drawer
+        toolbarButtonMenu.setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        // Setup back button click listener
+        toolbarButtonBack.setOnClickListener(v -> onBackPressed());
 
         // Setup navigation listener
         navigationView.setNavigationItemSelectedListener(this);
@@ -136,23 +149,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param title The title to display
      */
     public void setToolbarTitle(String title) {
-        toolbar.setTitle(title);
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(title);
+        }
     }
 
     /**
      * Shows or hides the back arrow in the toolbar.
-     * When showing back arrow, hamburger menu is hidden and vice versa.
-     * @param show true to show back arrow, false to show hamburger menu
+     * The drawer/hamburger icon always remains visible.
+     * The back arrow appears next to it when navigating to child fragments.
+     * @param show true to show back arrow, false to hide it
      */
     public void showBackArrow(boolean show) {
-        toggle.setDrawerIndicatorEnabled(!show);
-        if (show) {
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-            toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        } else {
-            toggle.syncState();
-            toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-        }
+        // Show/hide the back button next to the drawer icon
+        toolbarButtonBack.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -184,7 +194,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void configureToolbarForFragment(Fragment fragment) {
         if (fragment instanceof ToolbarConfigurable) {
             ToolbarConfigurable config = (ToolbarConfigurable) fragment;
-            setToolbarTitle(getString(config.getToolbarTitleResId()));
+            // Use custom title if available, otherwise use resource ID
+            String customTitle = config.getToolbarTitle();
+            if (customTitle != null && !customTitle.isEmpty()) {
+                setToolbarTitle(customTitle);
+            } else {
+                setToolbarTitle(getString(config.getToolbarTitleResId()));
+            }
             showBackArrow(config.showBackButton());
         } else {
             // Default for Home/Settings/About/Advanced - use app name, show hamburger
@@ -261,13 +277,114 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Use animation when navigating from Home to main features
         boolean useAnimation = (navItemId == R.id.nav_eu_red ||
                                 navItemId == R.id.nav_custom_script ||
-                                navItemId == R.id.nav_script_documentation);
+                                navItemId == R.id.nav_script_documentation ||
+                                navItemId == R.id.nav_advanced);
         loadFragmentForNavItemWithAnimation(navItemId, useAnimation);
         // Don't check item if it's not in the drawer menu
         if (navItemId == R.id.nav_home || navItemId == R.id.nav_advanced ||
             navItemId == R.id.nav_settings || navItemId == R.id.nav_about) {
             navigationView.setCheckedItem(navItemId);
         }
+    }
+
+    @Override
+    public void openCustomScriptWithContent(String scriptContent) {
+        // Create a CustomScriptFragment with pre-filled content
+        CustomScriptFragment fragment = CustomScriptFragment.newInstanceWithScript(scriptContent);
+        currentFragment = fragment;
+        currentNavItemId = R.id.nav_custom_script;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void openCustomScriptWithContentAndEntryId(String scriptContent, String entryId) {
+        // Create a CustomScriptFragment with pre-filled content and entry ID for saving changes
+        CustomScriptFragment fragment = CustomScriptFragment.newInstanceWithScriptAndEntryId(scriptContent, entryId);
+        currentFragment = fragment;
+        currentNavItemId = R.id.nav_custom_script;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void openScriptEditorForResult(String initialScript) {
+        // Create a CustomScriptFragment in editor mode for creating a new custom entry
+        CustomScriptFragment fragment = CustomScriptFragment.newInstanceForEditing(initialScript);
+        currentFragment = fragment;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.addToBackStack("script_editor");
+        transaction.commit();
+    }
+
+    @Override
+    public void openCustomScriptViewOnly(String scriptContent, String entryTitle, String entryDescription) {
+        // Create a CustomScriptFragment in view-only mode (read-only, no file operations)
+        CustomScriptFragment fragment = CustomScriptFragment.newInstanceViewOnly(scriptContent, entryTitle, entryDescription);
+        currentFragment = fragment;
+        currentNavItemId = R.id.nav_custom_script;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.commit();
+    }
+
+    /**
+     * Opens the CustomScriptFragment with pre-filled content in temporary mode.
+     * Full features enabled but changes are NOT saved to the database.
+     * @param scriptContent The script content to pre-fill
+     */
+    public void openCustomScriptTemporary(String scriptContent) {
+        // Create a CustomScriptFragment with pre-filled content but NO entry ID
+        // This means changes won't be saved to any database entry
+        CustomScriptFragment fragment = CustomScriptFragment.newInstanceWithScript(scriptContent);
+        currentFragment = fragment;
+        currentNavItemId = R.id.nav_custom_script;
+        configureToolbarForFragment(fragment);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.commit();
     }
 
     @Override
@@ -308,8 +425,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (((CustomScriptFragment) currentFragment).handleBackPress()) {
                 return;
             }
-            // Navigate back to Home launcher with animation
-            navigateBackToHome();
+            // Check if there's a back stack entry (e.g., from editor mode)
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                // Navigate back to Home launcher with animation
+                navigateBackToHome();
+            }
         } else if (currentFragment instanceof AdvancedFragment) {
             if (((AdvancedFragment) currentFragment).handleBackPress()) {
                 return;

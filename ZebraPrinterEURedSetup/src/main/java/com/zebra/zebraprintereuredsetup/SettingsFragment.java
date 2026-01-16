@@ -49,6 +49,9 @@ public class SettingsFragment extends Fragment {
     private MaterialCheckBox checkBoxShowSendScriptCard;
     private MaterialButton buttonOpenScriptSettings;
 
+    // Edit Mode settings
+    private MaterialCheckBox checkBoxEditModeEnabled;
+
     // File operations
     private MaterialCheckBox checkBoxEmbedEuredScript;
     private MaterialButton buttonImportSettings;
@@ -110,6 +113,10 @@ public class SettingsFragment extends Fragment {
 
         // Setup language dropdown
         setupLanguageDropdown();
+
+        // Edit Mode settings
+        checkBoxEditModeEnabled = view.findViewById(R.id.checkBoxEditModeEnabled);
+        setupEditModeSettings();
 
         // Suggestions settings
         checkBoxUnlimitedSuggestions = view.findViewById(R.id.checkBoxUnlimitedSuggestions);
@@ -196,6 +203,17 @@ public class SettingsFragment extends Fragment {
             if (getActivity() != null) {
                 getActivity().recreate();
             }
+        });
+    }
+
+    private void setupEditModeSettings() {
+        // Load saved setting
+        boolean editModeEnabled = SettingsHelper.getEditModeEnabled(requireContext());
+        checkBoxEditModeEnabled.setChecked(editModeEnabled);
+
+        // Handle checkbox changes
+        checkBoxEditModeEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SettingsHelper.saveEditModeEnabled(requireContext(), isChecked);
         });
     }
 
@@ -367,6 +385,9 @@ public class SettingsFragment extends Fragment {
         int currentIndex = LocaleHelper.getLanguageIndex(currentLanguage);
         String[] languageNames = LocaleHelper.getLanguageDisplayNames(requireContext());
         autoCompleteLanguage.setText(languageNames[currentIndex], false);
+
+        // Edit Mode settings
+        checkBoxEditModeEnabled.setChecked(SettingsHelper.getEditModeEnabled(requireContext()));
 
         // Suggestions settings
         boolean isUnlimited = SettingsHelper.getSuggestionsUnlimited(requireContext());

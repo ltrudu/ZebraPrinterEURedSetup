@@ -65,7 +65,88 @@ import org.json.JSONObject;
 
 public class CustomScriptFragment extends Fragment implements ToolbarConfigurable {
 
+    private static final String ARG_SCRIPT_CONTENT = "script_content";
+    private static final String ARG_ENTRY_ID = "entry_id";
+    private static final String ARG_EDITOR_MODE = "editor_mode";
+    private static final String ARG_VIEW_ONLY_MODE = "view_only_mode";
+    private static final String ARG_ENTRY_TITLE = "entry_title";
+    private static final String ARG_ENTRY_DESCRIPTION = "entry_description";
     private static final Pattern MAC_ADDRESS_PATTERN = Pattern.compile("^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$");
+
+    // Fragment Result keys for editor mode
+    public static final String EDITOR_RESULT_KEY = "script_editor_result";
+    public static final String EDITOR_RESULT_SCRIPT = "script_content";
+    public static final String EDITOR_RESULT_SAVED = "saved";
+
+    /**
+     * Factory method to create a new instance with pre-filled script content.
+     * @param scriptContent The script content to pre-fill
+     * @return A new instance of CustomScriptFragment
+     */
+    public static CustomScriptFragment newInstanceWithScript(String scriptContent) {
+        CustomScriptFragment fragment = new CustomScriptFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SCRIPT_CONTENT, scriptContent);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Factory method to create a new instance with pre-filled script content and entry ID for updating.
+     * @param scriptContent The script content to pre-fill
+     * @param entryId The ID of the HomeEntry to update when saving
+     * @return A new instance of CustomScriptFragment
+     */
+    public static CustomScriptFragment newInstanceWithScriptAndEntryId(String scriptContent, String entryId) {
+        CustomScriptFragment fragment = new CustomScriptFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SCRIPT_CONTENT, scriptContent);
+        args.putString(ARG_ENTRY_ID, entryId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Factory method to create a new instance in editor mode.
+     * Editor mode shows Cancel/Save buttons and returns the script via Fragment Result API.
+     * @param initialScript Initial script content (can be null or empty)
+     * @return A new instance of CustomScriptFragment in editor mode
+     */
+    public static CustomScriptFragment newInstanceForEditing(String initialScript) {
+        CustomScriptFragment fragment = new CustomScriptFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_EDITOR_MODE, true);
+        if (initialScript != null && !initialScript.isEmpty()) {
+            args.putString(ARG_SCRIPT_CONTENT, initialScript);
+        }
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Factory method to create a new instance in view-only mode.
+     * View-only mode makes the script read-only and hides update/file operation cards.
+     * @param scriptContent The script content to display
+     * @param entryTitle The title of the entry (for toolbar)
+     * @param entryDescription The description of the entry (shown in a card)
+     * @return A new instance of CustomScriptFragment in view-only mode
+     */
+    public static CustomScriptFragment newInstanceViewOnly(String scriptContent, String entryTitle, String entryDescription) {
+        CustomScriptFragment fragment = new CustomScriptFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_VIEW_ONLY_MODE, true);
+        if (scriptContent != null && !scriptContent.isEmpty()) {
+            args.putString(ARG_SCRIPT_CONTENT, scriptContent);
+        }
+        if (entryTitle != null && !entryTitle.isEmpty()) {
+            args.putString(ARG_ENTRY_TITLE, entryTitle);
+        }
+        if (entryDescription != null && !entryDescription.isEmpty()) {
+            args.putString(ARG_ENTRY_DESCRIPTION, entryDescription);
+        }
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     private TextInputLayout textInputLayoutMacAddress;
     private EditText editTextMacAddress;
@@ -129,6 +210,30 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
     private View cardStatus;
     private View cardSendData;
     private View cardFileOperations;
+
+    // Update Launcher Script card
+    private View cardUpdateLauncherScript;
+    private MaterialButton buttonCancelChanges;
+    private MaterialButton buttonSaveChanges;
+    private String launcherEntryId = null;
+    private String originalScriptContent = null;
+    private com.zebra.zebraprintereuredsetup.data.repository.HomeEntryRepository homeEntryRepository;
+
+    // Editor mode
+    private boolean isEditorMode = false;
+    private View cardEditorActions;
+    private MaterialButton buttonEditorCancel;
+    private MaterialButton buttonEditorSave;
+
+    // View-only mode
+    private boolean isViewOnlyMode = false;
+    private String viewOnlyEntryTitle = null;
+    private String viewOnlyEntryDescription = null;
+
+    // Description card (for view-only mode)
+    private View cardEntryInfo;
+    private TextView textViewEntryTitle;
+    private TextView textViewEntryDescription;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -205,6 +310,21 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
         cardSendData = view.findViewById(R.id.cardSendData);
         cardFileOperations = view.findViewById(R.id.cardFileOperations);
 
+        // Update Launcher Script card
+        cardUpdateLauncherScript = view.findViewById(R.id.cardUpdateLauncherScript);
+        buttonCancelChanges = view.findViewById(R.id.buttonCancelChanges);
+        buttonSaveChanges = view.findViewById(R.id.buttonSaveChanges);
+
+        // Editor mode views
+        cardEditorActions = view.findViewById(R.id.cardEditorActions);
+        buttonEditorCancel = view.findViewById(R.id.buttonEditorCancel);
+        buttonEditorSave = view.findViewById(R.id.buttonEditorSave);
+
+        // Entry info card (for view-only mode)
+        cardEntryInfo = view.findViewById(R.id.cardEntryInfo);
+        textViewEntryTitle = view.findViewById(R.id.textViewEntryTitle);
+        textViewEntryDescription = view.findViewById(R.id.textViewEntryDescription);
+
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
         textInputLayoutScript = view.findViewById(R.id.textInputLayoutScript);
@@ -225,6 +345,53 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
             }
             return false;
         });
+
+        // Check for editor mode first
+        if (getArguments() != null && getArguments().getBoolean(ARG_EDITOR_MODE, false)) {
+            isEditorMode = true;
+            setupEditorMode();
+
+            // Pre-fill script content if provided
+            if (getArguments().containsKey(ARG_SCRIPT_CONTENT)) {
+                String scriptContent = getArguments().getString(ARG_SCRIPT_CONTENT);
+                if (scriptContent != null && !scriptContent.isEmpty()) {
+                    editTextScript.setText(scriptContent);
+                }
+            }
+        }
+        // Check for view-only mode
+        else if (getArguments() != null && getArguments().getBoolean(ARG_VIEW_ONLY_MODE, false)) {
+            isViewOnlyMode = true;
+
+            // Pre-fill script content if provided
+            if (getArguments().containsKey(ARG_SCRIPT_CONTENT)) {
+                String scriptContent = getArguments().getString(ARG_SCRIPT_CONTENT);
+                if (scriptContent != null && !scriptContent.isEmpty()) {
+                    editTextScript.setText(scriptContent);
+                }
+            }
+
+            setupViewOnlyMode();
+        }
+        // Pre-fill script content if provided as argument (non-editor mode)
+        else if (getArguments() != null && getArguments().containsKey(ARG_SCRIPT_CONTENT)) {
+            String scriptContent = getArguments().getString(ARG_SCRIPT_CONTENT);
+            if (scriptContent != null && !scriptContent.isEmpty()) {
+                editTextScript.setText(scriptContent);
+            }
+
+            // Check if we have an entry ID (editing from launcher)
+            if (getArguments().containsKey(ARG_ENTRY_ID)) {
+                launcherEntryId = getArguments().getString(ARG_ENTRY_ID);
+                originalScriptContent = scriptContent;
+
+                // Initialize repository for saving changes
+                homeEntryRepository = new com.zebra.zebraprintereuredsetup.data.repository.HomeEntryRepository(requireContext());
+
+                // Setup change tracking
+                setupLauncherScriptChangeTracking();
+            }
+        }
 
         textViewStatus = view.findViewById(R.id.textViewStatus);
 
@@ -1282,11 +1449,12 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
         isImmersiveMode = false;
         buttonToggleImmersive.setIconResource(R.drawable.ic_fullscreen);
 
-        // Show other cards
+        // Show other cards (but respect view-only mode)
         if (cardConnectivity != null) cardConnectivity.setVisibility(View.VISIBLE);
         if (cardStatus != null) cardStatus.setVisibility(View.VISIBLE);
         if (cardSendData != null) cardSendData.setVisibility(View.VISIBLE);
-        if (cardFileOperations != null) cardFileOperations.setVisibility(View.VISIBLE);
+        // Don't show file operations in view-only mode
+        if (cardFileOperations != null && !isViewOnlyMode) cardFileOperations.setVisibility(View.VISIBLE);
 
         // Show MainActivity's action bar if present
         if (getActivity() instanceof MainActivity) {
@@ -1370,10 +1538,208 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
         });
     }
 
+    // ===== Editor Mode Methods =====
+
+    /**
+     * Sets up the fragment for editor mode.
+     * Hides unnecessary cards and shows Cancel/Save buttons.
+     */
+    private void setupEditorMode() {
+        // Hide cards that are not needed in editor mode
+        cardConnectivity.setVisibility(View.GONE);
+        cardStatus.setVisibility(View.GONE);
+        cardSendData.setVisibility(View.GONE);
+        cardFileOperations.setVisibility(View.GONE);
+
+        // Show editor actions card
+        cardEditorActions.setVisibility(View.VISIBLE);
+
+        // Setup button click handlers
+        buttonEditorCancel.setOnClickListener(v -> {
+            // Return empty result (cancelled)
+            Bundle result = new Bundle();
+            result.putBoolean(EDITOR_RESULT_SAVED, false);
+            result.putString(EDITOR_RESULT_SCRIPT, "");
+            getParentFragmentManager().setFragmentResult(EDITOR_RESULT_KEY, result);
+
+            // Go back
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        buttonEditorSave.setOnClickListener(v -> {
+            // Return the script content
+            String scriptContent = editTextScript.getText() != null ? editTextScript.getText().toString() : "";
+            Bundle result = new Bundle();
+            result.putBoolean(EDITOR_RESULT_SAVED, true);
+            result.putString(EDITOR_RESULT_SCRIPT, scriptContent);
+            getParentFragmentManager().setFragmentResult(EDITOR_RESULT_KEY, result);
+
+            // Go back
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
+    /**
+     * Sets up the fragment for view-only mode.
+     * Makes the script read-only and hides update/file operation cards.
+     */
+    private void setupViewOnlyMode() {
+        // Parse title and description from arguments
+        if (getArguments() != null) {
+            if (getArguments().containsKey(ARG_ENTRY_TITLE)) {
+                viewOnlyEntryTitle = getArguments().getString(ARG_ENTRY_TITLE);
+            }
+            if (getArguments().containsKey(ARG_ENTRY_DESCRIPTION)) {
+                viewOnlyEntryDescription = getArguments().getString(ARG_ENTRY_DESCRIPTION);
+            }
+        }
+
+        // Show entry info card only if we have a description
+        if (viewOnlyEntryDescription != null && !viewOnlyEntryDescription.isEmpty()) {
+            cardEntryInfo.setVisibility(View.VISIBLE);
+            textViewEntryDescription.setText(viewOnlyEntryDescription);
+        }
+
+        // Make the script EditText completely read-only
+        editTextScript.setFocusable(false);
+        editTextScript.setFocusableInTouchMode(false);
+        editTextScript.setCursorVisible(false);
+        editTextScript.setKeyListener(null); // Prevents text input even if focused
+        editTextScript.setTextIsSelectable(true); // Allow text selection for copying
+
+        // Add long-press listener to show "Open Temporary" menu
+        editTextScript.setOnLongClickListener(v -> {
+            showViewOnlyContextMenu(v);
+            return true;
+        });
+
+        // Hide file operations card - not needed in view mode
+        cardFileOperations.setVisibility(View.GONE);
+
+        // Keep cardUpdateLauncherScript hidden (it's already hidden by default)
+        cardUpdateLauncherScript.setVisibility(View.GONE);
+
+        // Keep cardConnectivity, cardStatus, cardSendData visible for sending to printer
+    }
+
+    /**
+     * Shows context menu for view-only mode with "Open Temporary" option.
+     */
+    private void showViewOnlyContextMenu(View anchorView) {
+        androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(requireContext(), anchorView);
+        popupMenu.getMenu().add(0, 1, 0, R.string.action_open_temporary);
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == 1) {
+                openTemporaryEditor();
+                return true;
+            }
+            return false;
+        });
+
+        popupMenu.show();
+    }
+
+    /**
+     * Opens the script in temporary edit mode (full features, no database saving).
+     */
+    private void openTemporaryEditor() {
+        String currentScript = editTextScript.getText() != null ? editTextScript.getText().toString() : "";
+
+        if (getActivity() instanceof MainActivity) {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.openCustomScriptTemporary(currentScript);
+        }
+    }
+
+    // ===== Launcher Script Update Methods =====
+
+    /**
+     * Sets up change tracking for launcher script editing.
+     * Shows/hides the update card based on whether the script has changed.
+     */
+    private void setupLauncherScriptChangeTracking() {
+        // Add text change listener to detect changes
+        editTextScript.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (launcherEntryId != null && originalScriptContent != null) {
+                    String currentContent = s.toString();
+                    boolean hasChanges = !currentContent.equals(originalScriptContent);
+                    cardUpdateLauncherScript.setVisibility(hasChanges ? View.VISIBLE : View.GONE);
+                }
+            }
+        });
+
+        // Setup button click handlers
+        buttonCancelChanges.setOnClickListener(v -> {
+            // Revert to original content
+            if (originalScriptContent != null) {
+                editTextScript.setText(originalScriptContent);
+            }
+            cardUpdateLauncherScript.setVisibility(View.GONE);
+        });
+
+        buttonSaveChanges.setOnClickListener(v -> {
+            // Save changes to the database
+            if (launcherEntryId != null && homeEntryRepository != null) {
+                String newScriptContent = editTextScript.getText().toString();
+
+                // Update the entry in the database (runs on background thread)
+                new Thread(() -> {
+                    com.zebra.zebraprintereuredsetup.data.entity.HomeEntry entry =
+                            homeEntryRepository.getEntryByIdSync(launcherEntryId);
+                    if (entry != null) {
+                        homeEntryRepository.updateCustomEntry(
+                                launcherEntryId,
+                                entry.getTitleCustom(),
+                                entry.getDescriptionCustom(),
+                                newScriptContent
+                        );
+
+                        requireActivity().runOnUiThread(() -> {
+                            // Update the original content to the new saved content
+                            originalScriptContent = newScriptContent;
+                            cardUpdateLauncherScript.setVisibility(View.GONE);
+
+                            // Show success message
+                            Toast.makeText(requireContext(),
+                                    R.string.status_launcher_script_updated,
+                                    Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                }).start();
+            }
+        });
+    }
+
     // ToolbarConfigurable implementation
     @Override
     public int getToolbarTitleResId() {
         return R.string.nav_custom_script;
+    }
+
+    @Override
+    public String getToolbarTitle() {
+        // Return custom entry title in view-only mode
+        // Read directly from arguments since this may be called before setupViewOnlyMode()
+        if (getArguments() != null && getArguments().getBoolean(ARG_VIEW_ONLY_MODE, false)) {
+            String title = getArguments().getString(ARG_ENTRY_TITLE);
+            if (title != null && !title.isEmpty()) {
+                return title;
+            }
+        }
+        return null; // Use default from getToolbarTitleResId()
     }
 
     @Override

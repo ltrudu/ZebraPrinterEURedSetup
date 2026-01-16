@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.card.MaterialCardView;
 
-public class AdvancedFragment extends Fragment {
+public class AdvancedFragment extends Fragment implements ToolbarConfigurable {
 
     private FragmentContainerView fragmentContainer;
     private View mainContent;
@@ -92,11 +92,11 @@ public class AdvancedFragment extends Fragment {
     private void showMainContent() {
         mainContent.setVisibility(View.VISIBLE);
 
-        // Restore MainActivity toolbar to app name with hamburger menu
+        // Restore MainActivity toolbar to Advanced title with back arrow
         if (getActivity() instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.setToolbarTitle(getString(R.string.app_name));
-            mainActivity.showBackArrow(false);
+            mainActivity.setToolbarTitle(getString(R.string.nav_advanced));
+            mainActivity.showBackArrow(true);
         }
 
         // Animate mainContent back in from the left
@@ -123,5 +123,16 @@ public class AdvancedFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    // ToolbarConfigurable implementation
+    @Override
+    public int getToolbarTitleResId() {
+        return R.string.nav_advanced;
+    }
+
+    @Override
+    public boolean showBackButton() {
+        return true;
     }
 }

@@ -13,6 +13,15 @@ public interface ToolbarConfigurable {
     int getToolbarTitleResId();
 
     /**
+     * Returns a custom toolbar title string.
+     * If this returns a non-null, non-empty string, it will be used instead of getToolbarTitleResId().
+     * @return The custom toolbar title, or null to use getToolbarTitleResId()
+     */
+    default String getToolbarTitle() {
+        return null;
+    }
+
+    /**
      * Returns whether to show a back button instead of the hamburger menu.
      * @return true to show back button, false to show hamburger menu
      */

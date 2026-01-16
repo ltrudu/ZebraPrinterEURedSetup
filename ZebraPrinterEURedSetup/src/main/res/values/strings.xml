@@ -68,6 +68,8 @@
 
     <!-- Content Descriptions -->
     <string name="content_description_expand_collapse">Expand/Collapse</string>
+    <string name="content_description_entry_icon">Entry icon</string>
+    <string name="content_description_back">Go back</string>
     <string name="content_description_scan_barcode">Scan barcode</string>
     <string name="content_description_clear_old_password">Clear old password</string>
     <string name="content_description_scan_old_password">Scan old password</string>
@@ -81,6 +83,7 @@
     <string name="content_description_toggle_flash">Toggle flash</string>
     <string name="content_description_toggle_immersive">Toggle immersive mode</string>
     <string name="content_description_drag_resize">Drag to resize</string>
+    <string name="content_description_drag_reorder">Drag to reorder</string>
 
     <!-- Scanner -->
     <string name="scanner_hint">Point camera at barcode</string>
@@ -184,6 +187,9 @@
     <string name="about_zebra_sdk_name">Zebra Link-OS SDK</string>
     <string name="about_zebra_sdk_desc">Multiplatform SDK for Zebra Printers</string>
     <string name="about_zebra_sdk_license">Zebra Technologies License</string>
+    <string name="about_room_name">AndroidX Room</string>
+    <string name="about_room_version">Version 2.6.1</string>
+    <string name="about_room_license">Apache License 2.0</string>
 
     <!-- Connectivity Types -->
     <string name="connectivity_bluetooth">Bluetooth</string>
@@ -310,6 +316,39 @@
     <string name="label_show_send_script_card">Show Send Script Card</string>
     <string name="button_open_script_settings">Open Script Settings</string>
     <string name="label_embed_eured_script">Embed EURed Script</string>
+
+    <!-- Edit Mode -->
+    <string name="title_edit_mode">Edit Mode</string>
+    <string name="label_edit_mode_enabled">Enabled</string>
+    <string name="menu_add_library_script">Add Library Script</string>
+    <string name="menu_add_custom_script">Add Custom Script</string>
+    <string name="action_hide">Hide</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_edit_script">Edit Script</string>
+    <string name="action_open_temporary">Open Temporary</string>
+    <string name="action_delete">Delete</string>
+    <string name="dialog_edit_custom_action_title">Edit Custom Action</string>
+    <string name="no_hidden_entries">No hidden entries</string>
+    <string name="dialog_add_custom_title">Add Custom Script</string>
+    <string name="hint_entry_title">Title</string>
+    <string name="hint_entry_description">Description</string>
+    <string name="hint_script_content">Script content (ZPL/CPCL)</string>
+    <string name="button_add">Add</string>
+    <string name="error_title_required">Title is required</string>
+    <string name="dialog_delete_entry_message">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="title_update_launcher_script">Update Launcher Script</string>
+    <string name="button_cancel_changes">Cancel Changes</string>
+    <string name="button_save_changes">Save Changes</string>
+    <string name="status_launcher_script_updated">Launcher script updated!</string>
+    <string name="label_script">Script</string>
+    <string name="script_status_empty">No script defined</string>
+    <string name="script_status_defined">Script defined (%1$d characters)</string>
+    <string name="button_edit_script">Edit Script</string>
+    <string name="error_script_too_short">Script must be at least 3 characters</string>
+    <string name="warning_unrecognized_command_title">Unrecognized Command</string>
+    <string name="warning_unrecognized_command_message">The script does not contain any recognized ZPL, SGD, or ZBI commands. Do you want to save it anyway?</string>
+    <string name="button_save_anyway">Save Anyway</string>
+    <string name="button_edit_again">Edit Script</string>
 
     <!-- Syntax Highlighting -->
     <string name="title_command_documentation">Command Documentation</string>
