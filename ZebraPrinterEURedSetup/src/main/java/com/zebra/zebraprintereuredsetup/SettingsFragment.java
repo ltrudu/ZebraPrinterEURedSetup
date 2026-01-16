@@ -340,13 +340,17 @@ public class SettingsFragment extends Fragment {
 
                 JSONObject json = new JSONObject(stringBuilder.toString());
                 SettingsHelper.applySettingsJSON(requireContext(), json);
+
+                // Update UI from saved settings
+                updateUIFromSettings();
+
                 Toast.makeText(requireContext(), R.string.status_settings_imported, Toast.LENGTH_SHORT).show();
                 setStatus(getString(R.string.status_settings_imported), requireContext().getColor(android.R.color.holo_green_dark));
 
                 // Save the folder URI for next time
                 SettingsHelper.saveLastImportFolderUri(requireContext(), uri.toString());
 
-                // Recreate activity to apply all imported settings
+                // Recreate activity to apply all imported settings (for language changes)
                 if (getActivity() != null) {
                     getActivity().recreate();
                 }
@@ -355,6 +359,29 @@ public class SettingsFragment extends Fragment {
             Toast.makeText(requireContext(), getString(R.string.error_import_settings_failed, e.getMessage()), Toast.LENGTH_LONG).show();
             setStatus(getString(R.string.error_import_settings_failed, e.getMessage()), requireContext().getColor(android.R.color.holo_red_dark));
         }
+    }
+
+    private void updateUIFromSettings() {
+        // Language dropdown
+        String currentLanguage = SettingsHelper.getLanguage(requireContext());
+        int currentIndex = LocaleHelper.getLanguageIndex(currentLanguage);
+        String[] languageNames = LocaleHelper.getLanguageDisplayNames(requireContext());
+        autoCompleteLanguage.setText(languageNames[currentIndex], false);
+
+        // Suggestions settings
+        boolean isUnlimited = SettingsHelper.getSuggestionsUnlimited(requireContext());
+        int maxSuggestions = SettingsHelper.getMaxSuggestions(requireContext());
+        checkBoxUnlimitedSuggestions.setChecked(isUnlimited);
+        textInputLayoutMaxSuggestions.setVisibility(isUnlimited ? View.GONE : View.VISIBLE);
+        autoCompleteMaxSuggestions.setText(String.valueOf(maxSuggestions), false);
+
+        // EURed Config settings
+        checkBoxShowEditEuredScriptCard.setChecked(SettingsHelper.getAllowEditEuredScript(requireContext()));
+        checkBoxShowRestorePreEuredCard.setChecked(SettingsHelper.getShowRestorePreEured(requireContext()));
+        checkBoxShowSendScriptCard.setChecked(SettingsHelper.getShowSendScriptCard(requireContext()));
+
+        // Embed EURED Script setting
+        checkBoxEmbedEuredScript.setChecked(SettingsHelper.getEmbedEuredScript(requireContext()));
     }
 
     private void exportSettingsToUri(Uri uri) {
