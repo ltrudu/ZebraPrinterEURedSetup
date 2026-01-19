@@ -112,6 +112,20 @@ public class HomeEntryRepository {
         return homeEntryDao.getHiddenSystemEntriesWithAdvancedFilter(advancedMode);
     }
 
+    /**
+     * Get hidden custom entries (for "Show Hidden Scripts" dialog)
+     */
+    public LiveData<List<HomeEntry>> getHiddenCustomEntries() {
+        return homeEntryDao.getHiddenCustomEntriesLive();
+    }
+
+    /**
+     * Get hidden custom entries (synchronous - use on background thread)
+     */
+    public List<HomeEntry> getHiddenCustomEntriesSync() {
+        return homeEntryDao.getHiddenCustomEntries();
+    }
+
     // ==================== Visibility Operations ====================
 
     /**

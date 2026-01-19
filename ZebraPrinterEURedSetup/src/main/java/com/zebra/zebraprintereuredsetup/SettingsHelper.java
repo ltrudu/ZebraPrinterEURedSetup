@@ -776,8 +776,7 @@ public class SettingsHelper {
         json.put("embedEuredScript", getEmbedEuredScript(context));
         json.put("embedCustomActions", getEmbedCustomActions(context));
 
-        // Edit mode setting
-        json.put("editModeEnabled", getEditModeEnabled(context));
+        // Note: editModeEnabled is intentionally NOT exported as it's temporary
 
         // Optionally embed EURED config
         if (embedEURED) {
@@ -830,10 +829,7 @@ public class SettingsHelper {
             saveEmbedCustomActions(context, json.getBoolean("embedCustomActions"));
         }
 
-        // Edit mode setting
-        if (json.has("editModeEnabled")) {
-            saveEditModeEnabled(context, json.getBoolean("editModeEnabled"));
-        }
+        // Note: editModeEnabled is intentionally NOT imported as it's temporary
 
         // Apply embedded EURED config if present
         if (json.has("euredConfig")) {
@@ -907,18 +903,14 @@ public class SettingsHelper {
         return entries;
     }
 
-    // Edit Mode setting
-    private static final String EDIT_MODE_ENABLED_KEY = "EDIT_MODE_ENABLED";
+    // Edit Mode setting - temporary, not persisted (resets when app restarts)
+    private static boolean editModeEnabled = false;
 
     public static boolean getEditModeEnabled(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getBoolean(EDIT_MODE_ENABLED_KEY, false);
+        return editModeEnabled;
     }
 
     public static void saveEditModeEnabled(Context context, boolean enabled) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(EDIT_MODE_ENABLED_KEY, enabled);
-        editor.commit();
+        editModeEnabled = enabled;
     }
 }

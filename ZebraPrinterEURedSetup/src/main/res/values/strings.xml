@@ -325,15 +325,18 @@
     <!-- Edit Mode -->
     <string name="title_edit_mode">Edit Mode</string>
     <string name="label_edit_mode_enabled">Enabled</string>
+    <string name="button_exit_edit_mode">Exit Edit Mode</string>
     <string name="menu_add_library_script">Add Library Script</string>
     <string name="menu_add_custom_script">Add Custom Script</string>
+    <string name="menu_show_hidden_scripts">Show Hidden Scripts</string>
     <string name="action_hide">Hide</string>
-    <string name="action_edit">Edit</string>
+    <string name="action_edit">Edit Command</string>
     <string name="action_edit_script">Edit Script</string>
     <string name="action_open_temporary">Open Temporary</string>
     <string name="action_delete">Delete</string>
     <string name="dialog_edit_custom_action_title">Edit Custom Action</string>
     <string name="no_hidden_entries">No hidden entries</string>
+    <string name="no_hidden_custom_scripts">No hidden custom scripts</string>
     <string name="dialog_add_custom_title">Add Custom Script</string>
     <string name="hint_entry_title">Title</string>
     <string name="hint_entry_description">Description</string>

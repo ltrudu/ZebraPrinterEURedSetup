@@ -110,7 +110,7 @@ public abstract class AppDatabase extends RoomDatabase {
         );
         systemEntries.add(euRedEntry);
 
-        // 2. Custom Script
+        // 2. Custom Script (hidden by default)
         HomeEntry customScriptEntry = new HomeEntry(
                 HomeEntry.SYSTEM_ID_CUSTOM_SCRIPT,
                 "nav_custom_script",
@@ -118,13 +118,13 @@ public abstract class AppDatabase extends RoomDatabase {
                 "ic_custom_script",
                 "nav_custom_script",
                 HomeEntry.TYPE_SYSTEM,
-                true,
+                false,
                 1,
                 false
         );
         systemEntries.add(customScriptEntry);
 
-        // 3. Documentation
+        // 3. Documentation (hidden by default)
         HomeEntry documentationEntry = new HomeEntry(
                 HomeEntry.SYSTEM_ID_DOCUMENTATION,
                 "nav_script_documentation",
@@ -132,7 +132,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 "ic_documentation",
                 "nav_script_documentation",
                 HomeEntry.TYPE_SYSTEM,
-                true,
+                false,
                 2,
                 false
         );

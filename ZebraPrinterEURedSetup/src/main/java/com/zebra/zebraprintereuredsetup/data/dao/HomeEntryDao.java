@@ -129,6 +129,15 @@ public interface HomeEntryDao {
     List<HomeEntry> getCustomEntries();
 
     /**
+     * Get hidden custom entries (for "Show Hidden Scripts" dialog)
+     */
+    @Query("SELECT * FROM home_entries WHERE entry_type = 1 AND is_visible = 0 ORDER BY order_position ASC")
+    LiveData<List<HomeEntry>> getHiddenCustomEntriesLive();
+
+    @Query("SELECT * FROM home_entries WHERE entry_type = 1 AND is_visible = 0 ORDER BY order_position ASC")
+    List<HomeEntry> getHiddenCustomEntries();
+
+    /**
      * Get entry by ID
      */
     @Query("SELECT * FROM home_entries WHERE id = :id")

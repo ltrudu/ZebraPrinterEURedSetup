@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
 
     private NavigationCallback navigationCallback;
     private EditText editTextSearch;
+    private MaterialButton buttonExitEditMode;
     private RecyclerView recyclerViewEntries;
     private FloatingActionButton fabAddEntry;
     private HomeEntryAdapter adapter;
@@ -108,8 +109,12 @@ public class HomeFragment extends Fragment {
 
     private void setupViews(View view) {
         editTextSearch = view.findViewById(R.id.editTextSearch);
+        buttonExitEditMode = view.findViewById(R.id.buttonExitEditMode);
         recyclerViewEntries = view.findViewById(R.id.recyclerViewEntries);
         fabAddEntry = view.findViewById(R.id.fabAddEntry);
+
+        // Exit Edit Mode button click listener
+        buttonExitEditMode.setOnClickListener(v -> exitEditMode());
     }
 
     private void setupRecyclerView() {
@@ -210,11 +215,20 @@ public class HomeFragment extends Fragment {
     private void updateFabVisibility() {
         boolean editModeEnabled = SettingsHelper.getEditModeEnabled(requireContext());
         fabAddEntry.setVisibility(editModeEnabled ? View.VISIBLE : View.GONE);
+        buttonExitEditMode.setVisibility(editModeEnabled ? View.VISIBLE : View.GONE);
 
         // Update adapter to show/hide drag handles
         if (adapter != null) {
             adapter.setEditModeEnabled(editModeEnabled);
         }
+    }
+
+    /**
+     * Exits edit mode and updates the UI accordingly.
+     */
+    private void exitEditMode() {
+        SettingsHelper.saveEditModeEnabled(requireContext(), false);
+        updateFabVisibility();
     }
 
     private void observeEntries() {
@@ -347,6 +361,12 @@ public class HomeFragment extends Fragment {
         editDescription.setText(editingDescription);
         updateEditScriptStatusText(textViewScriptStatus);
 
+        // Auto-capitalize title (first letter of each word)
+        addTitleCapitalizationWatcher(editTitle);
+
+        // Auto-capitalize description (first character only)
+        addDescriptionCapitalizationWatcher(editDescription);
+
         // Scan buttons
         buttonScanTitle.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "Scan feature coming soon", Toast.LENGTH_SHORT).show();
@@ -440,22 +460,38 @@ public class HomeFragment extends Fragment {
     }
 
     private void showFabMenu() {
-        PopupMenu popupMenu = new PopupMenu(requireContext(), fabAddEntry);
-        popupMenu.getMenu().add(0, 1, 0, R.string.menu_add_library_script);
-        popupMenu.getMenu().add(0, 2, 1, R.string.menu_add_custom_script);
+        // Check for hidden custom scripts on background thread first
+        new Thread(() -> {
+            List<HomeEntry> hiddenCustomEntries = repository.getHiddenCustomEntriesSync();
+            boolean hasHiddenCustomScripts = !hiddenCustomEntries.isEmpty();
 
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == 1) {
-                showAddLibraryScriptDialog();
-                return true;
-            } else if (item.getItemId() == 2) {
-                showAddCustomScriptDialog();
-                return true;
-            }
-            return false;
-        });
+            requireActivity().runOnUiThread(() -> {
+                PopupMenu popupMenu = new PopupMenu(requireContext(), fabAddEntry);
+                popupMenu.getMenu().add(0, 1, 0, R.string.menu_add_library_script);
+                popupMenu.getMenu().add(0, 2, 1, R.string.menu_add_custom_script);
 
-        popupMenu.show();
+                // Only show "Show Hidden Scripts" if there are hidden custom scripts
+                if (hasHiddenCustomScripts) {
+                    popupMenu.getMenu().add(0, 3, 2, R.string.menu_show_hidden_scripts);
+                }
+
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    if (item.getItemId() == 1) {
+                        showAddLibraryScriptDialog();
+                        return true;
+                    } else if (item.getItemId() == 2) {
+                        showAddCustomScriptDialog();
+                        return true;
+                    } else if (item.getItemId() == 3) {
+                        showHiddenCustomScriptsDialog();
+                        return true;
+                    }
+                    return false;
+                });
+
+                popupMenu.show();
+            });
+        }).start();
     }
 
     private void showAddLibraryScriptDialog() {
@@ -486,6 +522,34 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
+    private void showHiddenCustomScriptsDialog() {
+        // Run on background thread to get hidden custom entries
+        new Thread(() -> {
+            List<HomeEntry> hiddenCustomEntries = repository.getHiddenCustomEntriesSync();
+
+            requireActivity().runOnUiThread(() -> {
+                if (hiddenCustomEntries.isEmpty()) {
+                    Toast.makeText(requireContext(), R.string.no_hidden_custom_scripts, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String[] titles = new String[hiddenCustomEntries.size()];
+                for (int i = 0; i < hiddenCustomEntries.size(); i++) {
+                    titles[i] = hiddenCustomEntries.get(i).getDisplayTitle(requireContext());
+                }
+
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.menu_show_hidden_scripts)
+                        .setItems(titles, (dialog, which) -> {
+                            HomeEntry selectedEntry = hiddenCustomEntries.get(which);
+                            repository.showEntry(selectedEntry.getId());
+                        })
+                        .setNegativeButton(R.string.button_cancel, null)
+                        .show();
+            });
+        }).start();
+    }
+
     private void showAddCustomScriptDialog() {
         showAddCustomScriptDialogWithState(pendingCustomTitle, pendingCustomDescription, pendingCustomScript);
     }
@@ -506,6 +570,12 @@ public class HomeFragment extends Fragment {
         editDescription.setText(description);
         pendingCustomScript = script;
         updateScriptStatusText(textViewScriptStatus);
+
+        // Auto-capitalize title (first letter of each word)
+        addTitleCapitalizationWatcher(editTitle);
+
+        // Auto-capitalize description (first character only)
+        addDescriptionCapitalizationWatcher(editDescription);
 
         // Scan buttons (simplified - just show toast for now, could be enhanced)
         buttonScanTitle.setOnClickListener(v -> {
@@ -704,5 +774,100 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    /**
+     * Adds a TextWatcher to capitalize the first letter of each word in the title.
+     */
+    private void addTitleCapitalizationWatcher(TextInputEditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            private boolean isFormatting = false;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isFormatting) return;
+
+                String text = s.toString();
+                String capitalized = capitalizeWords(text);
+
+                if (!text.equals(capitalized)) {
+                    isFormatting = true;
+                    int cursorPos = editText.getSelectionStart();
+                    s.replace(0, s.length(), capitalized);
+                    // Restore cursor position
+                    if (cursorPos <= capitalized.length()) {
+                        editText.setSelection(cursorPos);
+                    }
+                    isFormatting = false;
+                }
+            }
+        });
+    }
+
+    /**
+     * Adds a TextWatcher to capitalize the first character of the description.
+     */
+    private void addDescriptionCapitalizationWatcher(TextInputEditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            private boolean isFormatting = false;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isFormatting) return;
+
+                String text = s.toString();
+                if (text.length() > 0 && Character.isLowerCase(text.charAt(0))) {
+                    isFormatting = true;
+                    int cursorPos = editText.getSelectionStart();
+                    String capitalized = Character.toUpperCase(text.charAt(0)) + text.substring(1);
+                    s.replace(0, s.length(), capitalized);
+                    // Restore cursor position
+                    if (cursorPos <= capitalized.length()) {
+                        editText.setSelection(cursorPos);
+                    }
+                    isFormatting = false;
+                }
+            }
+        });
+    }
+
+    /**
+     * Capitalizes the first letter of each word in a string.
+     */
+    private String capitalizeWords(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder result = new StringBuilder();
+        boolean capitalizeNext = true;
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+                result.append(c);
+            } else if (capitalizeNext && Character.isLetter(c)) {
+                result.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+            } else {
+                result.append(c);
+                capitalizeNext = false;
+            }
+        }
+
+        return result.toString();
     }
 }
