@@ -193,70 +193,100 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/titleCustomScript"
+                        <!-- Script Card Header (title + expand icon) -->
+                        <LinearLayout
+                            android:id="@+id/layoutScriptHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:gravity="center"
-                            android:text="@string/title_custom_script"
-                            android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutScript"
-                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:hint="@string/hint_custom_script">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editTextScript"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:inputType="textMultiLine|textNoSuggestions"
-                                android:gravity="top|start"
-                                android:scrollbars="vertical"
-                                android:overScrollMode="always"
-                                android:nestedScrollingEnabled="true"
-                                android:fontFamily="monospace"
-                                android:textSize="12sp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <!-- Bottom Row: Show Documentation, Immersive Mode, and Drag Handle -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:background="?attr/selectableItemBackground">
 
-                            <com.google.android.material.checkbox.MaterialCheckBox
-                                android:id="@+id/checkBoxShowDocumentation"
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/titleCustomScript"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/label_show_documentation"
-                                android:checked="false" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/buttonToggleImmersive"
-                                style="@style/Widget.Zebra.Button.Icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:contentDescription="@string/content_description_toggle_immersive"
-                                app:icon="@drawable/ic_fullscreen" />
+                                android:gravity="center"
+                                android:text="@string/title_custom_script"
+                                android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                             <ImageView
-                                android:id="@+id/dragHandle"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="8dp"
-                                android:padding="4dp"
-                                android:src="@drawable/ic_drag_handle"
-                                android:contentDescription="@string/content_description_drag_resize"
-                                android:background="?attr/selectableItemBackgroundBorderless" />
+                                android:id="@+id/iconScriptExpand"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_expand_more"
+                                android:contentDescription="@string/content_description_toggle_script"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <!-- Collapsible script content -->
+                        <LinearLayout
+                            android:id="@+id/layoutScriptContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutScript"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:hint="@string/hint_custom_script">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editTextScript"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="textMultiLine|textNoSuggestions"
+                                    android:gravity="top|start"
+                                    android:scrollbars="vertical"
+                                    android:overScrollMode="always"
+                                    android:nestedScrollingEnabled="true"
+                                    android:fontFamily="monospace"
+                                    android:textSize="12sp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <!-- Bottom Row: Show Documentation, Immersive Mode, and Drag Handle -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <com.google.android.material.checkbox.MaterialCheckBox
+                                    android:id="@+id/checkBoxShowDocumentation"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_show_documentation"
+                                    android:checked="false" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/buttonToggleImmersive"
+                                    style="@style/Widget.Zebra.Button.Icon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/content_description_toggle_immersive"
+                                    app:icon="@drawable/ic_fullscreen" />
+
+                                <ImageView
+                                    android:id="@+id/dragHandle"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginStart="8dp"
+                                    android:padding="4dp"
+                                    android:src="@drawable/ic_drag_handle"
+                                    android:contentDescription="@string/content_description_drag_resize"
+                                    android:background="?attr/selectableItemBackgroundBorderless" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -311,32 +341,51 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     app:cardElevation="4dp"
-                    app:cardCornerRadius="12dp"
-                    app:strokeWidth="2dp"
-                    app:strokeColor="?attr/colorPrimary">
+                    app:cardCornerRadius="12dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/buttonEditorCancel"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="0dp"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:text="@string/button_cancel" />
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center"
+                            android:text="@string/title_edit_mode"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/buttonEditorSave"
-                            style="@style/Widget.Zebra.Button.Tonal"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/button_save_changes" />
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonEditorCancel"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                android:text="@string/button_cancel"
+                                android:textSize="12sp"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonEditorSave"
+                                style="@style/Widget.Zebra.Button.Tonal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                android:text="@string/button_save_changes"
+                                android:textSize="12sp"
+                                app:cornerRadius="8dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -350,9 +399,7 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     app:cardElevation="4dp"
-                    app:cardCornerRadius="12dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="?attr/colorPrimary">
+                    app:cardCornerRadius="12dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"

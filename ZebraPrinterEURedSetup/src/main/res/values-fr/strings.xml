@@ -225,7 +225,7 @@
     <string name="label_embed_eured_script">Intégrer le script EURed</string>
     <string name="title_edit_mode">Mode édition</string>
     <string name="label_edit_mode_enabled">Activé</string>
-    <string name="menu_add_library_script">Ajouter un script de bibliothèque</string>
+    <string name="menu_add_library_script">Ajouter un composant</string>
     <string name="menu_add_custom_script">Ajouter un script personnalisé</string>
     <string name="action_hide">Masquer</string>
     <string name="action_edit">Modifier</string>

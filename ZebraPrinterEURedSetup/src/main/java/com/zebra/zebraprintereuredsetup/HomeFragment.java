@@ -259,11 +259,19 @@ public class HomeFragment extends Fragment {
     private void onEntryClicked(HomeEntry entry) {
         // Check if it's a custom entry with script content
         if (entry.isCustomEntry() && entry.getCustomScriptContent() != null && !entry.getCustomScriptContent().isEmpty()) {
-            // Navigate to custom script in view-only mode (read-only, no update/file operations)
             if (navigationCallback != null) {
-                String title = entry.getDisplayTitle(requireContext());
-                String description = entry.getDisplayDescription(requireContext());
-                navigationCallback.openCustomScriptViewOnly(entry.getCustomScriptContent(), title, description);
+                if (SettingsHelper.getEditModeEnabled(requireContext())) {
+                    // In edit mode, open the full script editor (same as long-press "Edit Script")
+                    navigationCallback.openCustomScriptWithContentAndEntryId(
+                            entry.getCustomScriptContent(),
+                            entry.getId()
+                    );
+                } else {
+                    // Normal mode: open in view-only mode (read-only, no update/file operations)
+                    String title = entry.getDisplayTitle(requireContext());
+                    String description = entry.getDisplayDescription(requireContext());
+                    navigationCallback.openCustomScriptViewOnly(entry.getCustomScriptContent(), title, description);
+                }
             }
             return;
         }

@@ -22,6 +22,7 @@ public class AboutFragment extends Fragment {
 
     private static final int CLICKS_TO_ENABLE_ADVANCED = 5;
     private int developerClickCount = 0;
+    private int copyrightClickCount = 0;
 
     @Nullable
     @Override
@@ -44,6 +45,10 @@ public class AboutFragment extends Fragment {
         // Developer text - hidden click handler for advanced mode
         MaterialTextView textViewDeveloper = view.findViewById(R.id.textViewDeveloper);
         textViewDeveloper.setOnClickListener(v -> onDeveloperClicked());
+
+        // Copyright text - hidden click handler for advanced mode
+        MaterialTextView textViewCopyright = view.findViewById(R.id.textViewCopyright);
+        textViewCopyright.setOnClickListener(v -> onCopyrightClicked());
 
         // GitHub button
         MaterialButton buttonGitHub = view.findViewById(R.id.buttonGitHub);
@@ -107,6 +112,20 @@ public class AboutFragment extends Fragment {
         // Notify MainActivity to update navigation drawer
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).refreshNavigationDrawer();
+        }
+    }
+
+    private void onCopyrightClicked() {
+        // Already enabled - do nothing
+        if (SettingsHelper.getAdvancedModeEnabled(requireContext())) {
+            return;
+        }
+
+        copyrightClickCount++;
+
+        if (copyrightClickCount >= CLICKS_TO_ENABLE_ADVANCED) {
+            showAdvancedModeWarningDialog();
+            copyrightClickCount = 0;
         }
     }
 

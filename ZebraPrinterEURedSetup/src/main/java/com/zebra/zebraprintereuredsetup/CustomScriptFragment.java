@@ -235,6 +235,12 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
     private TextView textViewEntryTitle;
     private TextView textViewEntryDescription;
 
+    // Script card collapse (for view-only mode)
+    private View layoutScriptHeader;
+    private ImageView iconScriptExpand;
+    private View layoutScriptContent;
+    private boolean isScriptExpanded = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -324,6 +330,11 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
         cardEntryInfo = view.findViewById(R.id.cardEntryInfo);
         textViewEntryTitle = view.findViewById(R.id.textViewEntryTitle);
         textViewEntryDescription = view.findViewById(R.id.textViewEntryDescription);
+
+        // Script card collapse views
+        layoutScriptHeader = view.findViewById(R.id.layoutScriptHeader);
+        iconScriptExpand = view.findViewById(R.id.iconScriptExpand);
+        layoutScriptContent = view.findViewById(R.id.layoutScriptContent);
 
         textInputLayoutMacAddress = view.findViewById(R.id.textInputLayoutMacAddress);
         editTextMacAddress = view.findViewById(R.id.editTextMacAddress);
@@ -1493,6 +1504,9 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
 
         // Use post to ensure the view is laid out before we measure/modify it
         cardCustomScript.post(() -> {
+            // Skip height restoration in view-only mode (card uses wrap_content when collapsed)
+            if (isViewOnlyMode) return;
+
             // Restore saved height or use default
             int savedHeight = SettingsHelper.getCustomScriptCardHeight(requireContext());
             if (savedHeight > 0 && savedHeight >= minCardHeight) {
@@ -1549,7 +1563,6 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
         cardConnectivity.setVisibility(View.GONE);
         cardStatus.setVisibility(View.GONE);
         cardSendData.setVisibility(View.GONE);
-        cardFileOperations.setVisibility(View.GONE);
 
         // Show editor actions card
         cardEditorActions.setVisibility(View.VISIBLE);
@@ -1617,6 +1630,36 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
             return true;
         });
 
+        // Collapse script card by default in view-only mode
+        iconScriptExpand.setVisibility(View.VISIBLE);
+        layoutScriptContent.setVisibility(View.GONE);
+        isScriptExpanded = false;
+
+        // Change card height to wrap_content so it shrinks when collapsed
+        ViewGroup.LayoutParams params = cardCustomScript.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        cardCustomScript.setLayoutParams(params);
+
+        // Toggle expand/collapse on header click
+        layoutScriptHeader.setOnClickListener(v -> {
+            isScriptExpanded = !isScriptExpanded;
+            if (isScriptExpanded) {
+                layoutScriptContent.setVisibility(View.VISIBLE);
+                iconScriptExpand.animate().rotation(180).setDuration(200).start();
+                // Restore fixed height for expanded content
+                ViewGroup.LayoutParams expandedParams = cardCustomScript.getLayoutParams();
+                expandedParams.height = (int) (280 * getResources().getDisplayMetrics().density);
+                cardCustomScript.setLayoutParams(expandedParams);
+            } else {
+                layoutScriptContent.setVisibility(View.GONE);
+                iconScriptExpand.animate().rotation(0).setDuration(200).start();
+                // Shrink card to wrap_content when collapsed
+                ViewGroup.LayoutParams collapsedParams = cardCustomScript.getLayoutParams();
+                collapsedParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                cardCustomScript.setLayoutParams(collapsedParams);
+            }
+        });
+
         // Hide file operations card - not needed in view mode
         cardFileOperations.setVisibility(View.GONE);
 
@@ -1660,9 +1703,13 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
 
     /**
      * Sets up change tracking for launcher script editing.
-     * Shows/hides the update card based on whether the script has changed.
+     * Card is always visible; Save button is enabled only when script has changed.
      */
     private void setupLauncherScriptChangeTracking() {
+        // Show the card immediately and disable Save until changes are made
+        cardUpdateLauncherScript.setVisibility(View.VISIBLE);
+        buttonSaveChanges.setEnabled(false);
+
         // Add text change listener to detect changes
         editTextScript.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1676,7 +1723,7 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
                 if (launcherEntryId != null && originalScriptContent != null) {
                     String currentContent = s.toString();
                     boolean hasChanges = !currentContent.equals(originalScriptContent);
-                    cardUpdateLauncherScript.setVisibility(hasChanges ? View.VISIBLE : View.GONE);
+                    buttonSaveChanges.setEnabled(hasChanges);
                 }
             }
         });
@@ -1687,7 +1734,7 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
             if (originalScriptContent != null) {
                 editTextScript.setText(originalScriptContent);
             }
-            cardUpdateLauncherScript.setVisibility(View.GONE);
+            buttonSaveChanges.setEnabled(false);
         });
 
         buttonSaveChanges.setOnClickListener(v -> {
@@ -1710,7 +1757,7 @@ public class CustomScriptFragment extends Fragment implements ToolbarConfigurabl
                         requireActivity().runOnUiThread(() -> {
                             // Update the original content to the new saved content
                             originalScriptContent = newScriptContent;
-                            cardUpdateLauncherScript.setVisibility(View.GONE);
+                            buttonSaveChanges.setEnabled(false);
 
                             // Show success message
                             Toast.makeText(requireContext(),

@@ -132,10 +132,10 @@
 
     <!-- Tonal button (for most app buttons) -->
     <style name="Widget.Zebra.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
-        <item name="backgroundTint">@color/zebra_pantone_5747</item>
-        <item name="android:textColor">@color/zebra_pantone_375</item>
-        <item name="iconTint">@color/zebra_pantone_375</item>
-        <item name="strokeColor">@color/zebra_pantone_361</item>
+        <item name="backgroundTint">@color/btn_tonal_background</item>
+        <item name="android:textColor">@color/btn_tonal_text</item>
+        <item name="iconTint">@color/btn_tonal_text</item>
+        <item name="strokeColor">@color/btn_tonal_stroke</item>
         <item name="strokeWidth">1dp</item>
         <item name="rippleColor">@color/zebra_pantone_361</item>
         <item name="cornerRadius">8dp</item>

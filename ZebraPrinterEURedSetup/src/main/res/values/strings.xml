@@ -83,6 +83,7 @@
     <string name="content_description_toggle_flash">Toggle flash</string>
     <string name="content_description_toggle_immersive">Toggle immersive mode</string>
     <string name="content_description_drag_resize">Drag to resize</string>
+    <string name="content_description_toggle_script">Toggle script visibility</string>
     <string name="content_description_drag_reorder">Drag to reorder</string>
 
     <!-- Scanner -->
@@ -176,6 +177,7 @@
     <string name="advanced_mode_warning_title">Warning - Advanced Mode</string>
     <string name="advanced_mode_warning_message">You\'re about to enable advanced mode with functionalities that could brick your printer.\n\nZebra Technologies declines all responsibility for the usage of advanced features.\n\nUsing these features may void your warranty.\n\nUse them at your own risk and peril.</string>
     <string name="advanced_mode_enabled">Advanced mode enabled</string>
+    <string name="edit_mode_enabled">Edit mode enabled</string>
     <string name="button_i_understand">I Understand the Risks</string>
 
     <!-- Dependencies -->
@@ -326,7 +328,7 @@
     <string name="title_edit_mode">Edit Mode</string>
     <string name="label_edit_mode_enabled">Enabled</string>
     <string name="button_exit_edit_mode">Exit Edit Mode</string>
-    <string name="menu_add_library_script">Add Library Script</string>
+    <string name="menu_add_library_script">Add Library Component</string>
     <string name="menu_add_custom_script">Add Custom Script</string>
     <string name="menu_show_hidden_scripts">Show Hidden Scripts</string>
     <string name="action_hide">Hide</string>
